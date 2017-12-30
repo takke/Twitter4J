@@ -301,4 +301,7 @@ public class AlternativeHttpClientImpl extends HttpClientBase implements HttpRes
         return lastRequestProtocol;
     }
 
+    public OkHttpClient getOkHttpClient() {
+        return okHttpClient;
+    }
 }
