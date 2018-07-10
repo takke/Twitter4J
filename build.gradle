@@ -1,0 +1,104 @@
+ext {
+    // local directory for deploy of results to upload to github
+    repo = new File(rootDir, "repository")
+    groupId = 'org.twitter4j'
+    versionName = '4.1.0-beta1'
+}
+
+allprojects  {
+    apply plugin: 'maven'
+
+    group = groupId
+    version = versionName
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+    }
+}
+
+clean.doFirst {
+    delete repo.absolutePath
+}
+
+// for build
+subprojects {
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.6
+    targetCompatibility = 1.6
+
+    [compileJava, compileTestJava, javadoc].each {
+        it.options.encoding = 'UTF-8'
+    }
+
+    repositories {
+        mavenLocal()
+        maven { url "http://repo.maven.apache.org/maven2" }
+    }
+}
+
+// for publish
+subprojects {
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+    apply plugin: 'com.jfrog.bintray'
+
+    // custom tasks for creating source/javadoc jars
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    // add javadoc/source jar tasks as artifacts
+    artifacts {
+        archives sourcesJar, javadocJar
+    }
+
+    publishing {
+        publications {
+            MyPublication(MavenPublication) {
+                from components.java
+                artifact sourcesJar
+                artifact javadocJar
+                groupId groupId
+                version versionName
+            }
+        }
+    }
+
+    bintray {
+        user = bintray_user   // this usually comes from gradle.properties file in ~/.gradle
+        key = bintray_api_key // this usually comes from gradle.properties file in ~/.gradle
+        publications = ['MyPublication']
+        override = true
+        publish = true
+        dryRun = false
+        pkg {
+            repo = 'maven'
+            name = 'Twitter4J'
+            userOrg = 'panecraft'
+            desc = 'A Java library for the Twitter API'
+            publicDownloadNumbers = true
+            licenses = ['Apache-2.0']
+            vcsUrl = 'https://github.com/takke/twitter4j.git'
+            githubRepo = 'takke/twitter4j'
+
+            version {
+                name = versionName
+//                vcsTag = versionName
+                released = new Date()
+            }
+        }
+    }
+
+}
