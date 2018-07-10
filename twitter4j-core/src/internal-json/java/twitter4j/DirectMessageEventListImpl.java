@@ -18,7 +18,7 @@ package twitter4j;
 
 /**
  * @author Hiroaki TAKEUCHI - takke30 at gmail.com
- * @since Twitter4J 4.0.7
+ * @since Twitter4J 4.1.0-beta1
  */
 class DirectMessageEventListImpl extends ResponseListImpl<DirectMessageEvent> implements DirectMessageEventList {
     private static final long serialVersionUID = 8150060768287194508L;

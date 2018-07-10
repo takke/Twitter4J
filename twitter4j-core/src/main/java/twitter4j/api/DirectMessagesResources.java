@@ -129,7 +129,7 @@ public interface DirectMessagesResources {
      * @return DirectMessageEvent
      * @throws TwitterException when Twitter service or network is unavailable
      * @see <a href="https://developer.twitter.com/en/docs/direct-messages/sending-and-receiving/api-reference/get-event.html">GET direct_messages/events/show — Twitter Developers</a>
-     * @since Twitter4J 4.0.x
+     * @since Twitter4J 4.1.0-beta1
      */
     DirectMessageEvent showDirectMessageEvent(long id) throws TwitterException;
 
@@ -154,7 +154,7 @@ public interface DirectMessagesResources {
      * @param id The id of the Direct Message event that should be deleted.
      * @throws TwitterException when Twitter service or network is unavailable
      * @see <a href="https://developer.twitter.com/en/docs/direct-messages/sending-and-receiving/api-reference/delete-message-event.html">DELETE direct_messages/events/destroy — Twitter Developers</a>
-     * @since Twitter4J 4.0.x
+     * @since Twitter4J 4.1.0-beta1
      */
     void destroyDirectMessageEvent(long id)
             throws TwitterException;
@@ -168,7 +168,7 @@ public interface DirectMessagesResources {
      * @return DirectMessageEvent
      * @throws TwitterException when Twitter service or network is unavailable
      * @see <a href="https://dev.twitter.com/rest/reference/post/direct_messages/events/new">POST direct_messages/events/new (message_create) — Twitter Developers</a>
-     * @since Twitter4j 4.0.7
+     * @since Twitter4j 4.1.0-beta1
      */
     DirectMessageEvent createMessage(MessageData messageData)
             throws TwitterException;

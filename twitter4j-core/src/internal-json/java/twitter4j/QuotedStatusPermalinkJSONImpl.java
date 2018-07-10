@@ -20,7 +20,7 @@ package twitter4j;
  * A data class representing permalink of the quoted status
  *
  * @author Hiroaki Takeuchi - takke30 at gmail.com
- * @since Twitter4J 4.x.x
+ * @since Twitter4J 4.1.0-beta1
  */
 /* package */ final class QuotedStatusPermalinkJSONImpl extends EntityIndex implements URLEntity {
 

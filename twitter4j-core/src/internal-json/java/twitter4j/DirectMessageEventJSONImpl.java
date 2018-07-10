@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * @author Hiroaki TAKEUCHI - takke30 at gmail.com
- * @since Twitter4J 4.0.7
+ * @since Twitter4J 4.1.0-beta1
  */
 /*package*/ final class DirectMessageEventJSONImpl extends TwitterResponseImpl implements DirectMessageEvent, java.io.Serializable {
     private static final long serialVersionUID = -7387326608536231792L;

@@ -162,7 +162,7 @@ public interface SiteStreamsListener extends StreamListener {
      * @param source          source user of the event
      * @param target          target user of the event
      * @param retweetedStatus status retweeted retweet
-     * @since Twitter4J 4.0.x
+     * @since Twitter4J 4.0.4
      */
     void onRetweetedRetweet(User source,User target, Status retweetedStatus);
 
@@ -170,7 +170,7 @@ public interface SiteStreamsListener extends StreamListener {
      * @param source          source user of the event
      * @param target          target user of the event
      * @param favoritedStatus status favorited retweet
-     * @since Twitter4J 4.0.x
+     * @since Twitter4J 4.0.4
      */
     void onFavoritedRetweet(User source,User target, Status favoritedStatus);
 
