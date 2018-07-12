@@ -28,6 +28,7 @@ ChangeLog since official Twitter4J 4.0.6
 
 ## 4.1.0 Beta2
   - ```#243``` [Add un-retweet api by aniketdivekar](https://github.com/yusuke/twitter4j/pull/243)
+  - ```#268``` [Fix javadoc of EntitySupport by akshanshjain95](https://github.com/yusuke/twitter4j/pull/268)
 
 ## 4.1.0 Beta1
   - ```#260``` [Support direct messages events api (create message with attach media) by takke](https://github.com/yusuke/twitter4j/pull/260)
