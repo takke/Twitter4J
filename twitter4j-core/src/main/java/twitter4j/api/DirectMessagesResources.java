@@ -89,6 +89,7 @@ public interface DirectMessagesResources {
      * @return List
      * @throws TwitterException when Twitter service or network is unavailable
      * @see <a href="https://developer.twitter.com/en/docs/direct-messages/sending-and-receiving/api-reference/list-events.html">GET direct_messages/events/list — Twitter Developers</a>
+     * @since Twitter4J 4.1.0-beta1
      */
     DirectMessageEventList getDirectMessageEvents(int count)
             throws TwitterException;
@@ -102,6 +103,7 @@ public interface DirectMessagesResources {
      * @return List
      * @throws TwitterException when Twitter service or network is unavailable
      * @see <a href="https://developer.twitter.com/en/docs/direct-messages/sending-and-receiving/api-reference/list-events.html">GET direct_messages/events/list — Twitter Developers</a>
+     * @since Twitter4J 4.1.0-beta1
      */
     DirectMessageEventList getDirectMessageEvents(int count, String cursor)
             throws TwitterException;

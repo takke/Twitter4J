@@ -241,7 +241,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * Note that "text" and an indices of "start", "end" are not provided.
      *
      * @return the URLEntity object that represents the permalink of the quoted Tweet. - null if not presents
-     * @since Twitter4J 4.x.x
+     * @since Twitter4J 4.1.0-beta1
      */
     URLEntity getQuotedStatusPermalink();
 }
