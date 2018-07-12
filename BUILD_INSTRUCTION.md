@@ -26,7 +26,8 @@ Release to Repository
 Modify version name
 -------------------
 
-- modify ```versionName```  in ```build.gradle```
+- update ```versionName```  in ```build.gradle```
+- update ```VERSION``` in ```Version.java```
 
 Build, upload to bintray
 ------------------------
@@ -37,6 +38,7 @@ $ ./gradlew clean build -x test
 ```bash
 $ ./gradlew bintrayUpload
 ```
+
 check on bintray
 ----------------
 https://bintray.com/panecraft/maven/Twitter4J
