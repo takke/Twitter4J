@@ -26,6 +26,11 @@ implementation "org.twitter4j:twitter4j-core:$twitter4jVersion"
 
 ChangeLog since official Twitter4J 4.0.6
 
+## 4.1.0 Beta3
+  - ```#262``` [Support auto_populate_reply_metadata by abhishek1203](https://github.com/yusuke/twitter4j/pull/262)
+  - Support exclude_reply_user_ids for auto_populate_reply_metadata by takke
+  - ```#279``` [Add method "setUploadBaseURL()" in ConfigurationBuilder by moko256](https://github.com/yusuke/twitter4j/pull/279)
+
 ## 4.1.0 Beta2
   - ```#243``` [Add un-retweet api by aniketdivekar](https://github.com/yusuke/twitter4j/pull/243)
   - ```#268``` [Fix javadoc of EntitySupport by akshanshjain95](https://github.com/yusuke/twitter4j/pull/268)
