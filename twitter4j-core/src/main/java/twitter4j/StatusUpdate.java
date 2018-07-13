@@ -41,6 +41,7 @@ public final class StatusUpdate implements java.io.Serializable {
     private long[] mediaIds;
     private String attachmentUrl = null;
     private boolean autoPopulateReplyMetadata;
+    private long[] excludeReplyUserIds;
 
     public StatusUpdate(String status) {
         this.status = status;
@@ -201,7 +202,7 @@ public final class StatusUpdate implements java.io.Serializable {
     }
 
     /**
-     * @param autoPopulateReplyMetadata
+     * @param autoPopulateReplyMetadata append @mentions into the metadata as a reply chain grows
      * @since Twitter4J 4.1.0-beta3
      */
     public void setAutoPopulateReplyMetadata(boolean autoPopulateReplyMetadata) {
@@ -209,12 +210,38 @@ public final class StatusUpdate implements java.io.Serializable {
     }
 
     /**
-     * @param autoPopulateReplyMetadata
+     * @param autoPopulateReplyMetadata append @mentions into the metadata as a reply chain grows
      * @return this instance
      * @since Twitter4J 4.1.0-beta3
      */
     public StatusUpdate autoPopulateReplyMetadata(boolean autoPopulateReplyMetadata) {
         setAutoPopulateReplyMetadata(autoPopulateReplyMetadata);
+        return this;
+    }
+
+    /**
+     * @return excludeReplyUserIds
+     * @since Twitter4J 4.1.0-beta3
+     */
+    public long[] getExcludeReplyUserIds() {
+        return excludeReplyUserIds;
+    }
+
+    /**
+     * @param excludeReplyUserIds enable specific IDs (apart from the leading one) to be excluded from a reply if auto_populate_reply_metadata enabled
+     * @since Twitter4J 4.1.0-beta3
+     */
+    public void setExcludeReplyUserIds(long... excludeReplyUserIds) {
+        this.excludeReplyUserIds = excludeReplyUserIds;
+    }
+
+    /**
+     * @param excludeReplyUserIds enable specific IDs (apart from the leading one) to be excluded from a reply if auto_populate_reply_metadata enabled
+     * @return this instance
+     * @since Twitter4J 4.1.0-beta3
+     */
+    public StatusUpdate excludeReplyUserIds(long... excludeReplyUserIds) {
+        setExcludeReplyUserIds(excludeReplyUserIds);
         return this;
     }
 
@@ -245,6 +272,9 @@ public final class StatusUpdate implements java.io.Serializable {
         appendParameter("attachment_url", attachmentUrl, params);
         if (autoPopulateReplyMetadata) {
             appendParameter("auto_populate_reply_metadata", "true", params);
+        }
+        if (excludeReplyUserIds != null && excludeReplyUserIds.length >= 1) {
+            params.add(new HttpParameter("exclude_reply_user_ids", StringUtil.join(excludeReplyUserIds)));
         }
         HttpParameter[] paramArray = new HttpParameter[params.size()];
         return params.toArray(paramArray);
