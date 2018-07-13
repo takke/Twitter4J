@@ -2,7 +2,7 @@ ext {
     // local directory for deploy of results to upload to github
     repo = new File(rootDir, "repository")
     groupId = 'org.twitter4j'
-    versionName = '4.1.0-beta2'
+    versionName = '4.1.0-beta3'
 }
 
 allprojects  {
@@ -80,7 +80,7 @@ subprojects {
         user = bintray_user   // this usually comes from gradle.properties file in ~/.gradle
         key = bintray_api_key // this usually comes from gradle.properties file in ~/.gradle
         publications = ['MyPublication']
-        override = true
+        override = false
         publish = true
         dryRun = false
         pkg {
