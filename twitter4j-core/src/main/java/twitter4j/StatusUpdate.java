@@ -40,6 +40,7 @@ public final class StatusUpdate implements java.io.Serializable {
     private File mediaFile;
     private long[] mediaIds;
     private String attachmentUrl = null;
+    private boolean autoPopulateReplyMetadata;
 
     public StatusUpdate(String status) {
         this.status = status;
@@ -191,6 +192,32 @@ public final class StatusUpdate implements java.io.Serializable {
         return possiblySensitive;
     }
 
+    /**
+     * @return autoPopulateReplyMetadata
+     * @since Twitter4J 4.1.0-beta3
+     */
+    public boolean isAutoPopulateReplyMetadata() {
+        return autoPopulateReplyMetadata;
+    }
+
+    /**
+     * @param autoPopulateReplyMetadata
+     * @since Twitter4J 4.1.0-beta3
+     */
+    public void setAutoPopulateReplyMetadata(boolean autoPopulateReplyMetadata) {
+        this.autoPopulateReplyMetadata = autoPopulateReplyMetadata;
+    }
+
+    /**
+     * @param autoPopulateReplyMetadata
+     * @return this instance
+     * @since Twitter4J 4.1.0-beta3
+     */
+    public StatusUpdate autoPopulateReplyMetadata(boolean autoPopulateReplyMetadata) {
+        setAutoPopulateReplyMetadata(autoPopulateReplyMetadata);
+        return this;
+    }
+
     /*package*/ HttpParameter[] asHttpParameterArray() {
         ArrayList<HttpParameter> params = new ArrayList<HttpParameter>();
         appendParameter("status", status, params);
@@ -216,6 +243,9 @@ public final class StatusUpdate implements java.io.Serializable {
             params.add(new HttpParameter("media_ids", StringUtil.join(mediaIds)));
         }
         appendParameter("attachment_url", attachmentUrl, params);
+        if (autoPopulateReplyMetadata) {
+            appendParameter("auto_populate_reply_metadata", "true", params);
+        }
         HttpParameter[] paramArray = new HttpParameter[params.size()];
         return params.toArray(paramArray);
     }
@@ -251,8 +281,8 @@ public final class StatusUpdate implements java.io.Serializable {
         if (mediaIds != null ? !Arrays.equals(mediaIds, that.mediaIds) : that.mediaIds != null) return false;
         if (placeId != null ? !placeId.equals(that.placeId) : that.placeId != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
-
-        return true;
+        if (autoPopulateReplyMetadata != that.autoPopulateReplyMetadata) return false;
+        return attachmentUrl != null ? attachmentUrl.equals(that.attachmentUrl) : that.attachmentUrl == null;
     }
 
     @Override
@@ -267,6 +297,8 @@ public final class StatusUpdate implements java.io.Serializable {
         result = 31 * result + (mediaBody != null ? mediaBody.hashCode() : 0);
         result = 31 * result + (mediaFile != null ? mediaFile.hashCode() : 0);
         result = 31 * result + (mediaIds != null ? StringUtil.join(mediaIds).hashCode() : 0);
+        result = 31 * result + (attachmentUrl != null ? attachmentUrl.hashCode() : 0);
+        result = 31 * result + (autoPopulateReplyMetadata ? 1 : 0);
         return result;
     }
 
@@ -282,7 +314,9 @@ public final class StatusUpdate implements java.io.Serializable {
             ", mediaName='" + mediaName + '\'' +
             ", mediaBody=" + mediaBody +
             ", mediaFile=" + mediaFile +
-            ", mediaIds=" + mediaIds +
+            ", mediaIds=" + Arrays.toString(mediaIds) +
+            ", attachmentUrl='" + attachmentUrl + '\'' +
+            ", autoPopulateReplyMetadata=" + autoPopulateReplyMetadata +
             '}';
     }
 }
