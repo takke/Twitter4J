@@ -41,6 +41,8 @@ public final class ChunkedUploadConfiguration {
 
     /**
      * Stream type, e.g. "video/mp4", "video/gif", "image/jpeg", ...
+     *
+     * @return media type
      */
     public String getMediaType() {
         return mediaType;
@@ -48,6 +50,8 @@ public final class ChunkedUploadConfiguration {
 
     /**
      * Stream category, e.g. "tweet_video", "tweet_gif" or "tweet_image"
+     *
+     * @return media category
      */
     public String getMediaCategory() {
         return mediaCategory;
