@@ -42,6 +42,7 @@ ChangeLog since official Twitter4J 4.0.6
     update.setMediaIds(media.getMediaId());
     twitter.updateStatus(update);
     ```
+    * Add callback for monitoring chunked uploads by takke
 
 ## 4.1.0 Beta3 (2018-07-13)
   - ```#262``` [Support auto_populate_reply_metadata by abhishek1203](https://github.com/yusuke/twitter4j/pull/262)
