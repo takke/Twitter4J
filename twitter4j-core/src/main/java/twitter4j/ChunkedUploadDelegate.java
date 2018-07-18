@@ -69,7 +69,7 @@ import twitter4j.conf.ChunkedUploadConfiguration;
                 onProgress("Appended", totalRead, mediaLength, "", 0);
             }
             return sendAndWaitForFinalize(uploadedMedia.getMediaId(), mediaLength);
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new TwitterException(e);
         }
     }
