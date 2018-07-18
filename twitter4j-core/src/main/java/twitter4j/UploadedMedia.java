@@ -103,20 +103,25 @@ public final class UploadedMedia implements java.io.Serializable {
 
         if (imageWidth != that.imageWidth) return false;
         if (imageHeight != that.imageHeight) return false;
-        if (imageType != that.imageType) return false;
         if (mediaId != that.mediaId) return false;
         if (size != that.size) return false;
-
-        return true;
+        if (processingCheckAfterSecs != that.processingCheckAfterSecs) return false;
+        if (progressPercent != that.progressPercent) return false;
+        if (imageType != null ? !imageType.equals(that.imageType) : that.imageType != null)
+            return false;
+        return processingState != null ? processingState.equals(that.processingState) : that.processingState == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (mediaId ^ (mediaId >>> 32));
-        result = 31 * result + imageWidth;
+        int result = imageWidth;
         result = 31 * result + imageHeight;
         result = 31 * result + (imageType != null ? imageType.hashCode() : 0);
-        result = 31 * result + (int)(size ^ (size >>> 32));
+        result = 31 * result + (int) (mediaId ^ (mediaId >>> 32));
+        result = 31 * result + (int) (size ^ (size >>> 32));
+        result = 31 * result + (processingState != null ? processingState.hashCode() : 0);
+        result = 31 * result + processingCheckAfterSecs;
+        result = 31 * result + progressPercent;
         return result;
     }
 

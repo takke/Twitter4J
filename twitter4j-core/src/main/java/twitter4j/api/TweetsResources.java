@@ -171,7 +171,7 @@ public interface TweetsResources {
      * Uploads media image to be attached via {@link #updateStatus(twitter4j.StatusUpdate)}
      * <br>This method calls https://api.twitter.com/1.1/media/upload.json
      *
-     * @param mediaFile the latest status to be updated.
+     * @param mediaFile media file
      * @return upload result
      * @throws TwitterException when Twitter service or network is unavailable
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/statuses/update">POST statuses/update | Twitter Developers</a>
@@ -196,11 +196,10 @@ public interface TweetsResources {
     
     /**
      * Uploads media using chunked approach to be attached via {@link #updateStatus(twitter4j.StatusUpdate)}. 
-     * This should be used for videos.
+     * This should be used for videos and animated GIFs.
      * <br>This method calls https://api.twitter.com/1.1/media/upload.json
      *
-     * @param fileName media file name
-     * @param media media body as stream
+     * @param mediaFile media file
      * @return upload result
      * @throws TwitterException when Twitter service or network is unavailable
      * @see <a href="https://dev.twitter.com/rest/public/uploading-media#chunkedupload">Uploading Media | Twitter Developers</a>
@@ -208,5 +207,22 @@ public interface TweetsResources {
      * @see <a href="https://dev.twitter.com/docs/api/multiple-media-extended-entities">Multiple Media Entities in Statuses</a>
      * @since Twitter4J 4.1.0-beta4
      */
-    UploadedMedia uploadMediaChunked(String fileName, InputStream media) throws TwitterException;
+    UploadedMedia uploadMediaChunked(File mediaFile) throws TwitterException;
+
+    /**
+     * Uploads media using chunked approach to be attached via {@link #updateStatus(twitter4j.StatusUpdate)}.
+     * This should be used for videos and animated GIFs.
+     * <br>This method calls https://api.twitter.com/1.1/media/upload.json
+     *
+     * @param fileName media file name
+     * @param media media body as stream
+     * @param mediaLength total media length
+     * @return upload result
+     * @throws TwitterException when Twitter service or network is unavailable
+     * @see <a href="https://dev.twitter.com/rest/public/uploading-media#chunkedupload">Uploading Media | Twitter Developers</a>
+     * @see <a href="https://dev.twitter.com/docs/api/1.1/post/statuses/update">POST statuses/update | Twitter Developers</a>
+     * @see <a href="https://dev.twitter.com/docs/api/multiple-media-extended-entities">Multiple Media Entities in Statuses</a>
+     * @since Twitter4J 4.1.0-beta4
+     */
+    UploadedMedia uploadMediaChunked(String fileName, InputStream media, long mediaLength) throws TwitterException;
 }
