@@ -26,17 +26,17 @@ implementation "org.twitter4j:twitter4j-core:$twitter4jVersion"
 
 ChangeLog since official Twitter4J 4.0.6
 
-## 4.1.0 Beta3
+## 4.1.0 Beta3 (2018-07-13)
   - ```#262``` [Support auto_populate_reply_metadata by abhishek1203](https://github.com/yusuke/twitter4j/pull/262)
   - Support exclude_reply_user_ids for auto_populate_reply_metadata by takke
   - ```#279``` [Add method "setUploadBaseURL()" in ConfigurationBuilder by moko256](https://github.com/yusuke/twitter4j/pull/279)
 
-## 4.1.0 Beta2
+## 4.1.0 Beta2 (2018-07-12)
   - ```#243``` [Add un-retweet api by aniketdivekar](https://github.com/yusuke/twitter4j/pull/243)
   - ```#268``` [Fix javadoc of EntitySupport by akshanshjain95](https://github.com/yusuke/twitter4j/pull/268)
   - ```#266``` [Make StreamListener public (for Kotlin) by IEnoobong](https://github.com/yusuke/twitter4j/pull/266)
 
-## 4.1.0 Beta1
+## 4.1.0 Beta1 (2018-07-10)
   - ```#260``` [Support direct messages events api (create message with attach media) by takke](https://github.com/yusuke/twitter4j/pull/260)
   - ```#280``` [Support quoted_status_permalink by takke](https://github.com/yusuke/twitter4j/pull/280)
   - ```#232``` [Add property for &quot;tweet_volume&quot; to Trend, YouTrack Issue #TFJ-886 by Bunkerbewohner ](https://github.com/yusuke/twitter4j/pull/232)
