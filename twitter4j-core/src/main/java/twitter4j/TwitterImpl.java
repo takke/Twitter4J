@@ -293,24 +293,24 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
     }
 
     @Override
-    public UploadedMedia uploadMediaChunked(File mediaFile) throws TwitterException {
+    public UploadedMedia uploadMediaChunked(String mediaType, String mediaCategory, File mediaFile) throws TwitterException {
         checkFileValidity(mediaFile);
         try {
-            return uploadMediaChunked(mediaFile.getName(), new FileInputStream(mediaFile), mediaFile.length());
+            return uploadMediaChunked(mediaType, mediaCategory, mediaFile.getName(), new FileInputStream(mediaFile), mediaFile.length());
         } catch (IOException e) {
             throw new TwitterException(e);
         }
     }
 
     @Override
-    public UploadedMedia uploadMediaChunked(String fileName, InputStream media, long mediaLength) throws TwitterException {
+    public UploadedMedia uploadMediaChunked(String mediaType, String mediaCategory, String fileName, InputStream media, long mediaLength) throws TwitterException {
         if (mediaLength > MAX_VIDEO_SIZE) {
             throw new TwitterException(String.format(Locale.US,
                     "video file can't be longer than: %d MBytes",
                     MAX_VIDEO_SIZE / (1024 * 1024)));
         }
         try {
-            UploadedMedia uploadedMedia = uploadMediaChunkedInit(mediaLength);
+            UploadedMedia uploadedMedia = uploadMediaChunkedInit(mediaType, mediaCategory, mediaLength);
             BufferedInputStream buffered = new BufferedInputStream(media);
 
             byte[] segmentData = new byte[chunkedUploadSegmentSize];
@@ -328,27 +328,21 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
         }
     }
     
-    private UploadedMedia uploadMediaChunkedInit(long size) throws TwitterException {
+    private UploadedMedia uploadMediaChunkedInit(String mediaType, String mediaCategory, long size) throws TwitterException {
         return new UploadedMedia(
             post(conf.getUploadBaseURL() + "media/upload.json",
-            new HttpParameter[] {
-                new HttpParameter("command", "INIT"),
-                new HttpParameter("media_type", "video/mp4"),
-                new HttpParameter("media_category", "tweet_video"),
-                new HttpParameter("total_bytes", size)
-            }
-        ).asJSONObject());
+                    new HttpParameter("command", "INIT"),
+                    new HttpParameter("media_type", mediaType),
+                    new HttpParameter("media_category", mediaCategory),
+                    new HttpParameter("total_bytes", size)).asJSONObject());
     }
 
     private void uploadMediaChunkedAppend(String fileName, InputStream segmentData, int segmentIndex, long mediaId) throws TwitterException {
         post(conf.getUploadBaseURL() + "media/upload.json",
-            new HttpParameter[] {
                 new HttpParameter("command", "APPEND"),
                 new HttpParameter("media_id", mediaId),
                 new HttpParameter("segment_index", segmentIndex),
-                new HttpParameter("media", fileName, segmentData)
-            }
-        );
+                new HttpParameter("media", fileName, segmentData));
     }
 
     private UploadedMedia uploadMediaChunkedFinalize(long mediaId) throws TwitterException {
@@ -369,6 +363,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
                 throw new TwitterException("Failed to finalize the chunked upload.");
             }
             if (state.equals("pending") || state.equals("in_progress")) {
+                currentProgressPercent = uploadedMedia.getProgressPercent();
                 int waitSec = uploadedMedia.getProcessingCheckAfterSecs();
                 if (waitSec <= 0) {
                     throw new TwitterException("Failed to finalize the chunked upload, invalid check_after_secs value " + waitSec);
@@ -395,10 +390,8 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
     private UploadedMedia uploadMediaChunkedFinalize0(long mediaId) throws TwitterException {
         JSONObject json = post(
             conf.getUploadBaseURL() + "media/upload.json",
-            new HttpParameter[] {
                 new HttpParameter("command", "FINALIZE"),
-                new HttpParameter("media_id", mediaId) }
-        ).asJSONObject();
+                new HttpParameter("media_id", mediaId)).asJSONObject();
         logger.debug("Finalize response:" + json);
         return new UploadedMedia(json);
     }
@@ -406,9 +399,8 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
     private UploadedMedia uploadMediaChunkedStatus(long mediaId) throws TwitterException {
         JSONObject json = get(
                 conf.getUploadBaseURL() + "media/upload.json",
-                new HttpParameter[] {
-                        new HttpParameter("command", "STATUS"),
-                        new HttpParameter("media_id", mediaId) })
+                new HttpParameter("command", "STATUS"),
+                new HttpParameter("media_id", mediaId))
                 .asJSONObject();
         logger.debug("Status response:" + json);
         return new UploadedMedia(json);

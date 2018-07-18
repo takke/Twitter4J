@@ -128,11 +128,14 @@ public final class UploadedMedia implements java.io.Serializable {
     @Override
     public String toString() {
         return "UploadedMedia{" +
-                "mediaId=" + mediaId +
-                ", imageWidth=" + imageWidth + 
+                "imageWidth=" + imageWidth +
                 ", imageHeight=" + imageHeight +
                 ", imageType='" + imageType + '\'' +
+                ", mediaId=" + mediaId +
                 ", size=" + size +
+                ", processingState='" + processingState + '\'' +
+                ", processingCheckAfterSecs=" + processingCheckAfterSecs +
+                ", progressPercent=" + progressPercent +
                 '}';
     }
 }
