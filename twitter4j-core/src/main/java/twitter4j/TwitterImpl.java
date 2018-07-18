@@ -48,6 +48,7 @@ import twitter4j.api.TrendsResources;
 import twitter4j.api.TweetsResources;
 import twitter4j.api.UsersResources;
 import twitter4j.auth.Authorization;
+import twitter4j.conf.ChunkedUploadConfiguration;
 import twitter4j.conf.Configuration;
 
 import static twitter4j.HttpParameter.getParameterArray;
@@ -293,17 +294,23 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
     }
 
     @Override
-    public UploadedMedia uploadMediaChunked(String mediaType, String mediaCategory, File mediaFile) throws TwitterException {
-        checkFileValidity(mediaFile);
-        try {
-            return uploadMediaChunked(mediaType, mediaCategory, mediaFile.getName(), new FileInputStream(mediaFile), mediaFile.length());
-        } catch (IOException e) {
-            throw new TwitterException(e);
+    public UploadedMedia uploadMediaChunked(ChunkedUploadConfiguration uploadConfiguration) throws TwitterException {
+        File mediaFile = uploadConfiguration.getFile();
+        if (mediaFile != null) {
+            checkFileValidity(mediaFile);
+            try {
+                return uploadMediaChunked(uploadConfiguration.getMediaType(), uploadConfiguration.getMediaCategory(),
+                        mediaFile.getName(), new FileInputStream(mediaFile), mediaFile.length());
+            } catch (IOException e) {
+                throw new TwitterException(e);
+            }
+        } else {
+            return uploadMediaChunked(uploadConfiguration.getMediaType(), uploadConfiguration.getMediaCategory(),
+                    uploadConfiguration.getFilename(), uploadConfiguration.getStream(), uploadConfiguration.getLength());
         }
     }
 
-    @Override
-    public UploadedMedia uploadMediaChunked(String mediaType, String mediaCategory, String fileName, InputStream media, long mediaLength) throws TwitterException {
+    private UploadedMedia uploadMediaChunked(String mediaType, String mediaCategory, String fileName, InputStream stream, long mediaLength) throws TwitterException {
         if (mediaLength > MAX_VIDEO_SIZE) {
             throw new TwitterException(String.format(Locale.US,
                     "video file can't be longer than: %d MBytes",
@@ -311,7 +318,7 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
         }
         try {
             UploadedMedia uploadedMedia = uploadMediaChunkedInit(mediaType, mediaCategory, mediaLength);
-            BufferedInputStream buffered = new BufferedInputStream(media);
+            BufferedInputStream buffered = new BufferedInputStream(stream);
 
             byte[] segmentData = new byte[chunkedUploadSegmentSize];
             int totalRead = 0;

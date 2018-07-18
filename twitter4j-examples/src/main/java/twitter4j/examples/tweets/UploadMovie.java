@@ -24,6 +24,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.UploadedMedia;
+import twitter4j.conf.ChunkedUploadConfiguration;
 
 /**
  * Example application that uploads movie file.<br>
@@ -44,20 +45,20 @@ public final class UploadMovie {
         try {
             Twitter twitter = new TwitterFactory().getInstance();
             
-            long[] mediaIds = new long[1];
-
             String movieFileName = args[1];
             System.out.println("Uploading... [" + movieFileName + "]");
+
             UploadedMedia media = twitter.uploadMediaChunked(
-                    "video/mp4", "tweet_video",
-                    new File(movieFileName));
+                    new ChunkedUploadConfiguration.Builder()
+                            .movie()
+                            .from(new File(movieFileName))
+                            .build());
             System.out.println("Uploaded: id=" + media.getMediaId()
                     + ", w=" + media.getImageWidth() + ", h=" + media.getImageHeight()
                     + ", type=" + media.getImageType() + ", size=" + media.getSize());
-            mediaIds[0] = media.getMediaId();
 
             StatusUpdate update = new StatusUpdate(args[0]);
-            update.setMediaIds(mediaIds);
+            update.setMediaIds(media.getMediaId());
             Status status = twitter.updateStatus(update);
             System.out.println("Successfully updated the status to [" + status.getText() + "][" + status.getId() + "].");
             System.exit(0);

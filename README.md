@@ -27,12 +27,21 @@ implementation "org.twitter4j:twitter4j-core:$twitter4jVersion"
 ChangeLog since official Twitter4J 4.0.6
 
 ## 4.1.0 Beta4 (2018-07-xx)
-  - ```#255``` [Support video uploading feature by dk8996](https://github.com/yusuke/twitter4j/pull/255)
-  - ```#258``` [Support video uploading feature by rjean-gilles](https://github.com/yusuke/twitter4j/pull/258)
-    * Does not read the whole media in memory before uploading
-    * Makes the chunk size configurable
-    * Makes timeout sec of ```FINALIZE``` configurable
-  - Support GIF uploading feature by takke inspired from [TwitterImpl.java by eos1d3](https://github.com/eos1d3/twitter4j/blob/master/twitter4j-core/src/main/java/twitter4j/TwitterImpl.java)
+  - Support video uploading feature
+    * Based on ```#255``` [by dk8996](https://github.com/yusuke/twitter4j/pull/255) and ```#258``` [by rjean-gilles](https://github.com/yusuke/twitter4j/pull/258)
+    * Add GIF uploading feature by takke inspired from [TwitterImpl.java by eos1d3](https://github.com/eos1d3/twitter4j/blob/master/twitter4j-core/src/main/java/twitter4j/TwitterImpl.java)
+    * Builder pattern configuration for chunked uploading by takke
+    ```java
+    UploadedMedia media = twitter.uploadMediaChunked(
+            new ChunkedUploadConfiguration.Builder()
+                    .movie()
+                    .from(new File(movieFileName))
+                    .build());
+
+    StatusUpdate update = new StatusUpdate(text);
+    update.setMediaIds(media.getMediaId());
+    twitter.updateStatus(update);
+    ```
 
 ## 4.1.0 Beta3 (2018-07-13)
   - ```#262``` [Support auto_populate_reply_metadata by abhishek1203](https://github.com/yusuke/twitter4j/pull/262)

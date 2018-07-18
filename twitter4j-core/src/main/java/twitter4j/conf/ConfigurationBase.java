@@ -94,7 +94,7 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
     private String streamThreadName = "";
 
     private int chunkedUploadFinalizeTimeout = 30;          // When doing a chunked upload, bail out after 30 seconds by default
-    private int chunkedUploadSegmentSize = 1 * 1024 * 1024; // Chunked upload segment size defaults to 1MB
+    private int chunkedUploadSegmentSize = 1024 * 1024;     // Chunked upload segment size defaults to 1MB
 
     protected ConfigurationBase() {
         httpConf = new MyHttpClientConfiguration(null // proxy host
