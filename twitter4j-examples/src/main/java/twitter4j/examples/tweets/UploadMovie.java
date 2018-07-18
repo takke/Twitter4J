@@ -52,6 +52,10 @@ public final class UploadMovie {
                     new ChunkedUploadConfiguration.Builder()
                             .movie()
                             .from(new File(movieFileName))
+                            .callback((progress, uploadedBytes, totalBytes, finalizeProcessingState, finalizeProgressPercent) ->
+                                    System.out.println(" progress: [" + progress + "], " +
+                                            "uploaded[" + uploadedBytes + "/" + totalBytes + "bytes], " +
+                                            "finalize[" + finalizeProcessingState + "][" + finalizeProgressPercent + "%]"))
                             .build());
             System.out.println("Uploaded: id=" + media.getMediaId()
                     + ", w=" + media.getImageWidth() + ", h=" + media.getImageHeight()

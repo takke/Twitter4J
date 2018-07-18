@@ -39,6 +39,8 @@ public final class ChunkedUploadConfiguration {
     private InputStream stream = null;
     private long length = -1;
 
+    private Callback callback = null;
+
     /**
      * Stream type, e.g. "video/mp4", "video/gif", "image/jpeg", ...
      *
@@ -73,6 +75,10 @@ public final class ChunkedUploadConfiguration {
         return length;
     }
 
+    public Callback getCallback() {
+        return callback;
+    }
+
     public final static class Builder {
 
         private ChunkedUploadConfiguration conf = new ChunkedUploadConfiguration();
@@ -101,6 +107,11 @@ public final class ChunkedUploadConfiguration {
             return this;
         }
 
+        public Builder callback(Callback callback) {
+            conf.callback = callback;
+            return this;
+        }
+
         public ChunkedUploadConfiguration build() throws TwitterException {
 
             // must specify file or filename/stream/length
@@ -113,5 +124,9 @@ public final class ChunkedUploadConfiguration {
 
             return conf;
         }
+    }
+
+    public interface Callback {
+        void onProgress(String progress, long uploadedBytes, long totalBytes, String finalizeProcessingState, int finalizeProgressPercent);
     }
 }
