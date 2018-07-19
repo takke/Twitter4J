@@ -20,7 +20,7 @@ package twitter4j.examples;
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
 public final class ExamplesVersion {
-    private static final String VERSION = "4.1.0-beta3";
+    private static final String VERSION = "4.1.0-beta4";
     private static final String TITLE = "Twitter4J examples";
 
     private ExamplesVersion() {

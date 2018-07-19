@@ -2,7 +2,7 @@ ext {
     // local directory for deploy of results to upload to github
     repo = new File(rootDir, "repository")
     groupId = 'org.twitter4j'
-    versionName = '4.1.0-beta3'
+    versionName = '4.1.0-beta4'
 }
 
 allprojects  {
@@ -95,7 +95,7 @@ subprojects {
 
             version {
                 name = versionName
-//                vcsTag = versionName
+                vcsTag = versionName
                 released = new Date()
             }
         }
