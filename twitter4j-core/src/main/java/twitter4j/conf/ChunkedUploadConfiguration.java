@@ -39,6 +39,9 @@ public final class ChunkedUploadConfiguration {
     private InputStream stream = null;
     private long length = -1;
 
+    private int finalizeTimeout = 30;           // When doing a chunked upload, bail out after 30 seconds by default
+    private int segmentSizeBytes = 1024 * 1024; // Segment size defaults to 1MB
+
     private Callback callback = null;
 
     /**
@@ -79,6 +82,24 @@ public final class ChunkedUploadConfiguration {
         return callback;
     }
 
+    /**
+     * Timeout (in seconds) for chunked upload finalization.
+     *
+     * @return Timeout (in seconds) for chunked upload finalization.
+     */
+    public int getFinalizeTimeout() {
+        return finalizeTimeout;
+    }
+
+    /**
+     * Size of segments (in bytes) when performing a chunked upload
+     *
+     * @return Size of segments (in bytes) when performing a chunked upload
+     */
+    public int getSegmentSizeBytes() {
+        return segmentSizeBytes;
+    }
+
     public final static class Builder {
 
         private ChunkedUploadConfiguration conf = new ChunkedUploadConfiguration();
@@ -112,6 +133,16 @@ public final class ChunkedUploadConfiguration {
             return this;
         }
 
+        public Builder finalizeTimeout(int timeout) {
+            conf.finalizeTimeout = timeout;
+            return this;
+        }
+
+        public Builder segmentSizeBytes(int segmentSizeBytes) {
+            conf.segmentSizeBytes = segmentSizeBytes;
+            return this;
+        }
+
         public ChunkedUploadConfiguration build() throws TwitterException {
 
             // must specify file or filename/stream/length
@@ -120,6 +151,10 @@ public final class ChunkedUploadConfiguration {
             }
             if (conf.file != null && conf.filename != null) {
                 throw new TwitterException("specify file with File or Filename");
+            }
+
+            if (conf.mediaType == null) {
+                throw new TwitterException("specify media type");
             }
 
             return conf;

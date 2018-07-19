@@ -124,18 +124,4 @@ public interface Configuration extends AuthorizationConfiguration, java.io.Seria
     boolean isIncludeEmailEnabled();
 
     String getStreamThreadName();
-
-    /**
-     * Timeout (in seconds) for chunked upload finalization.
-     *
-     * @return Timeout (in seconds) for chunked upload finalization.
-     */
-    int getChunkedUploadFinalizeTimeout();
-
-    /**
-     * Size of segments (in bytes) when performing a chunked upload
-     *
-     * @return Size of segments (in bytes) when performing a chunked upload
-     */
-    int getChunkedUploadSegmentSize();
 }

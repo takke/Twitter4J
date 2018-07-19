@@ -89,9 +89,6 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
     private static final String MEDIA_PROVIDER_API_KEY = "media.providerAPIKey";
     private static final String MEDIA_PROVIDER_PARAMETERS = "media.providerParameters";
 
-    private static final String CHUNKED_UPLOAD_FINALIZE_TIMEOUT = "chunkedUpload.finalizeTimeout";
-    private static final String CHUNKED_UPLOAD_SEGMENT_SIZE = "chunkedUpload.segmentSize";
-
     private static final long serialVersionUID = -7262615247923693252L;
 
 
@@ -404,12 +401,6 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
                 p.setProperty(parameter[0], parameter[1]);
             }
             setMediaProviderParameters(p);
-        }
-        if (notNull(props, prefix, CHUNKED_UPLOAD_FINALIZE_TIMEOUT)) {
-            setChunkedUploadFinalizeTimeout(getIntProperty(props, prefix, CHUNKED_UPLOAD_FINALIZE_TIMEOUT));
-        }
-        if (notNull(props, prefix, CHUNKED_UPLOAD_SEGMENT_SIZE)) {
-            setChunkedUploadSegmentSize(getIntProperty(props, prefix, CHUNKED_UPLOAD_SEGMENT_SIZE));
         }
         cacheInstance();
     }

@@ -39,6 +39,8 @@ public final class UploadedMedia implements java.io.Serializable {
     private String processingErrorName;
     private int processingErrorCode = -1;
 
+    private String videoType;
+
     /*package*/ UploadedMedia(JSONObject json) throws TwitterException {
         init(json);
     }
@@ -87,6 +89,10 @@ public final class UploadedMedia implements java.io.Serializable {
         return processingErrorCode;
     }
 
+    public String getVideoType() {
+        return videoType;
+    }
+
     private void init(JSONObject json) throws TwitterException {
         mediaId = ParseUtil.getLong("media_id", json);
         size = ParseUtil.getLong("size", json);
@@ -97,7 +103,12 @@ public final class UploadedMedia implements java.io.Serializable {
                 imageHeight = ParseUtil.getInt("h", image);
                 imageType = ParseUtil.getUnescapedString("image_type", image);
             }
-            
+
+            if (!json.isNull("video")) {
+                JSONObject video = json.getJSONObject("video");
+                videoType = ParseUtil.getUnescapedString("video_type", video);
+            }
+
             if (!json.isNull("processing_info")) {
                 JSONObject processingInfo = json.getJSONObject("processing_info");
                 processingState = ParseUtil.getUnescapedString("state", processingInfo);

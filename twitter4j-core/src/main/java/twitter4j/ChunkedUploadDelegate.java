@@ -22,7 +22,7 @@ import twitter4j.conf.ChunkedUploadConfiguration;
 
     private final TwitterImpl twitter;
 
-    private ChunkedUploadConfiguration.Callback callback;
+    private ChunkedUploadConfiguration uploadConfiguration;
 
     /*package*/ ChunkedUploadDelegate(TwitterImpl twitter) {
         this.twitter = twitter;
@@ -30,7 +30,7 @@ import twitter4j.conf.ChunkedUploadConfiguration;
 
     /*package*/ UploadedMedia uploadMediaChunked(ChunkedUploadConfiguration uploadConfiguration) throws TwitterException {
         File mediaFile = uploadConfiguration.getFile();
-        this.callback = uploadConfiguration.getCallback();
+        this.uploadConfiguration = uploadConfiguration;
         if (mediaFile != null) {
             twitter.checkFileValidity(mediaFile);
             try {
@@ -59,7 +59,7 @@ import twitter4j.conf.ChunkedUploadConfiguration;
             onProgress("Initialized", 0, mediaLength, "", 0);
             BufferedInputStream buffered = new BufferedInputStream(stream);
 
-            byte[] segmentData = new byte[twitter.conf.getChunkedUploadSegmentSize()];
+            byte[] segmentData = new byte[uploadConfiguration.getSegmentSizeBytes()];
             long totalRead = 0;
 
             for (int bytesRead, segmentIndex = 0; (bytesRead = buffered.read(segmentData)) > 0; ++segmentIndex) {
@@ -121,7 +121,7 @@ import twitter4j.conf.ChunkedUploadConfiguration;
                     throw new TwitterException("Failed to finalize the chunked upload, invalid check_after_secs value " + waitSec);
                 }
                 totalWaitSec += waitSec;
-                if (totalWaitSec > twitter.conf.getChunkedUploadFinalizeTimeout()) {
+                if (totalWaitSec > uploadConfiguration.getFinalizeTimeout()) {
                     throw new TwitterException("Failed to finalize the chunked upload, timed out after " + totalWaitSec + " seconds");
                 }
 
@@ -158,8 +158,8 @@ import twitter4j.conf.ChunkedUploadConfiguration;
     }
 
     private void onProgress(String progress, long uploadedBytes, long totalBytes, String finalizeProcessingState, int finalizeProgressPercent) {
-        if (callback != null) {
-            callback.onProgress(progress, uploadedBytes, totalBytes, finalizeProcessingState, finalizeProgressPercent);
+        if (uploadConfiguration.getCallback() != null) {
+            uploadConfiguration.getCallback().onProgress(progress, uploadedBytes, totalBytes, finalizeProcessingState, finalizeProgressPercent);
         }
     }
 

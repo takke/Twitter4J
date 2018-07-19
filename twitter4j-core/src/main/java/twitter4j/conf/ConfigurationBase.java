@@ -93,9 +93,6 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
 
     private String streamThreadName = "";
 
-    private int chunkedUploadFinalizeTimeout = 30;          // When doing a chunked upload, bail out after 30 seconds by default
-    private int chunkedUploadSegmentSize = 1024 * 1024;     // Chunked upload segment size defaults to 1MB
-
     protected ConfigurationBase() {
         httpConf = new MyHttpClientConfiguration(null // proxy host
                 , null // proxy user
@@ -745,24 +742,6 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
         return this.streamThreadName;
     }
 
-    @Override
-    public int getChunkedUploadFinalizeTimeout() {
-        return this.chunkedUploadFinalizeTimeout;
-    }
-
-    protected final void setChunkedUploadFinalizeTimeout(int value) {
-        this.chunkedUploadFinalizeTimeout = value;
-    }
-
-    @Override
-    public int getChunkedUploadSegmentSize() {
-        return this.chunkedUploadSegmentSize;
-    }
-
-    protected final void setChunkedUploadSegmentSize(int value) {
-        this.chunkedUploadSegmentSize = value;
-    }
-
     protected final void setStreamThreadName(String streamThreadName) {
         this.streamThreadName = streamThreadName;
     }
@@ -856,8 +835,6 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
             return false;
         if (mediaProviderParameters != null ? !mediaProviderParameters.equals(that.mediaProviderParameters) : that.mediaProviderParameters != null)
             return false;
-        if (chunkedUploadFinalizeTimeout != that.chunkedUploadFinalizeTimeout) return false;
-        if (chunkedUploadSegmentSize != that.chunkedUploadSegmentSize) return false;
         return streamThreadName != null ? streamThreadName.equals(that.streamThreadName) : that.streamThreadName == null;
 
     }
@@ -910,8 +887,6 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
         result = 31 * result + (mediaProviderParameters != null ? mediaProviderParameters.hashCode() : 0);
         result = 31 * result + (daemonEnabled ? 1 : 0);
         result = 31 * result + (streamThreadName != null ? streamThreadName.hashCode() : 0);
-        result = 31 * result + chunkedUploadFinalizeTimeout;
-        result = 31 * result + chunkedUploadSegmentSize;
         return result;
     }
 

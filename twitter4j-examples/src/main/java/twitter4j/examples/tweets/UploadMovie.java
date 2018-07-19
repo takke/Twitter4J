@@ -52,14 +52,15 @@ public final class UploadMovie {
                     new ChunkedUploadConfiguration.Builder()
                             .movie()
                             .from(new File(movieFileName))
+//                            .segmentSizeBytes(512*1024)
+//                            .finalizeTimeout(120)
                             .callback((progress, uploadedBytes, totalBytes, finalizeProcessingState, finalizeProgressPercent) ->
                                     System.out.println(" progress: [" + progress + "], " +
                                             "uploaded[" + uploadedBytes + "/" + totalBytes + "bytes], " +
                                             "finalize[" + finalizeProcessingState + "][" + finalizeProgressPercent + "%]"))
                             .build());
             System.out.println("Uploaded: id=" + media.getMediaId()
-                    + ", w=" + media.getImageWidth() + ", h=" + media.getImageHeight()
-                    + ", type=" + media.getImageType() + ", size=" + media.getSize());
+                    + ", type=" + media.getVideoType() + ", size=" + media.getSize());
 
             StatusUpdate update = new StatusUpdate(args[0]);
             update.setMediaIds(media.getMediaId());
