@@ -30,9 +30,14 @@ public final class UploadedMedia implements java.io.Serializable {
     private String imageType;
     private long mediaId;
     private long size;
+
+    // chunked uploading
     private String processingState;
     private int processingCheckAfterSecs;
     private int progressPercent;
+    private String processingErrorMessage;
+    private String processingErrorName;
+    private int processingErrorCode = -1;
 
     /*package*/ UploadedMedia(JSONObject json) throws TwitterException {
         init(json);
@@ -70,6 +75,18 @@ public final class UploadedMedia implements java.io.Serializable {
         return progressPercent;
     }
 
+    public String getProcessingErrorMessage() {
+        return processingErrorMessage;
+    }
+
+    public String getProcessingErrorName() {
+        return processingErrorName;
+    }
+
+    public int getProcessingErrorCode() {
+        return processingErrorCode;
+    }
+
     private void init(JSONObject json) throws TwitterException {
         mediaId = ParseUtil.getLong("media_id", json);
         size = ParseUtil.getLong("size", json);
@@ -87,6 +104,12 @@ public final class UploadedMedia implements java.io.Serializable {
                 processingCheckAfterSecs = ParseUtil.getInt("check_after_secs", processingInfo);
                 progressPercent = ParseUtil.getInt("progress_percent", processingInfo);
 
+                if (!processingInfo.isNull("error")) {
+                    JSONObject error = processingInfo.getJSONObject("error");
+                    processingErrorCode = ParseUtil.getInt("code", error);
+                    processingErrorName = error.getString("name");
+                    processingErrorMessage = error.getString("message");
+                }
             }
             
         } catch (JSONException jsone) {
@@ -107,9 +130,14 @@ public final class UploadedMedia implements java.io.Serializable {
         if (size != that.size) return false;
         if (processingCheckAfterSecs != that.processingCheckAfterSecs) return false;
         if (progressPercent != that.progressPercent) return false;
+        if (processingErrorCode != that.processingErrorCode) return false;
         if (imageType != null ? !imageType.equals(that.imageType) : that.imageType != null)
             return false;
-        return processingState != null ? processingState.equals(that.processingState) : that.processingState == null;
+        if (processingState != null ? !processingState.equals(that.processingState) : that.processingState != null)
+            return false;
+        if (processingErrorMessage != null ? !processingErrorMessage.equals(that.processingErrorMessage) : that.processingErrorMessage != null)
+            return false;
+        return processingErrorName != null ? processingErrorName.equals(that.processingErrorName) : that.processingErrorName == null;
     }
 
     @Override
@@ -122,6 +150,9 @@ public final class UploadedMedia implements java.io.Serializable {
         result = 31 * result + (processingState != null ? processingState.hashCode() : 0);
         result = 31 * result + processingCheckAfterSecs;
         result = 31 * result + progressPercent;
+        result = 31 * result + (processingErrorMessage != null ? processingErrorMessage.hashCode() : 0);
+        result = 31 * result + (processingErrorName != null ? processingErrorName.hashCode() : 0);
+        result = 31 * result + processingErrorCode;
         return result;
     }
 
@@ -136,6 +167,9 @@ public final class UploadedMedia implements java.io.Serializable {
                 ", processingState='" + processingState + '\'' +
                 ", processingCheckAfterSecs=" + processingCheckAfterSecs +
                 ", progressPercent=" + progressPercent +
+                ", processingErrorMessage='" + processingErrorMessage + '\'' +
+                ", processingErrorName='" + processingErrorName + '\'' +
+                ", processingErrorCode=" + processingErrorCode +
                 '}';
     }
 }

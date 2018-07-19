@@ -106,7 +106,13 @@ import twitter4j.conf.ChunkedUploadConfiguration;
 
             String state = uploadedMedia.getProcessingState();
             if (state.equals("failed")) {
-                throw new TwitterException("Failed to finalize the chunked upload.");
+                if (uploadedMedia.getProcessingErrorMessage() != null) {
+                    throw new TwitterException(
+                            uploadedMedia.getProcessingErrorMessage() + " (" + uploadedMedia.getProcessingErrorName() + ")",
+                            uploadedMedia.getProcessingErrorCode());
+                } else {
+                    throw new TwitterException("Failed to finalize the chunked upload.");
+                }
             }
             if (state.equals("pending") || state.equals("in_progress")) {
                 currentProgressPercent = uploadedMedia.getProgressPercent();
@@ -138,22 +144,17 @@ import twitter4j.conf.ChunkedUploadConfiguration;
     }
 
     private UploadedMedia sendFinalize(long mediaId) throws TwitterException {
-        JSONObject json = twitter.post(
-                twitter.conf.getUploadBaseURL() + "media/upload.json",
-                new HttpParameter("command", "FINALIZE"),
-                new HttpParameter("media_id", mediaId)).asJSONObject();
-        //logger.debug("Finalize response:" + json);
-        return new UploadedMedia(json);
+        return new UploadedMedia(
+                twitter.post(twitter.conf.getUploadBaseURL() + "media/upload.json",
+                            new HttpParameter("command", "FINALIZE"),
+                            new HttpParameter("media_id", mediaId)).asJSONObject());
     }
 
     private UploadedMedia getStatus(long mediaId) throws TwitterException {
-        JSONObject json = twitter.get(
-                twitter.conf.getUploadBaseURL() + "media/upload.json",
-                new HttpParameter("command", "STATUS"),
-                new HttpParameter("media_id", mediaId))
-                .asJSONObject();
-        //logger.debug("Status response:" + json);
-        return new UploadedMedia(json);
+        return new UploadedMedia(
+                twitter.get(twitter.conf.getUploadBaseURL() + "media/upload.json",
+                        new HttpParameter("command", "STATUS"),
+                        new HttpParameter("media_id", mediaId)).asJSONObject());
     }
 
     private void onProgress(String progress, long uploadedBytes, long totalBytes, String finalizeProcessingState, int finalizeProgressPercent) {
