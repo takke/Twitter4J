@@ -106,6 +106,7 @@ public final class StatusUpdate implements java.io.Serializable {
     /**
      * @param file media file
      * @since Twitter4J 2.2.5
+     * @deprecated use {@link #setMediaIds(long...)} instead
      */
     public void setMedia(File file) {
         this.mediaFile = file;
@@ -115,6 +116,7 @@ public final class StatusUpdate implements java.io.Serializable {
      * @param file media file
      * @return this instance
      * @since Twitter4J 2.2.5
+     * @deprecated use {@link #setMediaIds(long...)} instead
      */
     public StatusUpdate media(File file) {
         setMedia(file);
@@ -125,6 +127,7 @@ public final class StatusUpdate implements java.io.Serializable {
      * @param name name
      * @param body media body as stream
      * @since Twitter4J 2.2.5
+     * @deprecated use {@link #setMediaIds(long...)} instead
      */
     public void setMedia(String name, InputStream body) {
         this.mediaName = name;
@@ -152,6 +155,9 @@ public final class StatusUpdate implements java.io.Serializable {
         return this;
     }
 
+    /**
+     * @deprecated use {@link #setMediaIds(long...)} instead
+     */
     /*package*/ boolean isForUpdateWithMedia() {
         return mediaFile != null || mediaName != null;
     }
@@ -161,6 +167,7 @@ public final class StatusUpdate implements java.io.Serializable {
      * @param body media body
      * @return this instance
      * @since Twitter4J 2.2.5
+     * @deprecated use {@link #setMediaIds(long...)} instead
      */
     public StatusUpdate media(String name, InputStream body) {
         setMedia(name, body);
