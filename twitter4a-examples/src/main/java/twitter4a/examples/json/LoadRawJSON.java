@@ -16,9 +16,9 @@
 
 package twitter4a.examples.json;
 
-import twitter4j.Status;
-import twitter4j.TwitterException;
-import twitter4j.TwitterObjectFactory;
+import twitter4a.Status;
+import twitter4a.TwitterException;
+import twitter4a.TwitterObjectFactory;
 
 import java.io.*;
 

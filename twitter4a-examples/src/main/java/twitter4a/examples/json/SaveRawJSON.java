@@ -16,7 +16,7 @@
 
 package twitter4a.examples.json;
 
-import twitter4j.*;
+import twitter4a.*;
 
 import java.io.*;
 import java.util.List;

@@ -1,6 +1,6 @@
 package twitter4a.examples.trends;
 
-import twitter4j.*;
+import twitter4a.*;
 
 /**
  * Shows the trend for a place denoted by its WOEID. By default shows trends for "Worldwide" (WOEID 1).

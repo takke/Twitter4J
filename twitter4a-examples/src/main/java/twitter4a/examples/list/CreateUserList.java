@@ -16,10 +16,10 @@
 
 package twitter4a.examples.list;
 
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-import twitter4j.UserList;
+import twitter4a.Twitter;
+import twitter4a.TwitterException;
+import twitter4a.TwitterFactory;
+import twitter4a.UserList;
 
 /**
  * Creates a public list.

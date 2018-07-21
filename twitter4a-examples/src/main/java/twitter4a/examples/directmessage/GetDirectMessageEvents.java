@@ -16,11 +16,11 @@
 
 package twitter4a.examples.directmessage;
 
-import twitter4j.DirectMessageEvent;
-import twitter4j.DirectMessageEventList;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
+import twitter4a.DirectMessageEvent;
+import twitter4a.DirectMessageEventList;
+import twitter4a.Twitter;
+import twitter4a.TwitterException;
+import twitter4a.TwitterFactory;
 
 /**
  * Example application that gets all direct messages via event api.<br>

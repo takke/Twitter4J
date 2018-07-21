@@ -16,7 +16,7 @@
 
 package twitter4a.examples.geo;
 
-import twitter4j.*;
+import twitter4a.*;
 
 /**
  * Given a latitude and a longitude or IP address, searches for up to 20 places that can be used as a place_id when updating a status.

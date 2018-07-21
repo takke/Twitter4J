@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package twitter4j;
+package twitter4a;
 
-import twitter4j.api.HelpResources;
-import twitter4j.auth.AccessToken;
-import twitter4j.auth.OAuth2Token;
-import twitter4j.auth.RequestToken;
-import twitter4j.conf.ConfigurationBuilder;
+import twitter4a.api.HelpResources;
+import twitter4a.auth.AccessToken;
+import twitter4a.auth.OAuth2Token;
+import twitter4a.auth.RequestToken;
+import twitter4a.conf.ConfigurationBuilder;
 
 import java.io.*;
 import java.util.Date;

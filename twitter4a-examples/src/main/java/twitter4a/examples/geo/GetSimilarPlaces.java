@@ -16,7 +16,7 @@
 
 package twitter4a.examples.geo;
 
-import twitter4j.*;
+import twitter4a.*;
 
 /**
  * Locates places near the given coordinates which are similar in name.

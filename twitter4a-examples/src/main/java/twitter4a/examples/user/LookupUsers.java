@@ -16,7 +16,7 @@
 
 package twitter4a.examples.user;
 
-import twitter4j.*;
+import twitter4a.*;
 
 /**
  * Looks up users.

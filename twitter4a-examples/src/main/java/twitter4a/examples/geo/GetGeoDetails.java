@@ -16,10 +16,10 @@
 
 package twitter4a.examples.geo;
 
-import twitter4j.Place;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
+import twitter4a.Place;
+import twitter4a.Twitter;
+import twitter4a.TwitterException;
+import twitter4a.TwitterFactory;
 
 /**
  * Shows specified place's detailed information

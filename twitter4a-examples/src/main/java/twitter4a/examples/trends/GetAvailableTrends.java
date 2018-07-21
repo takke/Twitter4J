@@ -16,7 +16,7 @@
 
 package twitter4a.examples.trends;
 
-import twitter4j.*;
+import twitter4a.*;
 
 /**
  * Shows the locations that Twitter has trending topic information for.

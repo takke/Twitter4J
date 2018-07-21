@@ -16,11 +16,11 @@
 
 package twitter4a.examples.tweets;
 
-import twitter4j.Status;
-import twitter4j.StatusUpdate;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
+import twitter4a.Status;
+import twitter4a.StatusUpdate;
+import twitter4a.Twitter;
+import twitter4a.TwitterException;
+import twitter4a.TwitterFactory;
 
 /**
  * Reply to a status.

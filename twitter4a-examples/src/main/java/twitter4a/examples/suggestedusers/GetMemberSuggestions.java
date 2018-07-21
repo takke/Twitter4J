@@ -16,7 +16,7 @@
 
 package twitter4a.examples.suggestedusers;
 
-import twitter4j.*;
+import twitter4a.*;
 
 /**
  * Shows suggested users in specified category.

@@ -16,7 +16,7 @@
 
 package twitter4a.examples.list;
 
-import twitter4j.*;
+import twitter4a.*;
 
 /**
  * Checks list membership.

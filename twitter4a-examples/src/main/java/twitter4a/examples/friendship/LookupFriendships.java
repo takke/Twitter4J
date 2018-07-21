@@ -16,7 +16,7 @@
 
 package twitter4a.examples.friendship;
 
-import twitter4j.*;
+import twitter4a.*;
 
 /**
  * Looks up friendships.

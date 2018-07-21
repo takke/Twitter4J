@@ -16,7 +16,7 @@
 
 package twitter4a.examples.list;
 
-import twitter4j.*;
+import twitter4a.*;
 
 /**
  * Show tweet timeline for members of the specified list.

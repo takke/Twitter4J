@@ -16,7 +16,7 @@
 
 package twitter4a.examples.directmessage;
 
-import twitter4j.*;
+import twitter4a.*;
 
 import java.util.List;
 

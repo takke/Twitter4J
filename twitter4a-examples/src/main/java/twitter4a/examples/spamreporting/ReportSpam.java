@@ -16,9 +16,9 @@
 
 package twitter4a.examples.spamreporting;
 
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
+import twitter4a.Twitter;
+import twitter4a.TwitterException;
+import twitter4a.TwitterFactory;
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com

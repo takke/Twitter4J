@@ -16,7 +16,7 @@
 
 package twitter4a.examples.stream;
 
-import twitter4j.*;
+import twitter4a.*;
 
 /**
  * <p>This is a code example of Twitter4J Streaming API - Site Streams support.<br>

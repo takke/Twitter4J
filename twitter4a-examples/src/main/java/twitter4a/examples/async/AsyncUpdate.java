@@ -16,9 +16,9 @@
 
 package twitter4a.examples.async;
 
-import twitter4j.*;
+import twitter4a.*;
 
-import static twitter4j.TwitterMethod.UPDATE_STATUS;
+import static twitter4a.TwitterMethod.UPDATE_STATUS;
 
 /**
  * <p>This is a code example of Twitter4J async API.<br>

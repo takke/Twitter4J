@@ -16,10 +16,10 @@
 
 package twitter4a.examples.media;
 
-import twitter4j.TwitterException;
-import twitter4j.media.ImageUpload;
-import twitter4j.media.ImageUploadFactory;
-import twitter4j.media.MediaProvider;
+import twitter4a.TwitterException;
+import twitter4a.media.ImageUpload;
+import twitter4a.media.ImageUploadFactory;
+import twitter4a.media.MediaProvider;
 
 import java.io.File;
 

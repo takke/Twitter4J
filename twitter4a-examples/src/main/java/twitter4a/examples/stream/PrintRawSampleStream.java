@@ -15,10 +15,10 @@
  */
 package twitter4a.examples.stream;
 
-import twitter4j.RawStreamListener;
-import twitter4j.TwitterException;
-import twitter4j.TwitterStream;
-import twitter4j.TwitterStreamFactory;
+import twitter4a.RawStreamListener;
+import twitter4a.TwitterException;
+import twitter4a.TwitterStream;
+import twitter4a.TwitterStreamFactory;
 
 /**
  * <p>This is a code example of Twitter4J Streaming API - sample method support.<br>

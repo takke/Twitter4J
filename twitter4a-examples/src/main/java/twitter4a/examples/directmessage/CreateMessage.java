@@ -16,7 +16,7 @@
 
 package twitter4a.examples.directmessage;
 
-import twitter4j.*;
+import twitter4a.*;
 
 /**
  * Example application that sends a message to specified Twitter-er from specified account.<br>

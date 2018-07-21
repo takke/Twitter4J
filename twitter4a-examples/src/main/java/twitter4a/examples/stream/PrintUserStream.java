@@ -16,7 +16,7 @@
 
 package twitter4a.examples.stream;
 
-import twitter4j.*;
+import twitter4a.*;
 
 /**
  * <p>
