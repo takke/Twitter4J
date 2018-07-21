@@ -49,6 +49,11 @@ CHANGELOG
 
 ChangeLog since official Twitter4J 4.0.6
 
+## 4.1.0 BetaA (2018-07-xx)
+  - Rename to Twitter4A
+  - Drop maven support (Remove pom.xml)
+  
+
 ## 4.1.0 Beta4 (2018-07-19)
   - Support video uploading feature!
     * Based on ```#255``` [by dk8996](https://github.com/yusuke/twitter4j/pull/255) and ```#258``` [by rjean-gilles](https://github.com/yusuke/twitter4j/pull/258)
