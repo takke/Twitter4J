@@ -1,9 +1,0 @@
-apply plugin: 'java'
-apply plugin: 'maven'
-
-dependencies {
-    implementation project(':twitter4j-core')
-    implementation project(':twitter4j-async')
-    testImplementation 'junit:junit:4.10'
-    testImplementation 'org.springframework:spring:2.5.6'
-}

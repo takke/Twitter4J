@@ -1,0 +1,8 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+dependencies {
+    implementation project(':twitter4a-core')
+
+    testImplementation 'junit:junit:4.10'
+}

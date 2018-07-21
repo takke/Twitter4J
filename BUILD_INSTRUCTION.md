@@ -1,7 +1,7 @@
 Build Instruction using Gradle
 ==============================
 
-Guide for Twitter4J Developers / Contributors using Gradle
+Guide for Twitter4A Developers / Contributors using Gradle
 
 - makes ```jar```, ```javadoc.jar``` and ```sources.jar```
 
@@ -9,7 +9,7 @@ Guide for Twitter4J Developers / Contributors using Gradle
 $ ./gradlew clean build -x test
 ```
 
-- mavenLocal : deploys to ```~/.m2/repository/org/twitter4j/```.
+- mavenLocal : deploys to ```~/.m2/repository/org/twitter4a/```.
 ```bash
 $ ./gradlew publishToMavenLocal
 ```
@@ -41,7 +41,7 @@ $ ./gradlew bintrayUpload
 
 check on bintray
 ----------------
-https://bintray.com/panecraft/maven/Twitter4J
+https://bintray.com/panecraft/maven/Twitter4A
 
 Tagging
 -------
@@ -67,3 +67,4 @@ TODO
 ====
 
 - Fix Contributors
+- Rename to Twitter4A

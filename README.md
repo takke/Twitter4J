@@ -1,14 +1,14 @@
-Twitter4J
+Twitter4A
 =========
 
-[ ![Download](https://api.bintray.com/packages/panecraft/maven/Twitter4J/images/download.svg) ](https://bintray.com/panecraft/maven/Twitter4J/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/panecraft/maven/Twitter4A/images/download.svg) ](https://bintray.com/panecraft/maven/Twitter4A/_latestVersion)
 
-*This repository is provided for convenience of existing users of Twitter4J for the stopgap hiatus of the official Twitter4J.*
+<!--*This repository is provided for convenience of existing users of Twitter4J for the stopgap hiatus of the official Twitter4J.*-->
 
 
-Twitter4J is a Twitter API binding library for the Java language licensed under Apache License 2.0.
+Twitter4A is a Twitter API binding library for the Java language licensed under Apache License 2.0 forked from Twitter4J.
 
-Twitter4J includes software from JSON.org to parse JSON response from the Twitter API. You can see the license term at http://www.JSON.org/license.html
+Twitter4A includes software from JSON.org to parse JSON response from the Twitter API. You can see the license term at http://www.JSON.org/license.html
 
 
 
@@ -35,13 +35,13 @@ Get Started
 allprojects {
   repositories {
     ...
-    maven { url "http://dl.bintray.com/panecraft/Twitter4J" }
+    maven { url "http://dl.bintray.com/panecraft/Twitter4A" }
   }
 }
 ```
 
 ```groovy
-implementation "org.twitter4j:twitter4j-core:$twitter4jVersion"
+implementation "org.twitter4a:twitter4a-core:$twitter4aVersion"
 ```
 
 CHANGELOG

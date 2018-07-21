@@ -94,12 +94,12 @@
         </profile>
     </profiles>
     <modules>
-        <module>twitter4j-async</module>
-        <module>twitter4j-core</module>
-        <module>twitter4j-examples</module>
-        <module>twitter4j-appengine</module>
-        <module>twitter4j-http2-support</module>
-        <module>twitter4j-stream</module>
-        <module>twitter4j-media-support</module>
+        <module>twitter4a-async</module>
+        <module>twitter4a-core</module>
+        <module>twitter4a-examples</module>
+        <module>twitter4a-appengine</module>
+        <module>twitter4a-http2-support</module>
+        <module>twitter4a-stream</module>
+        <module>twitter4a-media-support</module>
     </modules>
 </project>

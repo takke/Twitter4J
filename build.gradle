@@ -1,8 +1,8 @@
 ext {
     // local directory for deploy of results to upload to github
     repo = new File(rootDir, "repository")
-    groupId = 'org.twitter4j'
-    versionName = '4.1.0-beta4'
+    groupId = 'org.twitter4a'
+    versionName = '4.1.0-beta5'
 }
 
 allprojects  {
@@ -85,13 +85,13 @@ subprojects {
         dryRun = false
         pkg {
             repo = 'maven'
-            name = 'Twitter4J'
+            name = 'Twitter4A'
             userOrg = 'panecraft'
             desc = 'A Java library for the Twitter API'
             publicDownloadNumbers = true
             licenses = ['Apache-2.0']
-            vcsUrl = 'https://github.com/takke/twitter4j.git'
-            githubRepo = 'takke/twitter4j'
+            vcsUrl = 'https://github.com/takke/twitter4a.git'
+            githubRepo = 'takke/twitter4a'
 
             version {
                 name = versionName

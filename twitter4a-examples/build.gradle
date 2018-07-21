@@ -1,0 +1,14 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    implementation project(':twitter4a-core')
+    implementation project(':twitter4a-async')
+    implementation project(':twitter4a-stream')
+    implementation project(':twitter4a-media-support')
+
+    testImplementation 'junit:junit:4.10'
+}
