@@ -77,8 +77,10 @@ subprojects {
     }
 
     bintray {
-        user = bintray_user   // this usually comes from gradle.properties file in ~/.gradle
-        key = bintray_api_key // this usually comes from gradle.properties file in ~/.gradle
+        user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+        key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+        // this usually comes from ~/.gradle/gradle.properties
+
         publications = ['MyPublication']
         override = false
         publish = true
