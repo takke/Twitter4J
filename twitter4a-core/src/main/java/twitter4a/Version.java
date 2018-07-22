@@ -21,7 +21,7 @@ package twitter4a;
  */
 public final class Version {
     private static final String VERSION = "4.1.0-beta4";
-    private static final String TITLE = "Twitter4J";
+    private static final String TITLE = "Twitter4A";
 
     private Version() {
         throw new AssertionError();

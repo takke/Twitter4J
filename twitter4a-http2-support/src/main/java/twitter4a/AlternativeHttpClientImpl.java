@@ -151,7 +151,7 @@ public class AlternativeHttpClientImpl extends HttpClientBase implements HttpRes
 
     private RequestBody getRequestBody(HttpRequest req) throws UnsupportedEncodingException {
         if (HttpParameter.containsFile(req.getParameters())) {
-            final String boundary = "----Twitter4J-upload" + System.currentTimeMillis();
+            final String boundary = "----Twitter4A-upload" + System.currentTimeMillis();
 
             MultipartBody.Builder multipartBodyBuilder = new MultipartBody.Builder(boundary).setType(MultipartBody.FORM);
             for (HttpParameter parameter : req.getParameters()) {

@@ -92,7 +92,7 @@ class HttpClientImpl extends HttpClientBase implements HttpResponseCode, java.io
                     con.setRequestMethod(req.getMethod().name());
                     if (req.getMethod() == RequestMethod.POST) {
                         if (HttpParameter.containsFile(req.getParameters())) {
-                            String boundary = "----Twitter4J-upload" + System.currentTimeMillis();
+                            String boundary = "----Twitter4A-upload" + System.currentTimeMillis();
                             con.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
                             boundary = "--" + boundary;
                             con.setDoOutput(true);

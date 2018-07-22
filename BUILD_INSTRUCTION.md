@@ -67,4 +67,3 @@ TODO
 ====
 
 - Fix Contributors
-- Rename to Twitter4A

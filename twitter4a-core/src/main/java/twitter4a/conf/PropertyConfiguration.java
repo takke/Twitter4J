@@ -127,16 +127,16 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
             // Unsigned applets are not allowed to access System properties
             props = new Properties();
         }
-        final String TWITTER4J_PROPERTIES = "twitter4j.properties";
-        // override System properties with ./twitter4j.properties in the classpath
-        loadProperties(props, "." + File.separatorChar + TWITTER4J_PROPERTIES);
-        // then, override with /twitter4j.properties in the classpath
-        loadProperties(props, Configuration.class.getResourceAsStream("/" + TWITTER4J_PROPERTIES));
-        // then, override with /WEB/INF/twitter4j.properties in the classpath
-        loadProperties(props, Configuration.class.getResourceAsStream("/WEB-INF/" + TWITTER4J_PROPERTIES));
+        final String TWITTER4A_PROPERTIES = "twitter4a.properties";
+        // override System properties with ./twitter4a.properties in the classpath
+        loadProperties(props, "." + File.separatorChar + TWITTER4A_PROPERTIES);
+        // then, override with /twitter4a.properties in the classpath
+        loadProperties(props, Configuration.class.getResourceAsStream("/" + TWITTER4A_PROPERTIES));
+        // then, override with /WEB/INF/twitter4a.properties in the classpath
+        loadProperties(props, Configuration.class.getResourceAsStream("/WEB-INF/" + TWITTER4A_PROPERTIES));
         // for Google App Engine
         try {
-            loadProperties(props, new FileInputStream("WEB-INF/" + TWITTER4J_PROPERTIES));
+            loadProperties(props, new FileInputStream("WEB-INF/" + TWITTER4A_PROPERTIES));
         } catch (SecurityException ignore) {
         } catch (FileNotFoundException ignore) {
         }
@@ -192,13 +192,13 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
         ArrayList<String> toBeNormalized = new ArrayList<String>(10);
         for (Object key : props.keySet()) {
             String keyStr = (String) key;
-            if (-1 != (keyStr.indexOf("twitter4j."))) {
+            if (-1 != (keyStr.indexOf("twitter4a."))) {
                 toBeNormalized.add(keyStr);
             }
         }
         for (String keyStr : toBeNormalized) {
             String property = props.getProperty(keyStr);
-            int index = keyStr.indexOf("twitter4j.");
+            int index = keyStr.indexOf("twitter4a.");
             String newKey = keyStr.substring(0, index) + keyStr.substring(index + 10);
             props.setProperty(newKey, property);
         }
@@ -206,9 +206,9 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
 
     /**
      * passing "/foo/bar" as treePath will result:<br>
-     * 1. load [twitter4j.]restBaseURL<br>
-     * 2. override the value with foo.[twitter4j.]restBaseURL<br>
-     * 3. override the value with foo.bar.[twitter4j.]restBaseURL<br>
+     * 1. load [twitter4a.]restBaseURL<br>
+     * 2. override the value with foo.[twitter4a.]restBaseURL<br>
+     * 3. override the value with foo.bar.[twitter4a.]restBaseURL<br>
      *
      * @param props    properties to be loaded
      * @param treePath the path

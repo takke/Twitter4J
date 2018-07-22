@@ -247,7 +247,7 @@ public class UsersResourcesTest extends TwitterTestBase {
         int rand = (int) (System.currentTimeMillis() % files.length);
         File file = new File(files[rand]);
         if (!file.exists()) {
-            file = new File("twitter4j-core/" + files[rand]);
+            file = new File("twitter4a-core/" + files[rand]);
         }
         return file;
     }

@@ -39,7 +39,7 @@ public class DispatcherTest extends TestCase {
     private int count;
 
     public void testInvokeLater() throws Exception {
-        String name = "Twitter4J Async Dispatcher";
+        String name = "Twitter4A Async Dispatcher";
         int threadCount = ConfigurationContext.getInstance().getAsyncNumThreads();
         dispatcher = new DispatcherFactory(ConfigurationContext.getInstance()).getInstance();
         count = 0;

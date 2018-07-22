@@ -39,7 +39,7 @@ final class DispatcherImpl implements Dispatcher {
                     @Override
                     public Thread newThread(Runnable r) {
                         Thread thread = new Thread(r);
-                        thread.setName(String.format("Twitter4J Async Dispatcher[%d]", count++));
+                        thread.setName(String.format("Twitter4A Async Dispatcher[%d]", count++));
                         thread.setDaemon(conf.isDaemonEnabled());
                         return thread;
                     }

@@ -133,7 +133,7 @@ public class Http2ClientTest extends TestCase {
     public void testUploadMediaFromStream() throws Exception {
         Twitter twitter = TwitterFactory.getSingleton();
         UploadedMedia media2 = twitter.uploadMedia("fromInputStream", 
-                Http2ClientTest.class.getResourceAsStream("/twitter4j.jpg"));
+                Http2ClientTest.class.getResourceAsStream("/twitter4a.jpg"));
 
         StatusUpdate update = new StatusUpdate("from input stream");
         update.setMediaIds(media2.getMediaId());

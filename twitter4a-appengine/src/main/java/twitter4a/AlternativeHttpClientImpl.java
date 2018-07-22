@@ -54,7 +54,7 @@ class AlternativeHttpClientImpl extends HttpClientBase {
             setHeaders(req, request);
             if (req.getMethod() == POST) {
                 if (HttpParameter.containsFile(req.getParameters())) {
-                    String boundary = "----Twitter4J-upload" + System.currentTimeMillis();
+                    String boundary = "----Twitter4A-upload" + System.currentTimeMillis();
                     request.setHeader(new HTTPHeader("Content-Type", "multipart/form-data; boundary=" + boundary));
                     boundary = "--" + boundary;
                     os = new ByteArrayOutputStream();

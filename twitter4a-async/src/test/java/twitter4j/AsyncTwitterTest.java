@@ -1148,7 +1148,7 @@ public class AsyncTwitterTest extends TwitterTestBase implements TwitterListener
         int rand = (int) (System.currentTimeMillis() % 6);
         File file = new File(files[rand]);
         if (!file.exists()) {
-            file = new File("twitter4j-core/" + files[rand]);
+            file = new File("twitter4a-core/" + files[rand]);
         }
         return file;
     }

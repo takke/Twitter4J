@@ -44,13 +44,28 @@ allprojects {
 implementation "org.twitter4a:twitter4a-core:$twitter4aVersion"
 ```
 
+
+Migrate from Twitter4J
+======================
+
+- Replace ```import twitter4j``` with ```import twitter4a``` for all files
+- Replace another reference like ```twitter4j.Status``` to ```twitter4a.Status```
+- Take care to grep with ```twitter4j``` to find using like below:
+```java
+-   System.setProperty("twitter4j.http.retryCount", "1");
++   System.setProperty("twitter4a.http.retryCount", "1");
+```
+- Replace ```twitter4j``` with ```twitter4a``` in proguard settings like ```proguard-rules.pro```
+
+
 CHANGELOG
 =========
 
 ChangeLog since official Twitter4J 4.0.6
 
-## 4.1.0 BetaA (2018-07-xx)
+## 4.1.0 Beta5 (2018-07-xx)
   - Rename to Twitter4A
+  - Rename package from twitter4j.* to twitter4a.*
   - Drop maven support (Remove pom.xml)
   
 

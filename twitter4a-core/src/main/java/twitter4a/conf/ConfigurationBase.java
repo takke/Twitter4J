@@ -62,7 +62,7 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
     private String siteStreamBaseURL = "https://sitestream.twitter.com/1.1/";
     private String uploadBaseURL = "https://upload.twitter.com/1.1/";
 
-    private String dispatcherImpl = "twitter4j.DispatcherImpl";
+    private String dispatcherImpl = "twitter4a.DispatcherImpl";
     private int asyncNumThreads = 1;
 
     private String loggerFactory = null;

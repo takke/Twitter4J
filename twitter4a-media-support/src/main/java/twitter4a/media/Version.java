@@ -21,7 +21,7 @@ package twitter4a.media;
  */
 public final class Version {
     private static final String VERSION = "4.1.0-beta4";
-    private static final String TITLE = "Twitter4J Media support";
+    private static final String TITLE = "Twitter4A Media support";
 
     private Version() {
         throw new AssertionError();

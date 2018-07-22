@@ -22,7 +22,7 @@ package twitter4a;
  */
 public final class VersionAppEngine {
     private static final String VERSION = "4.1.0-beta4";
-    private static final String TITLE = "Twitter4J App Engine Support";
+    private static final String TITLE = "Twitter4A App Engine Support";
 
     private VersionAppEngine() {
         throw new AssertionError();

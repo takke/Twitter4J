@@ -28,38 +28,38 @@ import java.lang.reflect.Method;
  */
 public abstract class Logger {
     private static final LoggerFactory LOGGER_FACTORY;
-    private static final String LOGGER_FACTORY_IMPLEMENTATION = "twitter4j.loggerFactory";
+    private static final String LOGGER_FACTORY_IMPLEMENTATION = "twitter4a.loggerFactory";
 
     static {
         LoggerFactory loggerFactory = null;
-        // -Dtwitter4j.debug=true -Dtwitter4j.loggerFactory=twitter4j.StdOutLoggerFactory
+        // -Dtwitter4a.debug=true -Dtwitter4a.loggerFactory=twitter4a.StdOutLoggerFactory
         String loggerFactoryImpl = System.getProperty(LOGGER_FACTORY_IMPLEMENTATION);
         if (loggerFactoryImpl != null) {
             loggerFactory = getLoggerFactoryIfAvailable(loggerFactoryImpl, loggerFactoryImpl);
         }
 
         Configuration conf = ConfigurationContext.getInstance();
-        // configuration in twitter4j.properties
-        // loggerFactory=twitter4j.StdOutLoggerFactory
+        // configuration in twitter4a.properties
+        // loggerFactory=twitter4a.StdOutLoggerFactory
         loggerFactoryImpl = conf.getLoggerFactory();
         if (loggerFactoryImpl != null) {
             loggerFactory = getLoggerFactoryIfAvailable(loggerFactoryImpl, loggerFactoryImpl);
         }
         // use SLF4J if it's found in the classpath
         if (null == loggerFactory) {
-            loggerFactory = getLoggerFactoryIfAvailable("org.slf4j.impl.StaticLoggerBinder", "twitter4j.SLF4JLoggerFactory");
+            loggerFactory = getLoggerFactoryIfAvailable("org.slf4j.impl.StaticLoggerBinder", "twitter4a.SLF4JLoggerFactory");
         }
         // otherwise, use commons-logging if it's found in the classpath
         if (null == loggerFactory) {
-            loggerFactory = getLoggerFactoryIfAvailable("org.apache.commons.logging.Log", "twitter4j.CommonsLoggingLoggerFactory");
+            loggerFactory = getLoggerFactoryIfAvailable("org.apache.commons.logging.Log", "twitter4a.CommonsLoggingLoggerFactory");
         }
         // otherwise, use log4j if it's found in the classpath
         if (null == loggerFactory) {
-            loggerFactory = getLoggerFactoryIfAvailable("org.apache.log4j.Logger", "twitter4j.Log4JLoggerFactory");
+            loggerFactory = getLoggerFactoryIfAvailable("org.apache.log4j.Logger", "twitter4a.Log4JLoggerFactory");
         }
-        // on Google App Engine, use java.twitter4j.JULogger
+        // on Google App Engine, use java.twitter4a.JULogger
         if (null == loggerFactory) {
-            loggerFactory = getLoggerFactoryIfAvailable("com.google.appengine.api.urlfetch.URLFetchService", "twitter4j.JULLoggerFactory");
+            loggerFactory = getLoggerFactoryIfAvailable("com.google.appengine.api.urlfetch.URLFetchService", "twitter4a.JULLoggerFactory");
         }
         // otherwise, use the default logger
         if (null == loggerFactory) {

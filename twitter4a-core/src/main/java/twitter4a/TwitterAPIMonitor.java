@@ -48,7 +48,7 @@ public class TwitterAPIMonitor {
         try {
 
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-            ObjectName oName = new ObjectName("twitter4j.mbean:type=APIStatisticsOpenMBean");
+            ObjectName oName = new ObjectName("twitter4a.mbean:type=APIStatisticsOpenMBean");
             APIStatisticsOpenMBean openMBean = new APIStatisticsOpenMBean(STATISTICS);
             mbs.registerMBean(openMBean, oName);
         } catch (InstanceAlreadyExistsException e) {

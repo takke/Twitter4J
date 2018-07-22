@@ -32,8 +32,8 @@ import java.lang.management.ManagementFactory;
 public class MBeanServerRunner {
     public static void main(String[] args) throws Exception {
         MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-        ObjectName name = new ObjectName("twitter4j.mbean:type=APIStatistics");
-        ObjectName name2 = new ObjectName("twitter4j.mbean:type=APIStatisticsOpenMBean");
+        ObjectName name = new ObjectName("twitter4a.mbean:type=APIStatistics");
+        ObjectName name2 = new ObjectName("twitter4a.mbean:type=APIStatisticsOpenMBean");
         APIStatistics statsMBean = new APIStatistics(100);
         mbs.registerMBean(statsMBean, name);
         APIStatisticsOpenMBean openMBean = new APIStatisticsOpenMBean(statsMBean);

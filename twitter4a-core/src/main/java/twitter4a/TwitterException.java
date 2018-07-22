@@ -197,7 +197,7 @@ public class TwitterException extends Exception implements TwitterResponse, Http
         return statusCode == NOT_FOUND;
     }
 
-    private final static String[] FILTER = new String[]{"twitter4j"};
+    private final static String[] FILTER = new String[]{"twitter4a"};
 
     /**
      * Returns a hexadecimal representation of this exception stacktrace.<br>

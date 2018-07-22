@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class HttpClientFactory {
     private static final Constructor<?> HTTP_CLIENT_CONSTRUCTOR;
-    private static final String HTTP_CLIENT_IMPLEMENTATION = "twitter4j.http.httpClient";
+    private static final String HTTP_CLIENT_IMPLEMENTATION = "twitter4a.http.httpClient";
 
     static {
         Class<?> clazz = null;
@@ -42,13 +42,13 @@ public final class HttpClientFactory {
         }
         if (null == clazz) {
             try {
-                clazz = Class.forName("twitter4j.AlternativeHttpClientImpl");
+                clazz = Class.forName("twitter4a.AlternativeHttpClientImpl");
             } catch (ClassNotFoundException ignore) {
             }
         }
         if (null == clazz) {
             try {
-                clazz = Class.forName("twitter4j.HttpClientImpl");
+                clazz = Class.forName("twitter4a.HttpClientImpl");
             } catch (ClassNotFoundException cnfe) {
                 throw new AssertionError(cnfe);
             }

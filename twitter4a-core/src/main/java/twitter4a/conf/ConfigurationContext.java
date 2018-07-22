@@ -19,13 +19,13 @@ package twitter4a.conf;
 
 /**
  * Static factory of Configuration. This class wraps ConfigurationFactory implementations.<br>
- * By default, twitter4j.conf.PropertyConfigurationFactory will be used and can be changed with -Dtwitter4j.configurationFactory system property.
+ * By default, twitter4a.conf.PropertyConfigurationFactory will be used and can be changed with -Dtwitter4a.configurationFactory system property.
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
 public final class ConfigurationContext {
-    private static final String DEFAULT_CONFIGURATION_FACTORY = "twitter4j.conf.PropertyConfigurationFactory";
-    private static final String CONFIGURATION_IMPL = "twitter4j.configurationFactory";
+    private static final String DEFAULT_CONFIGURATION_FACTORY = "twitter4a.conf.PropertyConfigurationFactory";
+    private static final String CONFIGURATION_IMPL = "twitter4a.configurationFactory";
     private static final ConfigurationFactory factory;
 
     static {

@@ -21,7 +21,7 @@ package twitter4a;
  */
 public final class VersionStream {
     private static final String VERSION = "4.1.0-beta4";
-    private static final String TITLE = "Twitter4J Streaming API support";
+    private static final String TITLE = "Twitter4A Streaming API support";
 
     private VersionStream() {
         throw new AssertionError();

@@ -21,7 +21,7 @@ package twitter4a;
  */
 public final class VersionAsync {
     private static final String VERSION = "4.1.0-beta4";
-    private static final String TITLE = "Twitter4J Async API";
+    private static final String TITLE = "Twitter4A Async API";
 
     private VersionAsync() {
         throw new AssertionError();
