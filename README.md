@@ -14,17 +14,15 @@ Twitter4A includes software from JSON.org to parse JSON response from the Twitte
 
 ```
 LICENSE.txt - the terms of license of this software
-pom.xml - maven parent pom
 build.gradle - gradle script
-powered-by-badge - badge
 README.md - this file
-twitter4j-core - core component : support REST and Search API
-twitter4j-examples - examples
-twitter4j-media-support - media API support
-twitter4j-async - Async API support : depending on twitter4j-core
-twitter4j-stream - Streaming API support : depending on twitter4j-core and twitter4j-async
-twitter4j-http2-support - HTTP/2 support : adds HTTP/2 support, boosts Twitter4J performance, reduce packets, save the earth
-twitter4j-appengine - support appengine
+twitter4a-core - core component : support REST and Search API
+twitter4a-examples - examples
+twitter4a-media-support - media API support
+twitter4a-async - Async API support : depending on twitter4j-core
+twitter4a-stream - Streaming API support : depending on twitter4j-core and twitter4j-async
+twitter4a-http2-support - HTTP/2 support : adds HTTP/2 support, boosts Twitter4J performance, reduce packets, save the earth
+twitter4a-appengine - support appengine
 ```
 
 
@@ -55,7 +53,7 @@ Migrate from Twitter4J
 -   System.setProperty("twitter4j.http.retryCount", "1");
 +   System.setProperty("twitter4a.http.retryCount", "1");
 ```
-- Replace ```twitter4j``` with ```twitter4a``` in proguard settings like ```proguard-rules.pro```
+- Replace ```twitter4j``` with ```twitter4a``` in proguard settings (```proguard-rules.pro```)
 
 
 CHANGELOG
