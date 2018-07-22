@@ -21,7 +21,7 @@ package twitter4a;
  * @since Twitter4J 3.0.6
  */
 public final class VersionHTTP2 {
-    private static final String VERSION = "4.1.0-beta4";
+    private static final String VERSION = "4.1.0-beta5";
     private static final String TITLE = "Twitter4A HTTP/2 Support";
 
     private VersionHTTP2() {

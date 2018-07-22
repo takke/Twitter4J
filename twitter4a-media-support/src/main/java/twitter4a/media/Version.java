@@ -20,7 +20,7 @@ package twitter4a.media;
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
 public final class Version {
-    private static final String VERSION = "4.1.0-beta4";
+    private static final String VERSION = "4.1.0-beta5";
     private static final String TITLE = "Twitter4A Media support";
 
     private Version() {
