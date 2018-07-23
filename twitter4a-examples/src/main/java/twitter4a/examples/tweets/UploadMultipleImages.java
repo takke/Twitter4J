@@ -52,8 +52,11 @@ public final class UploadMultipleImages {
                         + ", w=" + media.getImageWidth() + ", h=" + media.getImageHeight()
                         + ", type=" + media.getImageType() + ", size=" + media.getSize());
                 mediaIds[i-1] = media.getMediaId();
+
+                // set ext-alt-text
+                twitter.createMediaMetadata(media.getMediaId(), "alt metadata text " + i);
             }
-            
+
             StatusUpdate update = new StatusUpdate(args[0]);
             update.setMediaIds(mediaIds);
             Status status = twitter.updateStatus(update);
