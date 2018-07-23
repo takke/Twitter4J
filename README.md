@@ -70,7 +70,7 @@ ChangeLog since official Twitter4J 4.0.6
 ## 4.1.0 Beta4 (2018-07-19)
   - Support video uploading feature!
     * Based on ```#255``` [by dk8996](https://github.com/yusuke/twitter4j/pull/255) and ```#258``` [by rjean-gilles](https://github.com/yusuke/twitter4j/pull/258)
-    * Builder pattern configuration for chunked uploading by takke
+    * Builder pattern configuration for chunked uploading
     ```java
     UploadedMedia media = twitter.uploadMediaChunked(
             new ChunkedUploadConfiguration.Builder()
@@ -82,7 +82,7 @@ ChangeLog since official Twitter4J 4.0.6
     update.setMediaIds(media.getMediaId());
     twitter.updateStatus(update);
     ```
-    * Add GIF uploading feature by takke
+    * Add GIF uploading feature
     ```java
     UploadedMedia media = twitter.uploadMediaChunked(
             new ChunkedUploadConfiguration.Builder()
@@ -91,11 +91,11 @@ ChangeLog since official Twitter4J 4.0.6
                     .build());
     ...
     ```
-    * Add callback for monitoring by takke (see [example](https://github.com/takke/twitter4j/blob/master/twitter4j-examples/src/main/java/twitter4j/examples/tweets/UploadMovie.java#L57))
+    * Add callback for monitoring (see [example](https://github.com/takke/twitter4j/blob/master/twitter4j-examples/src/main/java/twitter4j/examples/tweets/UploadMovie.java#L57))
 
 ## 4.1.0 Beta3 (2018-07-13)
   - ```#262``` [Add auto_populate_reply_metadata by abhishek1203](https://github.com/yusuke/twitter4j/pull/262)
-  - Add exclude_reply_user_ids for auto_populate_reply_metadata by takke (see [example](https://github.com/takke/twitter4j/blob/master/twitter4j-examples/src/main/java/twitter4j/examples/tweets/ReplyStatus.java#L51-L53))
+  - Add exclude_reply_user_ids for auto_populate_reply_metadata (see [example](https://github.com/takke/twitter4j/blob/master/twitter4j-examples/src/main/java/twitter4j/examples/tweets/ReplyStatus.java#L51-L53))
   - ```#279``` [Add method "setUploadBaseURL()" in ConfigurationBuilder by moko256](https://github.com/yusuke/twitter4j/pull/279)
 
 ## 4.1.0 Beta2 (2018-07-12)
@@ -104,7 +104,7 @@ ChangeLog since official Twitter4J 4.0.6
   - ```#266``` [Make StreamListener public (for Kotlin) by IEnoobong](https://github.com/yusuke/twitter4j/pull/266)
 
 ## 4.1.0 Beta1 (2018-07-10)
-  - Gradle build support by takke
+  - Gradle build support
   - ```#260``` [Support new direct message API (events api, create message with attach media, etc...) by takke](https://github.com/yusuke/twitter4j/pull/260)
   - ```#280``` [Add quoted_status_permalink by takke](https://github.com/yusuke/twitter4j/pull/280)
   - ```#232``` [Add property for &quot;tweet_volume&quot; to Trend by Bunkerbewohner ](https://github.com/yusuke/twitter4j/pull/232)
