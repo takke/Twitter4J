@@ -39,7 +39,7 @@ public class GetAccessToken {
      * @param args message
      */
     public static void main(String[] args) {
-        File file = new File("twitter4j.properties");
+        File file = new File("twitter4a.properties");
         Properties prop = new Properties();
         InputStream is = null;
         OutputStream os = null;
@@ -51,7 +51,7 @@ public class GetAccessToken {
             if (args.length < 2) {
                 if (null == prop.getProperty("oauth.consumerKey")
                         && null == prop.getProperty("oauth.consumerSecret")) {
-                    // consumer key/secret are not set in twitter4j.properties
+                    // consumer key/secret are not set in twitter4a.properties
                     System.out.println(
                             "Usage: java twitter4a.examples.oauth.GetAccessToken [consumer key] [consumer secret]");
                     System.exit(-1);
@@ -59,8 +59,8 @@ public class GetAccessToken {
             } else {
                 prop.setProperty("oauth.consumerKey", args[0]);
                 prop.setProperty("oauth.consumerSecret", args[1]);
-                os = new FileOutputStream("twitter4j.properties");
-                prop.store(os, "twitter4j.properties");
+                os = new FileOutputStream("twitter4a.properties");
+                prop.store(os, "twitter4a.properties");
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -122,7 +122,7 @@ public class GetAccessToken {
                 prop.setProperty("oauth.accessToken", accessToken.getToken());
                 prop.setProperty("oauth.accessTokenSecret", accessToken.getTokenSecret());
                 os = new FileOutputStream(file);
-                prop.store(os, "twitter4j.properties");
+                prop.store(os, "twitter4a.properties");
                 os.close();
             } catch (IOException ioe) {
                 ioe.printStackTrace();
