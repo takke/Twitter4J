@@ -75,7 +75,7 @@ ChangeLog since official Twitter4J 4.0.6
     ```java
     UploadedMedia media = twitter.uploadMediaChunked(
             new ChunkedUploadConfiguration.Builder()
-                    .movie()
+                    .video()
                     .from(new File(movieFileName))
                     .build());
 
