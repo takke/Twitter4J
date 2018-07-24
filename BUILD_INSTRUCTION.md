@@ -66,7 +66,6 @@ References
 TODO
 ====
 
-- Fix Contributors
 - Java 1.8
 - Remove media-support module
 - Remove stream module

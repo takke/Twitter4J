@@ -65,7 +65,8 @@ ChangeLog since official Twitter4J 4.0.6
   - Rename to Twitter4A
   - Rename package from twitter4j.* to twitter4a.*
   - Drop maven support (Remove pom.xml)
-  
+  - ```#237``` Add creating ext alt text (createMediaMetadata)
+  - ```#284``` Add configuration to OAuthAuthorization in RequestToken 
 
 ## 4.1.0 Beta4 (2018-07-19)
   - Support video uploading feature!
@@ -120,13 +121,16 @@ Contributors
 
 ```
 Aaron Rankin <aaron at sproutsocial.com> @aaronrankin
+Abhishek1203
 Adam Samet <asamet at twitter.com> @damnitsamet
 Adrian Petrescu <apetresc at gmail.com> @apetresc
 Akash Nawani <akash.nawani at gmail.com> @AkashNawani
+Akshansh Jain
 Alan Gutierrez <alan at blogometer.com>
 Alessandro Bahgat <ale.bahgat at gmail.com> @abahgat
 Alex Kira <alex.kira at gmail.com> @alexkira
 Amine Bezzarga <abezzarg at gmail.com> @Go_Mino
+Aniket Divekar
 Anton Novopashin <antonevane at gmail.com> @anton_evane
 Andy Boothe <andy.boothe at gmail.com> @sigpwned
 Blake Barnes <blake.barnes at gmail.com>
@@ -154,6 +158,7 @@ Hiroaki Takeuchi <takke30 at gmail.com> @takke
 Hiroki Takemoto <pompopo at gmail.com> @pompopo
 Hiroshi Sugimori <mamamadata at gmail.com> @ham1975
 Hitoshi Kunimatsu <hkhumanoid at gmail.com>
+Ibanga Enoobong Ime <ibangaenoobong at yahoo.com>
 Igor Brigadir <igor.brigadir at insight-centre.org> @igorbrigadir
 JJ Kelley <jjthemachine at gmail.com> @jjthemachine
 Jacob Elder <jacob.elder@gmail.com> @jelder
@@ -197,6 +202,7 @@ Rajesh Koilpillai <rajesh.koilpillai at gmail.com> @rajeshkp
 Roberto Estrada <robestradac at gmail.com>
 Robson Cassol <robsoncassol at gmail.com> @robsoncassol
 Roy Reshef <royreshef at gmail.com> @tsipo
+Régis Jean-Gilles
 Rui Silva
 Sam Pullara <sam at sampullara.com> @sampullara
 Sdk0815 <developer at terumode.net> @Sdk0815
