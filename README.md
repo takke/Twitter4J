@@ -3,9 +3,6 @@ Twitter4A
 
 [ ![Download](https://api.bintray.com/packages/panecraft/maven/Twitter4A/images/download.svg) ](https://bintray.com/panecraft/maven/Twitter4A/_latestVersion)
 
-<!--*This repository is provided for convenience of existing users of Twitter4J for the stopgap hiatus of the official Twitter4J.*-->
-
-
 Twitter4A is a Twitter API binding library for the Java language licensed under Apache License 2.0 forked from Twitter4J.
 
 Twitter4A includes software from JSON.org to parse JSON response from the Twitter API. You can see the license term at http://www.JSON.org/license.html
@@ -33,13 +30,16 @@ Get Started
 allprojects {
   repositories {
     ...
-    maven { url "http://dl.bintray.com/panecraft/Twitter4A" }
+    maven { url "http://dl.bintray.com/panecraft/maven" }
   }
 }
 ```
 
 ```groovy
-implementation "org.twitter4a:twitter4a-core:$twitter4aVersion"
+implementation "org.twitter4a:twitter4a-core:${twitter4aVersion}"
+implementation "org.twitter4a:twitter4a-stream:${twitter4aVersion}"
+implementation "org.twitter4a:twitter4a-http2-support:${twitter4aVersion}"
+...
 ```
 
 
@@ -64,8 +64,8 @@ ChangeLog since official Twitter4J 4.0.6
 ## 4.1.0 (2018-07-24)
   - Rename to Twitter4A
   - Rename package from twitter4j.* to twitter4a.*
-  - ```#237``` Add creating ext alt text (createMediaMetadata)
-  - ```#284``` Add configuration to OAuthAuthorization in RequestToken 
+  - ```#237``` [Add creating ext alt text (createMediaMetadata) by takke](https://github.com/yusuke/twitter4j/pull/237)
+  - ```#284``` [Add configuration to OAuthAuthorization in RequestToken by moko256](https://github.com/yusuke/twitter4j/pull/284) 
   - Drop maven support (Remove pom.xml)
 
 ## 4.1.0 Beta4 (2018-07-19)
