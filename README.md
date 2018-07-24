@@ -96,7 +96,7 @@ ChangeLog since official Twitter4J 4.0.6
 
 ## 4.1.0 Beta3 (2018-07-13)
   - ```#262``` [Add auto_populate_reply_metadata by abhishek1203](https://github.com/yusuke/twitter4j/pull/262)
-  - Add exclude_reply_user_ids for auto_populate_reply_metadata (see [example](https://github.com/takke/twitter4a/blob/4.1.0/twitter4a-examples/src/main/java/twitter4a/examples/tweets/ReplyStatus.java#L51-L53))
+  - Add exclude_reply_user_ids for auto_populate_reply_metadata (see [example](https://github.com/takke/twitter4a/tree/dbd0c59abfa35fe310f47400f1fa32f157255629/twitter4a-examples/src/main/java/twitter4a/examples/tweets/ReplyStatus.java#L51-L53))
   - ```#279``` [Add method "setUploadBaseURL()" in ConfigurationBuilder by moko256](https://github.com/yusuke/twitter4j/pull/279)
 
 ## 4.1.0 Beta2 (2018-07-12)
