@@ -50,7 +50,7 @@ public final class ReplyStatus {
 
             // comment-out if you need auto_populate_reply_metadata and exclude_reply_user_ids
 //            statusUpdate.setAutoPopulateReplyMetadata(true);
-//            statusUpdate.setExcludeReplyUserIds(4933401);   // exclude yusuke
+//            statusUpdate.setExcludeReplyUserIds(8379212);   // exclude takke
 
             Status replyStatus = twitter.updateStatus(statusUpdate);
             System.out.println("Successfully updated the status to [" + replyStatus.getText() + "], inReplyToStatusId[" + replyStatus.getInReplyToStatusId() + "].");
