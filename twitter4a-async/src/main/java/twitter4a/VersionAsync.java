@@ -20,7 +20,7 @@ package twitter4a;
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
 public final class VersionAsync {
-    private static final String VERSION = "4.1.0-beta5";
+    private static final String VERSION = "4.1.0";
     private static final String TITLE = "Twitter4A Async API";
 
     private VersionAsync() {

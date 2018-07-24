@@ -218,7 +218,7 @@ public interface TweetsResources {
      * @param altText alt text
      * @return 200 (success), 4xx (Bad Request), 5xx (server error)
      * @throws TwitterException when Twitter service or network is unavailable
-     * @since Twitter4J 4.1.0-beta5
+     * @since Twitter4J 4.1.0
      */
     int createMediaMetadata(long mediaId, String altText) throws TwitterException;
 }

@@ -21,7 +21,7 @@ package twitter4a;
  * @since Twitter4J 2.2.4
  */
 public final class VersionAppEngine {
-    private static final String VERSION = "4.1.0-beta5";
+    private static final String VERSION = "4.1.0";
     private static final String TITLE = "Twitter4A App Engine Support";
 
     private VersionAppEngine() {

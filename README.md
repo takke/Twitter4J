@@ -61,12 +61,12 @@ CHANGELOG
 
 ChangeLog since official Twitter4J 4.0.6
 
-## 4.1.0 Beta5 (2018-07-xx)
+## 4.1.0 (2018-07-24)
   - Rename to Twitter4A
   - Rename package from twitter4j.* to twitter4a.*
-  - Drop maven support (Remove pom.xml)
   - ```#237``` Add creating ext alt text (createMediaMetadata)
   - ```#284``` Add configuration to OAuthAuthorization in RequestToken 
+  - Drop maven support (Remove pom.xml)
 
 ## 4.1.0 Beta4 (2018-07-19)
   - Support video uploading feature!
