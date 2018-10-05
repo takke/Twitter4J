@@ -2,7 +2,7 @@ ext {
     // local directory for deploy of results to upload to github
     repo = new File(rootDir, "repository")
     groupId = 'org.twitter4a'
-    versionName = '4.1.0'
+    versionName = '4.1.1'
 }
 
 allprojects  {
