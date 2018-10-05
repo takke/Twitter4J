@@ -61,6 +61,9 @@ CHANGELOG
 
 ChangeLog since official Twitter4J 4.0.6
 
+## 4.1.1 (2018-08-xx)
+  - ```DirectMessageEvent``` extends ```EntitySupport```
+
 ## 4.1.0 (2018-07-24)
   - Rename to Twitter4A
   - Rename package from twitter4j.* to twitter4a.*
