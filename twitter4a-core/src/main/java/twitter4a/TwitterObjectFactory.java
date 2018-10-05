@@ -227,6 +227,22 @@ public final class TwitterObjectFactory {
     }
 
     /**
+     * Constructs a DirectMessageEvent object from rawJSON string.
+     *
+     * @param rawJSON raw JSON form as String
+     * @return DirectMessageEvent
+     * @throws TwitterException when provided string is not a valid JSON string.
+     * @since Twitter4J 2.1.7
+     */
+    public static DirectMessageEvent createDirectMessageEvent(String rawJSON) throws TwitterException {
+        try {
+            return new DirectMessageEventJSONImpl(new JSONObject(rawJSON));
+        } catch (JSONException e) {
+            throw new TwitterException(e);
+        }
+    }
+
+    /**
      * Constructs a Location object from rawJSON string.
      *
      * @param rawJSON raw JSON form as String
