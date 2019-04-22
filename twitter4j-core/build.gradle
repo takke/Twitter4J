@@ -18,6 +18,6 @@ dependencies {
     compileOnly 'org.slf4j:slf4j-api:1.7.12'
     compileOnly 'commons-logging:commons-logging-api:1.1'
     compileOnly 'log4j:log4j:1.2.17'
-    testImplementation 'junit:junit:4.10'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     testImplementation 'com.googlecode:kryo:1.04'
 }
