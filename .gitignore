@@ -21,3 +21,5 @@ twitter4j.properties
 xauth-test.properties
 sitestream-test.properties
 .gradle/
+build
+local.properties
