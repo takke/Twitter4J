@@ -1,0 +1,4 @@
+dependencies {
+    implementation project(':twitter4j-core')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
+}
