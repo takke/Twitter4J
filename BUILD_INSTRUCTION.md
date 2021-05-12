@@ -43,10 +43,20 @@ $ git tag vX.Y.Z
 $ git push --tags
 ```
 
-- Release to bintray
+- Release to github.io
 ```bash
-$ ./gradlew clean bintrayUpload -x test
+$ mkdir release_to_github_io
+$ cd release_to_github_io
+$ git clone git@github.com:takke/takke.github.io.git
+$ cd ../
+
+// generate artifacts to `release_to_github_io/takke.github.io.git/maven/org/twitter4j/...`
+$ ./gradlew clean publish -x test
+
+$ cd release_to_github_io/takke.github.io.git/
+$ git status
+$ git add maven
+$ git status
+$ git commit -m "twitter4j vX.Y.Z"
+$ git push
 ```
-
-- Publish [package](https://bintray.com/takke/maven/twitter4j-takke-mod) on bintray
-

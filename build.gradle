@@ -1,6 +1,6 @@
 ext {
     groupId = 'org.twitter4j'
-    versionName = '4.0.8-20200811'
+    versionName = '4.0.8-20210512'
     versionDescription = 'Twitter4J Version ' + versionName
 }
 
@@ -9,15 +9,6 @@ allprojects  {
 
     group = groupId
     version = versionName
-}
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
-    }
 }
 
 // for build
@@ -44,7 +35,10 @@ subprojects {
 subprojects {
     apply plugin: 'maven'
     apply plugin: 'maven-publish'
-    apply plugin: 'com.jfrog.bintray'
+
+    javadoc {
+        failOnError = false
+    }
 
     // custom tasks for creating source/javadoc jars
     task sourcesJar(type: Jar, dependsOn: classes) {
@@ -72,42 +66,10 @@ subprojects {
                 version versionName
             }
         }
-    }
-
-    //--------------------------------------------------
-    // upload to bintray
-    //--------------------------------------------------
-    // ./gradlew clean bintrayUpload -x test
-    // and publish it on https://bintray.com/takke/maven/twitter4j-takke-mod
-    bintray {
-        user = hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
-        key = hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
-
-        // false => push upload button on bintray web page to distribute new version manually.
-        publish = false
-
-//        configurations = ['MyPublication']
-
-        pkg {
-            repo = 'maven'
-            name = 'twitter4j-takke-mod'
-            userOrg = user
-            licenses = ['Apache-2.0']
-            labels = ['java']
-            vcsUrl = vcsUrl
-            version {
-                name = versionName
-                desc = versionDescription
-                vcsTag = versionName
+        repositories {
+            maven {
+                url "file://${rootDir}/release_to_github_io/takke.github.io/maven/"
             }
         }
     }
-
-    bintrayUpload.doFirst {
-        publications = publishing.publications.collect {
-            it.name
-        }
-    }
-
-    bintrayUpload.dependsOn publishToMavenLocal
 }
