@@ -485,6 +485,12 @@ public final class Query implements java.io.Serializable {
         return nextPageQuery;
     }
 
+    // for serialization use cases
+    /*package*/ void setNextPage(String nextPageQuery) {
+        this.nextPageQuery = nextPageQuery;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
