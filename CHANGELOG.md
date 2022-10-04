@@ -4,6 +4,7 @@ Change Log
 v4.0.8-YYYYMMDD
 ---------------
 - Add `CHANGELOG.md`
+- Add `Status.EditControl` and `Status.initialTweetId` to get edited tweets
 - Add `includeExtEditControl` property to enable retrieving edit history
 - Add @Nullable/@NotNull annotations to Status
 - Remove twitter4j-async module
