@@ -261,4 +261,10 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      */
     @Nullable
     URLEntity getQuotedStatusPermalink();
+
+    @Nullable
+    EditControl getEditControl();
+
+    long getInitialTweetId();
+
 }

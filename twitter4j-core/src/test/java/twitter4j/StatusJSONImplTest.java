@@ -2,13 +2,12 @@ package twitter4j;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Cedric Meury - cedric at meury.com
  */
+@SuppressWarnings("SimplifiableAssertion")
 public class StatusJSONImplTest {
 
     @Test
@@ -215,6 +214,52 @@ public class StatusJSONImplTest {
         assertEquals(149, status.getText().length());
         assertEquals(13, status.getDisplayTextRangeStart());
         assertEquals(125, status.getDisplayTextRangeEnd());
+
+        // edit control values are default
+        assertEquals(-1L, status.getInitialTweetId());
+        assertNull(status.getEditControl());
+    }
+
+    @Test
+    void testIncludeExtEditControl() throws Exception {
+
+        // edited example
+        {
+            // https://twitter.com/TwitterBlue/status/1575590534529556480
+            String rawJson = "{\"created_at\":\"Thu Sep 29 20:57:11 +0000 2022\",\"id\":1575590534529556500,\"id_str\":\"1575590534529556480\",\"full_text\":\"hello\\n\\nthis is a test to make sure the edit button works, we窶冤l let you know how it goes https://t.co/XbZmX572Xc\",\"truncated\":false,\"display_text_range\":[0,112],\"entities\":{\"hashtags\":[],\"symbols\":[],\"user_mentions\":[],\"urls\":[{\"url\":\"https://t.co/XbZmX572Xc\",\"expanded_url\":\"https://twitter.com/i/web/status/1575590534529556480\",\"display_url\":\"twitter.com/i/web/status/1窶ｦ\",\"indices\":[89,112]}]},\"source\":\"<a href=\\\"http://twitter.com\\\" rel=\\\"nofollow\\\">Twitter for  iPhone</a>\",\"in_reply_to_status_id\":null,\"in_reply_to_status_id_str\":null,\"in_reply_to_user_id\":null,\"in_reply_to_user_id_str\":null,\"in_reply_to_screen_name\":null,\"user\":{\"id\":1399766153053061000,\"id_str\":\"1399766153053061121\",\"name\":\"Twitter Blue\",\"screen_name\":\"TwitterBlue\",\"location\":\"Twitter HQ\",\"description\":\"Come on in, Twitter Blue members. Follow for a heads up on new features and to get support.\",\"url\":\"https://t.co/YhGUfs5vnN\",\"entities\":{\"url\":{\"urls\":[{\"url\":\"https://t.co/YhGUfs5vnN\",\"expanded_url\":\"https://help.twitter.com/using-twitter/twitter-blue\",\"display_url\":\"help.twitter.com/using-twitter/窶ｦ\",\"indices\":[0,23]}]},\"description\":{\"urls\":[]}},\"protected\":false,\"followers_count\":139665,\"friends_count\":0,\"listed_count\":516,\"created_at\":\"Tue Jun 01 16:34:27 +0000 2021\",\"favourites_count\":485,\"utc_offset\":null,\"time_zone\":null,\"geo_enabled\":false,\"verified\":true,\"statuses_count\":1159,\"lang\":null,\"contributors_enabled\":false,\"is_translator\":false,\"is_translation_enabled\":false,\"profile_background_color\":\"F5F8FA\",\"profile_background_image_url\":null,\"profile_background_image_url_https\":null,\"profile_background_tile\":false,\"profile_image_url\":\"http://pbs.twimg.com/profile_images/1484226604104486912/dW26JJSc_normal.jpg\",\"profile_image_url_https\":\"https://pbs.twimg.com/profile_images/1484226604104486912/dW26JJSc_normal.jpg\",\"profile_banner_url\":\"https://pbs.twimg.com/profile_banners/1399766153053061121/1636475221\",\"profile_link_color\":\"1DA1F2\",\"profile_sidebar_border_color\":\"C0DEED\",\"profile_sidebar_fill_color\":\"DDEEF6\",\"profile_text_color\":\"333333\",\"profile_use_background_image\":true,\"has_extended_profile\":true,\"default_profile\":true,\"default_profile_image\":false,\"following\":false,\"follow_request_sent\":false,\"notifications\":false,\"translator_type\":\"none\",\"withheld_in_countries\":[]},\"geo\":null,\"coordinates\":null,\"place\":null,\"contributors\":null,\"is_quote_status\":false,\"retweet_count\":5822,\"favorite_count\":47950,\"favorited\":true,\"retweeted\":false,\"possibly_sensitive\":false,\"lang\":\"en\",\"ext_edit_control\":{\"edit\":{\"initial_tweet_id\":\"1575590109000323073\",\"edit_control_initial\":{\"edit_tweet_ids\":[\"1575590109000323073\",\"1575590534529556480\"],\"editable_until_msecs\":\"1664486729000\",\"edits_remaining\":\"4\",\"is_edit_eligible\":true}}}}";
+
+            JSONObject json = new JSONObject(rawJson);
+            StatusJSONImpl status = new StatusJSONImpl(json);
+
+//            System.out.println("json = " + json.toString(3));
+
+            assertEquals(1575590109000323073L, status.getInitialTweetId());
+            EditControl editControl = status.getEditControl();
+            assert editControl != null;
+            assertArrayEquals(new long[]{1575590109000323073L, 1575590534529556480L}, editControl.getEditTweetIds());
+            assertEquals(1664486729000L, editControl.getEditableUntilMsecs());
+            assertEquals(4, editControl.getEditsRemaining());
+            assertEquals(true, editControl.isEditEligible());
+        }
+
+        // unedited example
+        {
+            // https://twitter.com/TwitterBlue/status/1576980495552114688
+            String rawJson = "{\"created_at\":\"Mon Oct 03 17:00:23 +0000 2022\",\"id\":1576980495552114700,\"id_str\":\"1576980495552114688\",\"full_text\":\"plus, a version history is available on every edited Tweet so you know what changed https://t.co/E3eZSj7NsL\",\"truncated\":false,\"display_text_range\":[0,83],\"entities\":{\"hashtags\":[],\"symbols\":[],\"user_mentions\":[],\"urls\":[],\"media\":[{\"id\":1576978886927302700,\"id_str\":\"1576978886927302656\",\"indices\":[84,107],\"media_url\":\"http://pbs.twimg.com/tweet_video_thumb/FeKN8UWXwAAOcYe.jpg\",\"media_url_https\":\"https://pbs.twimg.com/tweet_video_thumb/FeKN8UWXwAAOcYe.jpg\",\"url\":\"https://t.co/E3eZSj7NsL\",\"display_url\":\"pic.twitter.com/E3eZSj7NsL\",\"expanded_url\":\"https://twitter.com/TwitterBlue/status/1576980495552114688/photo/1\",\"type\":\"photo\",\"sizes\":{\"thumb\":{\"w\":150,\"h\":150,\"resize\":\"crop\"},\"small\":{\"w\":680,\"h\":680,\"resize\":\"fit\"},\"medium\":{\"w\":1080,\"h\":1080,\"resize\":\"fit\"},\"large\":{\"w\":1080,\"h\":1080,\"resize\":\"fit\"}}}]},\"extended_entities\":{\"media\":[{\"id\":1576978886927302700,\"id_str\":\"1576978886927302656\",\"indices\":[84,107],\"media_url\":\"http://pbs.twimg.com/tweet_video_thumb/FeKN8UWXwAAOcYe.jpg\",\"media_url_https\":\"https://pbs.twimg.com/tweet_video_thumb/FeKN8UWXwAAOcYe.jpg\",\"url\":\"https://t.co/E3eZSj7NsL\",\"display_url\":\"pic.twitter.com/E3eZSj7NsL\",\"expanded_url\":\"https://twitter.com/TwitterBlue/status/1576980495552114688/photo/1\",\"type\":\"animated_gif\",\"sizes\":{\"thumb\":{\"w\":150,\"h\":150,\"resize\":\"crop\"},\"small\":{\"w\":680,\"h\":680,\"resize\":\"fit\"},\"medium\":{\"w\":1080,\"h\":1080,\"resize\":\"fit\"},\"large\":{\"w\":1080,\"h\":1080,\"resize\":\"fit\"}},\"video_info\":{\"aspect_ratio\":[1,1],\"variants\":[{\"bitrate\":0,\"content_type\":\"video/mp4\",\"url\":\"https://video.twimg.com/tweet_video/FeKN8UWXwAAOcYe.mp4\"}]},\"ext_alt_text\":\"A phone screen showing a Tweet on a blue background. At the bottom of the Tweet, there is a label that reads, “Last edited 11:38 PM 07/26/22 Twitter for iPhone.” The label is clicked to see the Edit history. It shows the latest Tweet and the Version history. The Latest Tweet says, “Thanks for all the love! Feels good to be recognized by my peers.” The Tweet in the Version history says, “Thanks for all the love! Feels good to be recognized by my pears.”\"}]},\"source\":\"<a href=\\\"https://mobile.twitter.com\\\" rel=\\\"nofollow\\\">Twitter Web App</a>\",\"in_reply_to_status_id\":1576980459002609700,\"in_reply_to_status_id_str\":\"1576980459002609674\",\"in_reply_to_user_id\":1399766153053061000,\"in_reply_to_user_id_str\":\"1399766153053061121\",\"in_reply_to_screen_name\":\"TwitterBlue\",\"user\":{\"id\":1399766153053061000,\"id_str\":\"1399766153053061121\",\"name\":\"Twitter Blue\",\"screen_name\":\"TwitterBlue\",\"location\":\"Twitter HQ\",\"description\":\"Come on in, Twitter Blue members. Follow for a heads up on new features and to get support.\",\"url\":\"https://t.co/YhGUfs5vnN\",\"entities\":{\"url\":{\"urls\":[{\"url\":\"https://t.co/YhGUfs5vnN\",\"expanded_url\":\"https://help.twitter.com/using-twitter/twitter-blue\",\"display_url\":\"help.twitter.com/using-twitter/…\",\"indices\":[0,23]}]},\"description\":{\"urls\":[]}},\"protected\":false,\"followers_count\":139679,\"friends_count\":0,\"listed_count\":516,\"created_at\":\"Tue Jun 01 16:34:27 +0000 2021\",\"favourites_count\":485,\"utc_offset\":null,\"time_zone\":null,\"geo_enabled\":false,\"verified\":true,\"statuses_count\":1159,\"lang\":null,\"contributors_enabled\":false,\"is_translator\":false,\"is_translation_enabled\":false,\"profile_background_color\":\"F5F8FA\",\"profile_background_image_url\":null,\"profile_background_image_url_https\":null,\"profile_background_tile\":false,\"profile_image_url\":\"http://pbs.twimg.com/profile_images/1484226604104486912/dW26JJSc_normal.jpg\",\"profile_image_url_https\":\"https://pbs.twimg.com/profile_images/1484226604104486912/dW26JJSc_normal.jpg\",\"profile_banner_url\":\"https://pbs.twimg.com/profile_banners/1399766153053061121/1636475221\",\"profile_image_extensions_alt_text\":null,\"profile_banner_extensions_alt_text\":null,\"profile_link_color\":\"1DA1F2\",\"profile_sidebar_border_color\":\"C0DEED\",\"profile_sidebar_fill_color\":\"DDEEF6\",\"profile_text_color\":\"333333\",\"profile_use_background_image\":true,\"has_extended_profile\":true,\"default_profile\":true,\"default_profile_image\":false,\"following\":false,\"follow_request_sent\":false,\"notifications\":false,\"translator_type\":\"none\",\"withheld_in_countries\":[]},\"geo\":null,\"coordinates\":null,\"place\":null,\"contributors\":null,\"is_quote_status\":false,\"retweet_count\":56,\"favorite_count\":197,\"favorited\":false,\"retweeted\":false,\"possibly_sensitive\":false,\"lang\":\"en\",\"ext_edit_control\":{\"initial\":{\"edit_tweet_ids\":[\"1576980495552114688\"],\"editable_until_msecs\":\"1664818223000\",\"edits_remaining\":\"5\",\"is_edit_eligible\":false}}}";
+
+            JSONObject json = new JSONObject(rawJson);
+            StatusJSONImpl status = new StatusJSONImpl(json);
+
+//            System.out.println("json = " + json.toString(3));
+
+            assertEquals(-1L, status.getInitialTweetId());
+            EditControl editControl = status.getEditControl();
+            assert editControl != null;
+            assertArrayEquals(new long[]{1576980495552114688L}, editControl.getEditTweetIds());
+            assertEquals(1664818223000L, editControl.getEditableUntilMsecs());
+            assertEquals(5, editControl.getEditsRemaining());
+            assertEquals(false, editControl.isEditEligible());
+        }
     }
 
 }

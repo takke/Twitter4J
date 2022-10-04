@@ -69,6 +69,8 @@ import static twitter4j.ParseUtil.getDate;
     private Status quotedStatus;
     private long quotedStatusId = -1L;
     private URLEntity quotedStatusPermalink;
+    private EditControl editControl = null;
+    private long initialTweetId = -1L;
 
     /*package*/StatusJSONImpl(HttpResponse res, Configuration conf) throws TwitterException {
         super(res);
@@ -141,6 +143,25 @@ import static twitter4j.ParseUtil.getDate;
             if (!json.isNull("quoted_status_id")) {
                 quotedStatusId = ParseUtil.getLong("quoted_status_id", json);
             }
+
+            // edit controls
+            JSONObject extEditControlJson = json.optJSONObject("ext_edit_control");
+            if (extEditControlJson != null) {
+                if (!extEditControlJson.isNull("initial")) {
+                    editControl = new EditControlImpl(extEditControlJson.getJSONObject("initial"));
+                } else if (!extEditControlJson.isNull("edit")) {
+                    JSONObject edit = extEditControlJson.getJSONObject("edit");
+                    if (!edit.isNull("edit_control_initial")) {
+                        editControl = new EditControlImpl(edit.getJSONObject("edit_control_initial"));
+                    }
+                    initialTweetId = edit.getLong("initial_tweet_id");
+                }
+            }
+
+            if (!json.isNull("quoted_status")) {
+                quotedStatus = new StatusJSONImpl(json.getJSONObject("quoted_status"));
+            }
+
             if (!json.isNull("display_text_range")) {
                 JSONArray indicesArray = json.getJSONArray("display_text_range");
                 displayTextRangeStart = indicesArray.getInt(0);
@@ -439,6 +460,17 @@ import static twitter4j.ParseUtil.getDate;
     @Nullable
     public URLEntity getQuotedStatusPermalink() {
         return quotedStatusPermalink;
+    }
+
+    @Override
+    @Nullable
+    public EditControl getEditControl() {
+        return editControl;
+    }
+
+    @Override
+    public long getInitialTweetId() {
+        return initialTweetId;
     }
 
     @Override
