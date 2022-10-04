@@ -5,7 +5,7 @@ ext {
 }
 
 allprojects  {
-    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
 
     group = groupId
     version = versionName
@@ -33,7 +33,6 @@ subprojects {
 // for publish
 // $ ./gradlew publishToMavenLocal  # deploy to ~/.m2/repository/org/twitter4j/
 subprojects {
-    apply plugin: 'maven'
     apply plugin: 'maven-publish'
 
     javadoc {
