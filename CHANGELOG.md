@@ -5,6 +5,7 @@ v4.0.8-YYYYMMDD
 ---------------
 - Add `CHANGELOG.md`
 - Add `includeExtEditControl` property to enable retrieving edit history
+- Add @Nullable/@NotNull annotations to Status
 - Remove twitter4j-async module
 - Remove twitter4j-appengine module
 - Gradle 6.2.2 -> 7.5.1
