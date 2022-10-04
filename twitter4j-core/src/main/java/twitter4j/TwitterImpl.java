@@ -69,6 +69,12 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
                 }
                 implicitParamsStr += "tweet_mode=extended";
             }
+            if (conf.isIncludeExtEditControl()) {
+                if (!"".equals(implicitParamsStr)) {
+                    implicitParamsStr += "&";
+                }
+                implicitParamsStr += "include_ext_edit_control=true";
+            }
 
             List<HttpParameter> params = new ArrayList<HttpParameter>(3);
             if (conf.isIncludeEntitiesEnabled()) {
@@ -85,6 +91,9 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
             }
             if (conf.isTweetModeExtended()) {
                 params.add(new HttpParameter("tweet_mode", "extended"));
+            }
+            if (conf.isIncludeExtEditControl()) {
+                params.add(new HttpParameter("include_ext_edit_control", "true"));
             }
             HttpParameter[] implicitParams = params.toArray(new HttpParameter[params.size()]);
 

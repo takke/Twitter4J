@@ -119,6 +119,8 @@ public interface Configuration extends AuthorizationConfiguration, java.io.Seria
 
     boolean isTweetModeExtended();
 
+    boolean isIncludeExtEditControl();
+
     boolean isDaemonEnabled();
 
     boolean isIncludeEmailEnabled();

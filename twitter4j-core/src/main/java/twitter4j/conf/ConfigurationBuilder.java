@@ -276,6 +276,12 @@ public final class ConfigurationBuilder {
         return this;
     }
 
+    public ConfigurationBuilder setIncludeExtEditControl(boolean enabled) {
+        checkNotBuilt();
+        configurationBean.setIncludeExtEditControl(enabled);
+        return this;
+    }
+
     public ConfigurationBuilder setIncludeMyRetweetEnabled(boolean enabled) {
         checkNotBuilt();
         configurationBean.setIncludeMyRetweetEnabled(enabled);

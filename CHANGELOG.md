@@ -4,6 +4,8 @@ Change Log
 v4.0.8-YYYYMMDD
 ---------------
 - Add `CHANGELOG.md`
+- Add `includeExtEditControl` property to enable retrieving edit history
+- Gradle 6.2.2 -> 7.5.1
 
 v4.0.8-20220607
 ---------------
