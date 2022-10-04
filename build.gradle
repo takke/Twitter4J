@@ -16,8 +16,8 @@ allprojects  {
 subprojects {
     apply plugin: 'java'
 
-    sourceCompatibility = 1.6
-    targetCompatibility = 1.6
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
 
     [compileJava, compileTestJava, javadoc].each {
         it.options.encoding = 'UTF-8'
@@ -26,7 +26,7 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-        maven { url "http://repo.maven.apache.org/maven2" }
+        maven { url "https://repo.maven.apache.org/maven2" }
     }
 }
 
