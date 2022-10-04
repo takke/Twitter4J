@@ -28,12 +28,9 @@ Modify version name
 Release
 -------
 
-- Modify version name
-  - update ```versionName```  in build.gradle
-
 - Commit it
 ```bash
-$ git add build.gradle
+$ git add build.gradle twitter4j-core/src/main/java/twitter4j/Version.java
 $ git commit "bump to vX.Y.Z"
 ```
 

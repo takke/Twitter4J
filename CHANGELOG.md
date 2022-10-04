@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-v4.0.8-YYYYMMDD
+v4.0.8-20221004
 ---------------
 - Add `CHANGELOG.md`
 - Add `Status.EditControl` and `Status.initialTweetId` to get edited tweets
