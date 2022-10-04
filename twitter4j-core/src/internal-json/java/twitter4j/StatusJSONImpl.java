@@ -16,6 +16,8 @@
 
 package twitter4j;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import twitter4j.conf.Configuration;
 
 import java.util.Arrays;
@@ -261,6 +263,7 @@ import static twitter4j.ParseUtil.getDate;
     }
 
     @Override
+    @Nullable
     public Date getCreatedAt() {
         return this.createdAt;
     }
@@ -271,6 +274,7 @@ import static twitter4j.ParseUtil.getDate;
     }
 
     @Override
+    @Nullable
     public String getText() {
         return this.text;
     }
@@ -286,6 +290,7 @@ import static twitter4j.ParseUtil.getDate;
     }
 
     @Override
+    @Nullable
     public String getSource() {
         return this.source;
     }
@@ -307,21 +312,25 @@ import static twitter4j.ParseUtil.getDate;
     }
 
     @Override
+    @Nullable
     public String getInReplyToScreenName() {
         return inReplyToScreenName;
     }
 
     @Override
+    @Nullable
     public GeoLocation getGeoLocation() {
         return geoLocation;
     }
 
     @Override
+    @Nullable
     public Place getPlace() {
         return place;
     }
 
     @Override
+    @NotNull
     public long[] getContributors() {
         return contributorsIDs;
     }
@@ -342,6 +351,7 @@ import static twitter4j.ParseUtil.getDate;
     }
 
     @Override
+    @Nullable
     public User getUser() {
         return user;
     }
@@ -352,6 +362,7 @@ import static twitter4j.ParseUtil.getDate;
     }
 
     @Override
+    @Nullable
     public Status getRetweetedStatus() {
         return retweetedStatus;
     }
@@ -402,11 +413,13 @@ import static twitter4j.ParseUtil.getDate;
     }
 
     @Override
+    @Nullable
     public Scopes getScopes() {
         return scopes;
     }
 
     @Override
+    @Nullable
     public String[] getWithheldInCountries() {
         return withheldInCountries;
     }
@@ -417,17 +430,19 @@ import static twitter4j.ParseUtil.getDate;
     }
 
     @Override
+    @Nullable
     public Status getQuotedStatus() {
         return quotedStatus;
     }
 
     @Override
+    @Nullable
     public URLEntity getQuotedStatusPermalink() {
-
         return quotedStatusPermalink;
     }
 
     @Override
+    @Nullable
     public String getLang() {
         return lang;
     }

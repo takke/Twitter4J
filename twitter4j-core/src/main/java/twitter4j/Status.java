@@ -16,6 +16,9 @@
 
 package twitter4j;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Date;
 
 /**
@@ -32,6 +35,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return created_at
      * @since Twitter4J 1.1.0
      */
+    @Nullable
     Date getCreatedAt();
 
     /**
@@ -46,6 +50,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      *
      * @return the text (e.g. Along with our new #Twitterbird, we've also updated our Display Guidelines: https://t.co/Ed4omjYs  ^JC)
      */
+    @Nullable
     String getText();
 
     int getDisplayTextRangeStart();
@@ -58,6 +63,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return the source (e.g. &lt;a href="http://twitter.com" rel="nofollow"&gt;Twitter Web Client&lt;/a&gt;)
      * @since Twitter4J 1.0.4
      */
+    @Nullable
     String getSource();
 
 
@@ -91,6 +97,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return the in_in_reply_to_screen_name
      * @since Twitter4J 2.0.4
      */
+    @Nullable
     String getInReplyToScreenName();
 
     /**
@@ -99,6 +106,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return returns The location that this tweet refers to if available (can be null)
      * @since Twitter4J 2.1.0
      */
+    @Nullable
     GeoLocation getGeoLocation();
 
     /**
@@ -107,6 +115,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return The place attached to this status
      * @since Twitter4J 2.1.1
      */
+    @Nullable
     Place getPlace();
 
     /**
@@ -139,6 +148,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      *
      * @return the user
      */
+    @Nullable
     User getUser();
 
     /**
@@ -151,6 +161,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @since Twitter4J 2.1.0
      * @return retweeted status
      */
+    @Nullable
     Status getRetweetedStatus();
 
     /**
@@ -159,6 +170,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @since Twitter4J 2.2.3
      * @return contributors
      */
+    @NotNull
     long[] getContributors();
 
     /**
@@ -201,6 +213,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return two-letter iso language code (e.g. en)
      * @since Twitter4J 3.0.6
      */
+    @Nullable
     String getLang();
 
     /**
@@ -209,6 +222,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return the targeting scopes applied to a status.
      * @since Twitter4J 3.0.6
      */
+    @Nullable
     Scopes getScopes();
 
     /**
@@ -217,6 +231,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      *  @return list of country codes where the tweet is withheld - null if not withheld
      *  @since Twitter4j 4.0.3
      */
+    @Nullable
     String[] getWithheldInCountries();
 
     /**
@@ -233,6 +248,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return the quoted Tweet object
      * @since Twitter4J 4.0.4
      */
+    @Nullable
     Status getQuotedStatus();
 
     /**
@@ -243,5 +259,6 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return the URLEntity object that represents the permalink of the quoted Tweet. - null if not presents
      * @since Twitter4J 4.0.7
      */
+    @Nullable
     URLEntity getQuotedStatusPermalink();
 }
