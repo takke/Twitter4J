@@ -263,7 +263,7 @@ import static twitter4j.ParseUtil.getDate;
     }
 
     @Override
-    @Nullable
+    @NotNull
     public Date getCreatedAt() {
         return this.createdAt;
     }
@@ -274,7 +274,7 @@ import static twitter4j.ParseUtil.getDate;
     }
 
     @Override
-    @Nullable
+    @NotNull
     public String getText() {
         return this.text;
     }

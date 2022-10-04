@@ -35,7 +35,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return created_at
      * @since Twitter4J 1.1.0
      */
-    @Nullable
+    @NotNull
     Date getCreatedAt();
 
     /**
@@ -50,7 +50,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      *
      * @return the text (e.g. Along with our new #Twitterbird, we've also updated our Display Guidelines: https://t.co/Ed4omjYs  ^JC)
      */
-    @Nullable
+    @NotNull
     String getText();
 
     int getDisplayTextRangeStart();
