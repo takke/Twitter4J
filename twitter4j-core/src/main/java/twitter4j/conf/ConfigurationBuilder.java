@@ -126,6 +126,12 @@ public final class ConfigurationBuilder {
         return this;
     }
 
+    public ConfigurationBuilder setCookie(String cookie) {
+        checkNotBuilt();
+        configurationBean.setCookie(cookie);
+        return this;
+    }
+
     public ConfigurationBuilder setOAuthConsumerKey(String oAuthConsumerKey) {
         checkNotBuilt();
         configurationBean.setOAuthConsumerKey(oAuthConsumerKey);

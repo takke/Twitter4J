@@ -16,9 +16,6 @@
 
 package twitter4j.conf;
 
-import twitter4j.HttpClientConfiguration;
-import twitter4j.Logger;
-
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -26,6 +23,9 @@ import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
+import twitter4j.HttpClientConfiguration;
+import twitter4j.Logger;
 
 /**
  * Configuration base class with default settings.
@@ -42,6 +42,8 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
     private int httpStreamingReadTimeout = 40 * 1000;
     private int httpRetryCount = 0;
     private int httpRetryIntervalSeconds = 5;
+
+    private String cookie = null;
 
     private String oAuthConsumerKey = null;
     private String oAuthConsumerSecret = null;
@@ -420,6 +422,15 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
     }
 
     // oauth related setter/getters
+
+    @Override
+    public final String getCookie() {
+        return cookie;
+    }
+
+    protected final void setCookie(String cookie) {
+        this.cookie = cookie;
+    }
 
     @Override
     public final String getOAuthConsumerKey() {
