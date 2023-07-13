@@ -17,22 +17,32 @@
 
 package twitter4j;
 
-import okhttp3.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.Authenticator;
+import java.net.InetSocketAddress;
+import java.net.PasswordAuthentication;
+import java.net.Proxy;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.Call;
+import okhttp3.ConnectionPool;
+import okhttp3.Headers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.internal.Util;
 import okio.BufferedSink;
 import okio.Okio;
 import okio.Source;
 import twitter4j.conf.ConfigurationContext;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.*;
-import java.net.Authenticator;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Hiroaki Takeuchi - takke30 at gmail.com
@@ -201,6 +211,14 @@ public class AlternativeHttpClientImpl extends HttpClientBase implements HttpRes
                 logger.debug("Authorization: ", authorizationHeader.replaceAll(".", "*"));
             }
             builder.add("Authorization", authorizationHeader);
+
+            // send additional headers if needed
+            Map<String, String> additionalHeaders = req.getAuthorization().getAdditionalHeaders();
+            if (additionalHeaders != null) {
+                for (String key : additionalHeaders.keySet()) {
+                    builder.add(key, additionalHeaders.get(key));
+                }
+            }
         }
         if (req.getRequestHeaders() != null) {
             for (Map.Entry<String, String> entry : req.getRequestHeaders().entrySet()) {
