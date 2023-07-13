@@ -61,6 +61,12 @@ public final class AuthorizationFactory {
             if (screenName != null && password != null) {
                 auth = new BasicAuthorization(screenName, password);
             }
+
+            String cookie = conf.getCookie();
+            if (cookie != null) {
+                auth = new CookieAuthorization(conf);
+            }
+
         }
         if (null == auth) {
             auth = NullAuthorization.getInstance();
