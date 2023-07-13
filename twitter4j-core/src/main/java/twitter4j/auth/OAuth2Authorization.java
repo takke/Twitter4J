@@ -16,11 +16,18 @@
 
 package twitter4j.auth;
 
-import twitter4j.*;
-import twitter4j.conf.Configuration;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Map;
+
+import twitter4j.BASE64Encoder;
+import twitter4j.HttpClient;
+import twitter4j.HttpClientFactory;
+import twitter4j.HttpParameter;
+import twitter4j.HttpRequest;
+import twitter4j.HttpResponse;
+import twitter4j.TwitterException;
+import twitter4j.conf.Configuration;
 
 /**
  * @author KOMIYA Atsushi - komiya.atsushi at gmail.com
@@ -128,6 +135,11 @@ public class OAuth2Authorization implements Authorization, java.io.Serializable,
     @Override
     public boolean isEnabled() {
         return token != null;
+    }
+
+    @Override
+    public Map<String, String> getAdditionalHeaders() {
+        return null;
     }
 
     @Override

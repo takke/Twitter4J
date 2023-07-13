@@ -16,9 +16,10 @@
 
 package twitter4j.auth;
 
-import twitter4j.HttpRequest;
-
 import java.io.ObjectStreamException;
+import java.util.Map;
+
+import twitter4j.HttpRequest;
 
 /**
  * An interface represents credentials.
@@ -45,6 +46,11 @@ public class NullAuthorization implements Authorization, java.io.Serializable {
     @Override
     public boolean isEnabled() {
         return false;
+    }
+
+    @Override
+    public Map<String, String> getAdditionalHeaders() {
+        return null;
     }
 
     @Override

@@ -16,16 +16,28 @@
 
 package twitter4j.auth;
 
-import twitter4j.*;
-import twitter4j.conf.Configuration;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+
+import twitter4j.BASE64Encoder;
+import twitter4j.HttpClient;
+import twitter4j.HttpClientFactory;
+import twitter4j.HttpParameter;
+import twitter4j.HttpRequest;
+import twitter4j.Logger;
+import twitter4j.TwitterException;
+import twitter4j.conf.Configuration;
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
@@ -78,6 +90,11 @@ public class OAuthAuthorization implements Authorization, java.io.Serializable, 
     @Override
     public boolean isEnabled() {
         return oauthToken != null && oauthToken instanceof AccessToken;
+    }
+
+    @Override
+    public Map<String, String> getAdditionalHeaders() {
+        return null;
     }
 
     // implementation for OAuthSupport interface

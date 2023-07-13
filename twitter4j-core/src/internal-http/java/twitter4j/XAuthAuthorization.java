@@ -16,6 +16,8 @@
 
 package twitter4j;
 
+import java.util.Map;
+
 import twitter4j.auth.Authorization;
 import twitter4j.auth.BasicAuthorization;
 
@@ -63,5 +65,10 @@ public class XAuthAuthorization implements Authorization, java.io.Serializable {
     @Override
     public boolean isEnabled() {
         return basic.isEnabled();
+    }
+
+    @Override
+    public Map<String, String> getAdditionalHeaders() {
+        return null;
     }
 }

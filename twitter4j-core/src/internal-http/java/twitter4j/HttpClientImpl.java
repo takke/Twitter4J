@@ -16,13 +16,22 @@
 
 package twitter4j;
 
-import twitter4j.conf.ConfigurationContext;
-
-import java.io.*;
-import java.net.*;
+import java.io.BufferedInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.Authenticator;
+import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.PasswordAuthentication;
+import java.net.Proxy;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import twitter4j.conf.ConfigurationContext;
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
@@ -216,6 +225,14 @@ class HttpClientImpl extends HttpClientBase implements HttpResponseCode, java.io
                 logger.debug("Authorization: ", authorizationHeader.replaceAll(".", "*"));
             }
             connection.addRequestProperty("Authorization", authorizationHeader);
+
+            // send additional headers if needed
+            Map<String, String> additionalHeaders = req.getAuthorization().getAdditionalHeaders();
+            if (additionalHeaders != null) {
+                for (String key : additionalHeaders.keySet()) {
+                    connection.addRequestProperty(key, additionalHeaders.get(key));
+                }
+            }
         }
         if (req.getRequestHeaders() != null) {
             for (String key : req.getRequestHeaders().keySet()) {

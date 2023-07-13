@@ -28,6 +28,8 @@ public interface AuthorizationConfiguration {
 
     String getPassword();
 
+    String getCookie();
+
     String getOAuthConsumerKey();
 
     String getOAuthConsumerSecret();

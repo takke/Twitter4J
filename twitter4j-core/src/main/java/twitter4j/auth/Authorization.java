@@ -16,6 +16,8 @@
 
 package twitter4j.auth;
 
+import java.util.Map;
+
 import twitter4j.HttpRequest;
 
 /**
@@ -32,4 +34,6 @@ public interface Authorization extends java.io.Serializable {
      * @return true if authorization credentials are set
      */
     boolean isEnabled();
+
+    Map<String, String> getAdditionalHeaders();
 }
