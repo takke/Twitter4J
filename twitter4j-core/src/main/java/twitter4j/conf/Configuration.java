@@ -47,6 +47,9 @@ public interface Configuration extends AuthorizationConfiguration, java.io.Seria
     String getCookie();
 
     @Override
+    String getBearerToken();
+
+    @Override
     String getOAuthConsumerKey();
 
     @Override

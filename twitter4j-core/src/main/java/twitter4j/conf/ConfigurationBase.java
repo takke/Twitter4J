@@ -44,6 +44,7 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
     private int httpRetryIntervalSeconds = 5;
 
     private String cookie = null;
+    private String bearerToken = null;
 
     private String oAuthConsumerKey = null;
     private String oAuthConsumerSecret = null;
@@ -430,6 +431,15 @@ class ConfigurationBase implements Configuration, java.io.Serializable {
 
     protected final void setCookie(String cookie) {
         this.cookie = cookie;
+    }
+
+    @Override
+    public final String getBearerToken() {
+        return bearerToken;
+    }
+
+    protected final void setBearerToken(String bearerToken) {
+        this.bearerToken = bearerToken;
     }
 
     @Override

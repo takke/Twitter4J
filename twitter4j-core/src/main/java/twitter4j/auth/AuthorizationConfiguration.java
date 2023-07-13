@@ -30,6 +30,8 @@ public interface AuthorizationConfiguration {
 
     String getCookie();
 
+    String getBearerToken();
+
     String getOAuthConsumerKey();
 
     String getOAuthConsumerSecret();
