@@ -18,4 +18,9 @@ package twitter4j.api;
 
 public interface V1Resources extends ListsResources {
 
+    /**
+     * @return {@link twitter4j.api.ListsResources}
+     * @since Twitter4J 3.0.4
+     */
+    ListsResources list();
 }

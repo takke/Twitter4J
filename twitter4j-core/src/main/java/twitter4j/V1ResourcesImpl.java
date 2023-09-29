@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import twitter4j.api.ListsResources;
 import twitter4j.api.V1Resources;
 
 class V1ResourcesImpl implements V1Resources {
@@ -12,6 +13,11 @@ class V1ResourcesImpl implements V1Resources {
     
     public V1ResourcesImpl(TwitterImpl twitter) {
         this.twitter = twitter;
+    }
+
+    @Override
+    public ListsResources list() {
+        return this;
     }
 
     /* Lists Resources */
