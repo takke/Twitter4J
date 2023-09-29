@@ -32,7 +32,7 @@ import twitter4j.conf.ChunkedUploadConfiguration;
         File mediaFile = uploadConfiguration.getFile();
         this.uploadConfiguration = uploadConfiguration;
         if (mediaFile != null) {
-            twitter.checkFileValidity(mediaFile);
+            ((V1ResourcesImpl)twitter.v1Resources()).checkFileValidity(mediaFile);
             try {
                 return upload(
                         uploadConfiguration.getMediaType(), uploadConfiguration.getMediaCategory(),
