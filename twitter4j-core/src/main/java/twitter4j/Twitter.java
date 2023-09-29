@@ -15,7 +15,20 @@
  */
 package twitter4j;
 
-import twitter4j.api.*;
+import twitter4j.api.DirectMessagesResources;
+import twitter4j.api.FavoritesResources;
+import twitter4j.api.FriendsFollowersResources;
+import twitter4j.api.HelpResources;
+import twitter4j.api.PlacesGeoResources;
+import twitter4j.api.SavedSearchesResources;
+import twitter4j.api.SearchResource;
+import twitter4j.api.SpamReportingResource;
+import twitter4j.api.SuggestedUsersResources;
+import twitter4j.api.TimelinesResources;
+import twitter4j.api.TrendsResources;
+import twitter4j.api.TweetsResources;
+import twitter4j.api.UsersResources;
+import twitter4j.api.V1Resources;
 import twitter4j.auth.OAuth2Support;
 import twitter4j.auth.OAuthSupport;
 
@@ -35,12 +48,18 @@ public interface Twitter extends java.io.Serializable,
     UsersResources,
     SuggestedUsersResources,
     FavoritesResources,
-    ListsResources,
     SavedSearchesResources,
     PlacesGeoResources,
     TrendsResources,
     SpamReportingResource,
     HelpResources {
+
+    /**
+     * Provides v1.1 APIs
+     *
+     * @return {@link twitter4j.api.V1Resources}
+     */
+    V1Resources v1Resources();
 
     /**
      * @return {@link twitter4j.api.TimelinesResources}
@@ -89,12 +108,6 @@ public interface Twitter extends java.io.Serializable,
      * @since Twitter4J 3.0.4
      */
     FavoritesResources favorites();
-
-    /**
-     * @return {@link twitter4j.api.ListsResources}
-     * @since Twitter4J 3.0.4
-     */
-    ListsResources list();
 
     /**
      * @return {@link twitter4j.api.SavedSearchesResources}
