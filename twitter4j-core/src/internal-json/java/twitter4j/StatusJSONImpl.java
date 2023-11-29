@@ -316,6 +316,10 @@ import static twitter4j.ParseUtil.getDate;
         return this.source;
     }
 
+    @Override
+    public void setSource(@Nullable String s) {
+        this.source = s;
+    }
 
     @Override
     public boolean isTruncated() {
@@ -328,14 +332,29 @@ import static twitter4j.ParseUtil.getDate;
     }
 
     @Override
+    public void setInReplyToStatusId(long l) {
+        this.inReplyToStatusId = l;
+    }
+
+    @Override
     public long getInReplyToUserId() {
         return inReplyToUserId;
+    }
+
+    @Override
+    public void setInReplyToUserId(long l) {
+        this.inReplyToUserId = l;
     }
 
     @Override
     @Nullable
     public String getInReplyToScreenName() {
         return inReplyToScreenName;
+    }
+
+    @Override
+    public void setInReplyToScreenName(@Nullable String s) {
+        this.inReplyToScreenName = s;
     }
 
     @Override
@@ -457,6 +476,11 @@ import static twitter4j.ParseUtil.getDate;
     }
 
     @Override
+    public void setQuotedStatus(@Nullable Status status) {
+        this.quotedStatus = status;
+    }
+
+    @Override
     @Nullable
     public URLEntity getQuotedStatusPermalink() {
         return quotedStatusPermalink;
@@ -554,4 +578,5 @@ import static twitter4j.ParseUtil.getDate;
                 ", quotedStatus=" + quotedStatus +
                 '}';
     }
+
 }
