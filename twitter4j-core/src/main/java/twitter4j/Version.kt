@@ -13,30 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package twitter4j;
+package twitter4j
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-public final class Version {
-    private static final String VERSION = "v4.0.8-20221004";
-    private static final String TITLE = "Twitter4J";
-
-    private Version() {
-        throw new AssertionError();
+class Version private constructor() {
+    init {
+        throw AssertionError()
     }
 
-    public static String getVersion() {
-        return VERSION;
-    }
+    companion object {
+        @JvmStatic
+        val version = "v4.0.8-20221004"
 
-    /**
-     * prints the version string
-     *
-     * @param args will be just ignored.
-     */
-    public static void main(String[] args) {
-        System.out.println(TITLE + " " + VERSION);
+        private const val TITLE = "Twitter4J"
+
+        /**
+         * prints the version string
+         *
+         * @param args will be just ignored.
+         */
+        @JvmStatic
+        fun main(args: Array<String>) {
+            println(TITLE + " " + version)
+        }
     }
 }
