@@ -264,7 +264,7 @@ import java.util.Date;
      * {@inheritDoc}
      */
     @Override
-    public String getURL() {
+    public String getUrl() {
         return url;
     }
 
@@ -408,7 +408,7 @@ import java.util.Date;
     }
 
     @Override
-    public URLEntity getURLEntity() {
+    public URLEntity getUrlEntity() {
         if (urlEntity == null) {
             String plainURL = url == null ? "" : url;
             urlEntity = new URLEntityJSONImpl(0, plainURL.length(), plainURL, plainURL, plainURL);

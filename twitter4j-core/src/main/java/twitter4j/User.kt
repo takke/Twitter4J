@@ -37,7 +37,7 @@ interface User : Comparable<User?>, TwitterResponse, Serializable {
      *
      * @return the name of the user
      */
-    val name: String?
+    val name: String
 
     /**
      * Returns the email of the user, if the app is whitelisted by Twitter
@@ -51,7 +51,7 @@ interface User : Comparable<User?>, TwitterResponse, Serializable {
      *
      * @return the screen name of the user
      */
-    val screenName: String?
+    val screenName: String
 
     /**
      * Returns the location of the user
@@ -65,7 +65,7 @@ interface User : Comparable<User?>, TwitterResponse, Serializable {
      *
      * @return the description of the user
      */
-    val description: String?
+    val description: String
 
     /**
      * Tests if the user is enabling contributors
@@ -103,7 +103,7 @@ interface User : Comparable<User?>, TwitterResponse, Serializable {
      *
      * @return the url of the user
      */
-    val uRL: String?
+    val url: String?
 
     /**
      * Test if the user status is protected
@@ -255,7 +255,7 @@ interface User : Comparable<User?>, TwitterResponse, Serializable {
      * @return URL entities for user description
      * @since Twitter4J 3.0.3
      */
-    val descriptionURLEntities: Array<URLEntity?>?
+    val descriptionURLEntities: Array<URLEntity>
 
     /**
      * Returns URL entity for user's URL.
@@ -263,7 +263,7 @@ interface User : Comparable<User?>, TwitterResponse, Serializable {
      * @return URL entity for user's URL.
      * @since Twitter4J 3.0.3
      */
-    val uRLEntity: URLEntity?
+    val urlEntity: URLEntity
 
     /**
      * Returns the list of country codes where the user is withheld
@@ -271,5 +271,5 @@ interface User : Comparable<User?>, TwitterResponse, Serializable {
      * @return list of country codes where the tweet is withheld - null if not withheld
      * @since Twitter4j 4.0.3
      */
-    val withheldInCountries: Array<String?>?
+    val withheldInCountries: Array<String>?
 }
