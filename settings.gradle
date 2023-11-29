@@ -1,4 +1,4 @@
-rootProject.name = 'twitter4j'
+rootProject.name = 'Twitter4J'
 include ':twitter4j-core'
 //include ':twitter4j-async'
 include ':twitter4j-stream'
