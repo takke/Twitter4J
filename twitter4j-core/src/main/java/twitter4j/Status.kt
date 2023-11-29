@@ -13,13 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package twitter4j
 
-package twitter4j;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Date;
+import java.io.Serializable
+import java.util.Date
 
 /**
  * A data interface representing one single status of a user.
@@ -27,35 +24,32 @@ import java.util.Date;
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-public interface Status extends Comparable<Status>, TwitterResponse,
-        EntitySupport, java.io.Serializable {
+interface Status : Comparable<Status?>, TwitterResponse, EntitySupport, Serializable {
+
     /**
      * Return the created_at
      *
      * @return created_at
      * @since Twitter4J 1.1.0
      */
-    @NotNull
-    Date getCreatedAt();
+    val createdAt: Date
 
     /**
      * Returns the id of the status
      *
      * @return the id (e.g. 210462857140252672)
      */
-    long getId();
+    val id: Long
 
     /**
      * Returns the text of the status
      *
      * @return the text (e.g. Along with our new #Twitterbird, we've also updated our Display Guidelines: https://t.co/Ed4omjYs  ^JC)
      */
-    @NotNull
-    String getText();
+    val text: String
 
-    int getDisplayTextRangeStart();
-
-    int getDisplayTextRangeEnd();
+    val displayTextRangeStart: Int
+    val displayTextRangeEnd: Int
 
     /**
      * Returns the source
@@ -63,9 +57,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return the source (e.g. &lt;a href="http://twitter.com" rel="nofollow"&gt;Twitter Web Client&lt;/a&gt;)
      * @since Twitter4J 1.0.4
      */
-    @Nullable
-    String getSource();
-
+    var source: String?
 
     /**
      * Test if the status is truncated
@@ -73,7 +65,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return true if truncated
      * @since Twitter4J 1.0.4
      */
-    boolean isTruncated();
+    val isTruncated: Boolean
 
     /**
      * Returns the in_reply_tostatus_id
@@ -81,7 +73,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return the in_reply_tostatus_id
      * @since Twitter4J 1.0.4
      */
-    long getInReplyToStatusId();
+    var inReplyToStatusId: Long
 
     /**
      * Returns the in_reply_user_id
@@ -89,7 +81,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return the in_reply_tostatus_id
      * @since Twitter4J 1.0.4
      */
-    long getInReplyToUserId();
+    var inReplyToUserId: Long
 
     /**
      * Returns the in_reply_to_screen_name
@@ -97,8 +89,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return the in_in_reply_to_screen_name
      * @since Twitter4J 2.0.4
      */
-    @Nullable
-    String getInReplyToScreenName();
+    var inReplyToScreenName: String?
 
     /**
      * Returns The location that this tweet refers to if available.
@@ -106,8 +97,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return returns The location that this tweet refers to if available (can be null)
      * @since Twitter4J 2.1.0
      */
-    @Nullable
-    GeoLocation getGeoLocation();
+    val geoLocation: GeoLocation?
 
     /**
      * Returns the place attached to this status
@@ -115,8 +105,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return The place attached to this status
      * @since Twitter4J 2.1.1
      */
-    @Nullable
-    Place getPlace();
+    val place: Place?
 
     /**
      * Test if the status is favorited
@@ -124,7 +113,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return true if favorited
      * @since Twitter4J 1.0.4
      */
-    boolean isFavorited();
+    val isFavorited: Boolean
 
     /**
      * Test if the status is retweeted
@@ -132,7 +121,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return true if retweeted
      * @since Twitter4J 3.0.4
      */
-    boolean isRetweeted();
+    val isRetweeted: Boolean
 
     /**
      * Indicates approximately how many times this Tweet has been "favorited" by Twitter users.
@@ -140,29 +129,27 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return the favorite count
      * @since Twitter4J 3.0.4
      */
-    int getFavoriteCount();
+    val favoriteCount: Int
 
     /**
-     * Return the user associated with the status.<br>
+     * Return the user associated with the status.<br></br>
      * This can be null if the instance is from User.getStatus().
      *
      * @return the user
      */
-    @Nullable
-    User getUser();
+    val user: User?
 
     /**
      * @since Twitter4J 2.0.10
      * @return if the status is retweet or not
      */
-    boolean isRetweet();
+    val isRetweet: Boolean
 
     /**
      * @since Twitter4J 2.1.0
      * @return retweeted status
      */
-    @Nullable
-    Status getRetweetedStatus();
+    val retweetedStatus: Status?
 
     /**
      * Returns an array of contributors, or null if no contributor is associated with this status.
@@ -170,8 +157,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @since Twitter4J 2.2.3
      * @return contributors
      */
-    @NotNull
-    long[] getContributors();
+    val contributors: LongArray?
 
     /**
      * Returns the number of times this tweet has been retweeted, or -1 when the tweet was
@@ -179,7 +165,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      *
      * @return the retweet count.
      */
-    int getRetweetCount();
+    val retweetCount: Int
 
     /**
      * Returns true if the authenticating user has retweeted this tweet, or false when the tweet was
@@ -188,7 +174,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return whether the authenticating user has retweeted this tweet.
      * @since Twitter4J 2.1.4
      */
-    boolean isRetweetedByMe();
+    val isRetweetedByMe: Boolean
 
     /**
      * Returns the authenticating user's retweet's id of this tweet, or -1L when the tweet was created
@@ -197,7 +183,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return the authenticating user's retweet's id of this tweet
      * @since Twitter4J 3.0.1
      */
-    long getCurrentUserRetweetId();
+    val currentUserRetweetId: Long
 
     /**
      * Returns true if the status contains a link that is identified as sensitive.
@@ -205,7 +191,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return whether the status contains sensitive links
      * @since Twitter4J 3.0.0
      */
-    boolean isPossiblySensitive();
+    val isPossiblySensitive: Boolean
 
     /**
      * Returns the lang of the status text if available.
@@ -213,8 +199,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return two-letter iso language code (e.g. en)
      * @since Twitter4J 3.0.6
      */
-    @Nullable
-    String getLang();
+    val lang: String?
 
     /**
      * Returns the targeting scopes applied to a status.
@@ -222,17 +207,15 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return the targeting scopes applied to a status.
      * @since Twitter4J 3.0.6
      */
-    @Nullable
-    Scopes getScopes();
+    val scopes: Scopes?
 
     /**
-     *  Returns the list of country codes where the tweet is withheld
+     * Returns the list of country codes where the tweet is withheld
      *
-     *  @return list of country codes where the tweet is withheld - null if not withheld
-     *  @since Twitter4j 4.0.3
+     * @return list of country codes where the tweet is withheld - null if not withheld
+     * @since Twitter4j 4.0.3
      */
-    @Nullable
-    String[] getWithheldInCountries();
+    val withheldInCountries: Array<String?>?
 
     /**
      * Returns the Tweet ID of the quoted Tweet
@@ -240,7 +223,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return the Tweet ID of the quoted Tweet
      * @since Twitter4J 4.0.4
      */
-    long getQuotedStatusId();
+    val quotedStatusId: Long
 
     /**
      * Returns the Tweet object of the original Tweet that was quoted.
@@ -248,8 +231,7 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return the quoted Tweet object
      * @since Twitter4J 4.0.4
      */
-    @Nullable
-    Status getQuotedStatus();
+    var quotedStatus: Status?
 
     /**
      * Returns the URLEntity object that represents the permalink of the quoted Tweet.
@@ -259,12 +241,8 @@ public interface Status extends Comparable<Status>, TwitterResponse,
      * @return the URLEntity object that represents the permalink of the quoted Tweet. - null if not presents
      * @since Twitter4J 4.0.7
      */
-    @Nullable
-    URLEntity getQuotedStatusPermalink();
+    val quotedStatusPermalink: URLEntity?
 
-    @Nullable
-    EditControl getEditControl();
-
-    long getInitialTweetId();
-
+    val editControl: EditControl?
+    val initialTweetId: Long
 }
