@@ -108,12 +108,12 @@ public class Http2ClientTest {
     void testUploadMediaFromStream() throws Exception {
         if (alpnBootJarFoundInBootClassPath && ellipticCurvesExtensionFoundInClassPath) {
             Twitter twitter = TwitterFactory.getSingleton();
-            UploadedMedia media2 = twitter.uploadMedia("fromInputStream",
+            UploadedMedia media2 = twitter.v1Resources().uploadMedia("fromInputStream",
                     Http2ClientTest.class.getResourceAsStream("/twitter4j.jpg"));
 
             StatusUpdate update = new StatusUpdate("from input stream");
             update.setMediaIds(media2.getMediaId());
-            Status status = twitter.updateStatus(update);
+            Status status = twitter.v1Resources().updateStatus(update);
             assertEquals("from input stream", status.getText());
         }
     }
