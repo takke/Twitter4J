@@ -39,7 +39,7 @@ public final class RetweetStatus {
         System.out.println("Retweeting the status id - [" + args[0] + "].");
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            twitter.retweetStatus(Long.parseLong(args[0]));
+            twitter.v1Resources().retweetStatus(Long.parseLong(args[0]));
             System.out.println("Successfully retweeted status [" + args[0] + "].");
             System.exit(0);
         } catch (TwitterException te) {

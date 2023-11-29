@@ -37,7 +37,7 @@ public final class GetSavedSearches {
     public static void main(String[] args) {
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            List<SavedSearch> savedSearches = twitter.getSavedSearches();
+            List<SavedSearch> savedSearches = twitter.v1Resources().getSavedSearches();
             for (SavedSearch savedSearch : savedSearches) {
                 System.out.println("[name:" + savedSearch.getName() + " query:" + savedSearch.getQuery() + " id:"
                         + savedSearch.getId() + "]");

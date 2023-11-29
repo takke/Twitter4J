@@ -42,7 +42,7 @@ public final class ReplyStatus {
         String text = args[1];
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            Status status = twitter.showStatus(replyToStatusId);
+            Status status = twitter.v1Resources().showStatus(replyToStatusId);
             System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
 
             StatusUpdate statusUpdate = new StatusUpdate(text);
@@ -52,7 +52,7 @@ public final class ReplyStatus {
 //            statusUpdate.setAutoPopulateReplyMetadata(true);
 //            statusUpdate.setExcludeReplyUserIds(8379212);   // exclude takke
 
-            Status replyStatus = twitter.updateStatus(statusUpdate);
+            Status replyStatus = twitter.v1Resources().updateStatus(statusUpdate);
             System.out.println("Successfully updated the status to [" + replyStatus.getText() + "], inReplyToStatusId[" + replyStatus.getInReplyToStatusId() + "].");
             System.out.println(replyStatus);
             System.out.println(status);

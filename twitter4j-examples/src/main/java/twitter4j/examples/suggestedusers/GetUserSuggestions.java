@@ -37,7 +37,7 @@ public final class GetUserSuggestions {
         System.out.println("Showing suggested users in " + args[0] + " category.");
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            ResponseList<User> users = twitter.getUserSuggestions(args[0]);
+            ResponseList<User> users = twitter.v1Resources().getUserSuggestions(args[0]);
             for (User user : users) {
                 if (user.getStatus() != null) {
                     System.out.println("@" + user.getScreenName() + " - " + user.getStatus().getText());

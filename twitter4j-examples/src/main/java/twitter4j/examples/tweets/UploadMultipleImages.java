@@ -47,19 +47,19 @@ public final class UploadMultipleImages {
             long[] mediaIds = new long[args.length-1];
             for (int i=1; i<args.length; i++) {
                 System.out.println("Uploading...[" + i + "/" + (args.length-1) + "][" + args[i] + "]");
-                UploadedMedia media = twitter.uploadMedia(new File(args[i]));
+                UploadedMedia media = twitter.v1Resources().uploadMedia(new File(args[i]));
                 System.out.println("Uploaded: id=" + media.getMediaId()
                         + ", w=" + media.getImageWidth() + ", h=" + media.getImageHeight()
                         + ", type=" + media.getImageType() + ", size=" + media.getSize());
                 mediaIds[i-1] = media.getMediaId();
 
                 // set ext-alt-text
-                twitter.createMediaMetadata(media.getMediaId(), "alt metadata text " + i);
+                twitter.v1Resources().createMediaMetadata(media.getMediaId(), "alt metadata text " + i);
             }
             
             StatusUpdate update = new StatusUpdate(args[0]);
             update.setMediaIds(mediaIds);
-            Status status = twitter.updateStatus(update);
+            Status status = twitter.v1Resources().updateStatus(update);
             System.out.println("Successfully updated the status to [" + status.getText() + "][" + status.getId() + "].");
             System.exit(0);
         } catch (TwitterException te) {

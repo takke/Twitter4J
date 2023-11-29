@@ -39,7 +39,7 @@ public final class SearchUsers {
             int page = 1;
             ResponseList<User> users;
             do {
-                users = twitter.searchUsers(args[0], page);
+                users = twitter.v1Resources().searchUsers(args[0], page);
                 for (User user : users) {
                     if (user.getStatus() != null) {
                         System.out.println("@" + user.getScreenName() + " - " + user.getStatus().getText());

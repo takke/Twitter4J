@@ -85,7 +85,7 @@ public final class UpdateStatus {
                     System.exit(-1);
                 }
             }
-            Status status = twitter.updateStatus(args[0]);
+            Status status = twitter.v1Resources().updateStatus(args[0]);
             System.out.println("Successfully updated the status to [" + status.getText() + "].");
             System.exit(0);
         } catch (TwitterException te) {

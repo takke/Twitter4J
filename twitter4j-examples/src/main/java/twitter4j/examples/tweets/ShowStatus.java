@@ -39,7 +39,7 @@ public final class ShowStatus {
         }
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            Status status = twitter.showStatus(Long.parseLong(args[0]));
+            Status status = twitter.v1Resources().showStatus(Long.parseLong(args[0]));
             System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
             System.exit(0);
         } catch (TwitterException te) {

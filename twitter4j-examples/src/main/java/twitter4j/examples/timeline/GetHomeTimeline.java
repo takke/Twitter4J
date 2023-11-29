@@ -34,8 +34,8 @@ public class GetHomeTimeline {
         try {
             // gets Twitter instance with default credentials
             Twitter twitter = new TwitterFactory().getInstance();
-            User user = twitter.verifyCredentials();
-            List<Status> statuses = twitter.getHomeTimeline();
+            User user = twitter.v1Resources().verifyCredentials();
+            List<Status> statuses = twitter.v1Resources().getHomeTimeline();
             System.out.println("Showing @" + user.getScreenName() + "'s home timeline.");
             for (Status status : statuses) {
                 System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());

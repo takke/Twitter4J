@@ -48,7 +48,7 @@ public final class UploadMovie {
             String movieFileName = args[1];
             System.out.println("Uploading... [" + movieFileName + "]");
 
-            UploadedMedia media = twitter.uploadMediaChunked(
+            UploadedMedia media = twitter.v1Resources().uploadMediaChunked(
                     new ChunkedUploadConfiguration.Builder()
                             .tweetVideo()
                             .from(new File(movieFileName))
@@ -64,7 +64,7 @@ public final class UploadMovie {
 
             StatusUpdate update = new StatusUpdate(args[0]);
             update.setMediaIds(media.getMediaId());
-            Status status = twitter.updateStatus(update);
+            Status status = twitter.v1Resources().updateStatus(update);
             System.out.println("Successfully updated the status to [" + status.getText() + "][" + status.getId() + "].");
             System.exit(0);
         } catch (TwitterException te) {

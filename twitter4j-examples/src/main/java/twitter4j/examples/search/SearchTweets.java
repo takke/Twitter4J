@@ -40,7 +40,7 @@ public class SearchTweets {
             Query query = new Query(args[0]);
             QueryResult result;
             do {
-                result = twitter.search(query);
+                result = twitter.v1Resources().search(query);
                 List<Status> tweets = result.getTweets();
                 for (Status tweet : tweets) {
                     System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());

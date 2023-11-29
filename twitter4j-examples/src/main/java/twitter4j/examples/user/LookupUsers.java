@@ -37,7 +37,7 @@ public final class LookupUsers {
         }
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            ResponseList<User> users = twitter.lookupUsers(args[0].split(","));
+            ResponseList<User> users = twitter.v1Resources().lookupUsers(args[0].split(","));
             for (User user : users) {
                 if (user.getStatus() != null) {
                     System.out.println("@" + user.getScreenName() + " - " + user.getStatus().getText());

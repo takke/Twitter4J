@@ -33,7 +33,7 @@ public final class GetSuggestedUserCategories {
         try {
             Twitter twitter = new TwitterFactory().getInstance();
             System.out.println("Showing suggested user categories.");
-            ResponseList<Category> categories = twitter.getSuggestedUserCategories();
+            ResponseList<Category> categories = twitter.v1Resources().getSuggestedUserCategories();
             for (Category category : categories) {
                 System.out.println(category.getName() + ":" + category.getSlug());
             }

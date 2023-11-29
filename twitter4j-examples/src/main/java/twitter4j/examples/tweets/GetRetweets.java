@@ -42,7 +42,7 @@ public final class GetRetweets {
         System.out.println("Showing up to 100 of the first retweets of the status id - [" + args[0] + "].");
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            List<Status> statuses = twitter.getRetweets(Long.parseLong(args[0]));
+            List<Status> statuses = twitter.v1Resources().getRetweets(Long.parseLong(args[0]));
             for (Status status : statuses) {
                 System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
             }
