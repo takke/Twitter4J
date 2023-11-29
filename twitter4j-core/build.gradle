@@ -1,6 +1,4 @@
-plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.9.21'
-}
+apply plugin: "org.jetbrains.kotlin.jvm"
 apply plugin: 'java'
 
 sourceCompatibility = 1.7
