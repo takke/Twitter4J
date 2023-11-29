@@ -36,7 +36,7 @@ class Version private constructor() {
          */
         @JvmStatic
         fun main(args: Array<String>) {
-            println(TITLE + " " + version)
+            println("$TITLE $version")
         }
     }
 }
