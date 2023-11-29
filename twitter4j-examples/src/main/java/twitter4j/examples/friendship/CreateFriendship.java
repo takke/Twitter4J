@@ -38,7 +38,7 @@ public final class CreateFriendship {
         }
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            twitter.createFriendship(args[0]);
+            twitter.v1Resources().createFriendship(args[0]);
             System.out.println("Successfully followed [" + args[0] + "].");
             System.exit(0);
         } catch (TwitterException te) {

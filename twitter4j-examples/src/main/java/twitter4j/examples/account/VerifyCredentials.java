@@ -35,7 +35,7 @@ public final class VerifyCredentials {
     public static void main(String[] args) {
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            User user = twitter.verifyCredentials();
+            User user = twitter.v1Resources().verifyCredentials();
             System.out.println("Successfully verified credentials of " + user.getScreenName());
             System.exit(0);
         } catch (TwitterException te) {

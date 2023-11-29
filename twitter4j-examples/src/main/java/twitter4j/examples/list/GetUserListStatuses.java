@@ -39,7 +39,7 @@ public final class GetUserListStatuses {
             Paging page = new Paging(1);
             ResponseList<Status> statuses;
             do {
-                statuses = twitter.getUserListStatuses(Integer.parseInt(args[0]), page);
+                statuses = twitter.v1Resources().getUserListStatuses(Integer.parseInt(args[0]), page);
                 for (Status status : statuses) {
                     System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
                 }

@@ -38,7 +38,7 @@ public final class UpdateProfile {
         }
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            twitter.updateProfile(args[0], args[1], args[2], args[3]);
+            twitter.v1Resources().updateProfile(args[0], args[1], args[2], args[3]);
             System.out.println("Successfully updated profile.");
             System.exit(0);
         } catch (TwitterException te) {

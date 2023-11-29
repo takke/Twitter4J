@@ -29,7 +29,7 @@ public class RateLimitLambda {
         twitter.onRateLimitStatus(e -> System.out.println("rate limit remaining: " + e.getRateLimitStatus().getRemaining()));
         for (int i = 0; i < 20; i++) {
             try {
-                System.out.println(twitter.getHomeTimeline());
+                System.out.println(twitter.v1Resources().getHomeTimeline());
             } catch (TwitterException e) {
                 e.printStackTrace();
             }

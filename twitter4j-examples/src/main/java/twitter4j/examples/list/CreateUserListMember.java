@@ -38,7 +38,7 @@ public final class CreateUserListMember {
         }
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            twitter.createUserListMember(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+            twitter.v1Resources().createUserListMember(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
             System.out.println("Successfully added the user to the specified list.");
             System.exit(0);
         } catch (TwitterException te) {

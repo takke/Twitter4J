@@ -41,7 +41,7 @@ public class GetDirectMessages {
             DirectMessageList messages;
             do {
                 System.out.println("* cursor:" + cursor);
-                messages = cursor == null ? twitter.getDirectMessages(count) : twitter.getDirectMessages(count, cursor);
+                messages = cursor == null ? twitter.v1Resources().getDirectMessages(count) : twitter.v1Resources().getDirectMessages(count, cursor);
                 for (DirectMessage message : messages) {
                     System.out.println("From: " + message.getSenderId() + " id:" + message.getId()
                             + " [" + message.getCreatedAt() + "]"

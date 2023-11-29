@@ -39,7 +39,7 @@ public final class GetGeoDetails {
         }
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            Place place = twitter.getGeoDetails(args[0]);
+            Place place = twitter.v1Resources().getGeoDetails(args[0]);
             System.out.println("name: " + place.getName());
             System.out.println("country: " + place.getCountry());
             System.out.println("country code: " + place.getCountryCode());

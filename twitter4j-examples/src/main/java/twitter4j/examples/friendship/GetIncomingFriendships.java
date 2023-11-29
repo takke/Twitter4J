@@ -39,7 +39,7 @@ public final class GetIncomingFriendships {
             IDs ids;
             System.out.println("Showing incoming pending follow request(s).");
             do {
-                ids = twitter.getIncomingFriendships(cursor);
+                ids = twitter.v1Resources().getIncomingFriendships(cursor);
                 for (long id : ids.getIDs()) {
                     System.out.println(id);
                 }

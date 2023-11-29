@@ -39,7 +39,7 @@ public class ShowDirectMessage {
         }
         Twitter twitter = new TwitterFactory().getInstance();
         try {
-            DirectMessage message = twitter.showDirectMessage(Long.parseLong(args[0]));
+            DirectMessage message = twitter.v1Resources().showDirectMessage(Long.parseLong(args[0]));
             System.out.println("From: id:" + message.getId() + " - "
                     + message.getText());
             System.exit(0);

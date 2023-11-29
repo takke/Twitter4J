@@ -33,7 +33,7 @@ public class GetTermsOfService {
     public static void main(String[] args) {
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            System.out.println(twitter.getTermsOfService());
+            System.out.println(twitter.v1Resources().getTermsOfService());
         } catch (TwitterException te) {
             te.printStackTrace();
             System.out.println("Failed to get tems of service: " + te.getMessage());

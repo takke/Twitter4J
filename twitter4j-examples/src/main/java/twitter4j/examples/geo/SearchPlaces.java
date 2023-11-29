@@ -42,7 +42,7 @@ public final class SearchPlaces {
             } else {
                 query = new GeoQuery(args[0]);
             }
-            ResponseList<Place> places = twitter.searchPlaces(query);
+            ResponseList<Place> places = twitter.v1Resources().searchPlaces(query);
             if (places.size() == 0) {
                 System.out.println("No location associated with the specified IP address or lat/lang");
             } else {

@@ -43,7 +43,7 @@ public final class CreateUserList {
             if (args.length >= 2) {
                 description = args[1];
             }
-            UserList list = twitter.createUserList(args[0], true, description);
+            UserList list = twitter.v1Resources().createUserList(args[0], true, description);
             System.out.println("Successfully created a list (id:" + list.getId() + ", slug:" + list.getSlug() + ").");
             System.exit(0);
         } catch (TwitterException te) {

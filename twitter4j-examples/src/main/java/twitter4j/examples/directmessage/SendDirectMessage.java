@@ -37,7 +37,7 @@ public final class SendDirectMessage {
         }
         Twitter twitter = new TwitterFactory().getInstance();
         try {
-            DirectMessage message = twitter.sendDirectMessage(Long.parseLong(args[0]), args[1]);
+            DirectMessage message = twitter.v1Resources().sendDirectMessage(Long.parseLong(args[0]), args[1]);
             System.out.println("Direct message successfully sent to " + message.getId());
             System.out.println(" details:" + message.toString());
             System.exit(0);

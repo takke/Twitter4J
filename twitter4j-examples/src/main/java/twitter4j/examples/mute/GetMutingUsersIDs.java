@@ -34,7 +34,7 @@ public final class GetMutingUsersIDs {
 	public static void main( String[] args ) {
 		try {
 			Twitter twitter = new TwitterFactory().getInstance();
-			IDs ids = twitter.getMutesIDs(-1L);
+			IDs ids = twitter.v1Resources().getMutesIDs(-1L);
 			for (long id : ids.getIDs()) {
 	            System.out.println(id);
 	        }

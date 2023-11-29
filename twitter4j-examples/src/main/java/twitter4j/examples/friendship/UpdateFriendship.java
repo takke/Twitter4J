@@ -40,7 +40,7 @@ public final class UpdateFriendship {
         }
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            Relationship relationship = twitter.updateFriendship(args[0]
+            Relationship relationship = twitter.v1Resources().updateFriendship(args[0]
                     , Boolean.parseBoolean(args[1]), Boolean.parseBoolean(args[2]));
             System.out.println("Successfully updated the friendship of [" + relationship.getTargetUserScreenName() + "].");
             System.exit(0);

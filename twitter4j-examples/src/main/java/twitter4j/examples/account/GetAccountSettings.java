@@ -32,7 +32,7 @@ public final class GetAccountSettings {
     public static void main(String[] args) {
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            AccountSettings settings = twitter.getAccountSettings();
+            AccountSettings settings = twitter.v1Resources().getAccountSettings();
             System.out.println("Sleep time enabled: " + settings.isSleepTimeEnabled());
             System.out.println("Sleep end time: " + settings.getSleepEndTime());
             System.out.println("Sleep start time: " + settings.getSleepStartTime());

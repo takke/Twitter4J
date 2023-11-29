@@ -37,7 +37,7 @@ public final class GetFavorites {
     public static void main(String[] args) {
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            List<Status> statuses = twitter.getFavorites();
+            List<Status> statuses = twitter.v1Resources().getFavorites();
             for (Status status : statuses) {
                 System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
             }

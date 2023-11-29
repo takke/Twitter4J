@@ -40,9 +40,9 @@ public final class GetFriendsIDs {
             System.out.println("Listing following ids.");
             do {
                 if (0 < args.length) {
-                    ids = twitter.getFriendsIDs(args[0], cursor);
+                    ids = twitter.v1Resources().getFriendsIDs(args[0], cursor);
                 } else {
-                    ids = twitter.getFriendsIDs(cursor);
+                    ids = twitter.v1Resources().getFriendsIDs(cursor);
                 }
                 for (long id : ids.getIDs()) {
                     System.out.println(id);

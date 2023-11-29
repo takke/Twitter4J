@@ -39,7 +39,7 @@ public final class ShowFriendship {
         }
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            Relationship relationship = twitter.showFriendship(args[0], args[1]);
+            Relationship relationship = twitter.v1Resources().showFriendship(args[0], args[1]);
             System.out.println("isSourceBlockingTarget: " + relationship.isSourceBlockingTarget());
             System.out.println("isSourceFollowedByTarget: " + relationship.isSourceFollowedByTarget());
             System.out.println("isSourceFollowingByTarget: " + relationship.isSourceFollowingTarget());

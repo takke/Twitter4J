@@ -42,7 +42,7 @@ public final class GetSimilarPlaces {
             if (args.length >= 4) {
                 containedWithin = args[3];
             }
-            ResponseList<Place> places = twitter.getSimilarPlaces(location, name, containedWithin, null);
+            ResponseList<Place> places = twitter.v1Resources().getSimilarPlaces(location, name, containedWithin, null);
             if (places.size() == 0) {
                 System.out.println("No location associated with the specified condition");
             } else {

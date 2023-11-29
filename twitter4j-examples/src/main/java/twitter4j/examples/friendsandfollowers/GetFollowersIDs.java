@@ -40,9 +40,9 @@ public final class GetFollowersIDs {
             System.out.println("Listing followers's ids.");
             do {
                 if (0 < args.length) {
-                    ids = twitter.getFollowersIDs(args[0], cursor);
+                    ids = twitter.v1Resources().getFollowersIDs(args[0], cursor);
                 } else {
-                    ids = twitter.getFollowersIDs(cursor);
+                    ids = twitter.v1Resources().getFollowersIDs(cursor);
                 }
                 for (long id : ids.getIDs()) {
                     System.out.println(id);

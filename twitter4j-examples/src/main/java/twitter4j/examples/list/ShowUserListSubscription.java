@@ -37,11 +37,11 @@ public final class ShowUserListSubscription {
         try {
             Twitter twitter = new TwitterFactory().getInstance();
             long listId = Long.parseLong(args[0]);
-            UserList list = twitter.showUserList(listId);
+            UserList list = twitter.v1Resources().showUserList(listId);
             long userId = Integer.parseInt(args[1]);
-            User user = twitter.showUser(userId);
+            User user = twitter.v1Resources().showUser(userId);
             try {
-                twitter.showUserListSubscription(listId, userId);
+                twitter.v1Resources().showUserListSubscription(listId, userId);
                 System.out.println("@" + user.getScreenName() + " is subscribing the list:" + list.getName());
             } catch (TwitterException te) {
                 if (te.getStatusCode() == 404) {

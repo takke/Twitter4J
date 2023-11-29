@@ -39,7 +39,7 @@ public final class GetUserListSubscriptions {
             long cursor = -1;
             PagableResponseList<UserList> lists;
             do {
-                lists = twitter.getUserListSubscriptions(args[0], cursor);
+                lists = twitter.v1Resources().getUserListSubscriptions(args[0], cursor);
                 for (UserList list : lists) {
                     System.out.println("id:" + list.getId() + ", name:" + list.getName() + ", description:"
                             + list.getDescription() + ", slug:" + list.getSlug() + "");

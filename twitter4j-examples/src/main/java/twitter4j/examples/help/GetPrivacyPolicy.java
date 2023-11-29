@@ -33,7 +33,7 @@ public class GetPrivacyPolicy {
     public static void main(String[] args) {
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            System.out.println(twitter.getPrivacyPolicy());
+            System.out.println(twitter.v1Resources().getPrivacyPolicy());
         } catch (TwitterException te) {
             te.printStackTrace();
             System.out.println("Failed to get privacy policy: " + te.getMessage());

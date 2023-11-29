@@ -38,7 +38,7 @@ public final class DestroyUserListSubscription {
         }
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            twitter.destroyUserListSubscription(Integer.parseInt(args[0]));
+            twitter.v1Resources().destroyUserListSubscription(Integer.parseInt(args[0]));
             System.out.println("Successfully unsubscribed the list.");
             System.exit(0);
         } catch (TwitterException te) {

@@ -39,7 +39,7 @@ public final class ShowUserList {
         }
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            UserList list = twitter.showUserList(Integer.parseInt(args[0]));
+            UserList list = twitter.v1Resources().showUserList(Integer.parseInt(args[0]));
             System.out.println("id:" + list.getId() + ", name:" + list.getName() + ", description:"
                     + list.getDescription() + ", slug:" + list.getSlug() + "");
             System.exit(0);

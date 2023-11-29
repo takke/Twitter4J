@@ -37,7 +37,7 @@ public final class LookupFriendships {
         }
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            ResponseList<Friendship> friendships = twitter.lookupFriendships(args[0].split(","));
+            ResponseList<Friendship> friendships = twitter.v1Resources().lookupFriendships(args[0].split(","));
             for (Friendship friendship : friendships) {
                 System.out.println("@" + friendship.getScreenName()
                         + " following: " + friendship.isFollowing()

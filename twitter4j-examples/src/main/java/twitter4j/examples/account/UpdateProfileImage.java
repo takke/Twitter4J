@@ -40,7 +40,7 @@ public final class UpdateProfileImage {
         }
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            twitter.updateProfileImage(new File(args[0]));
+            twitter.v1Resources().updateProfileImage(new File(args[0]));
             System.out.println("Successfully updated profile image.");
             System.exit(0);
         } catch (TwitterException te) {

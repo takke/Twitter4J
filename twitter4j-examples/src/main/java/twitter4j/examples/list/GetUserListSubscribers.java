@@ -39,7 +39,7 @@ public final class GetUserListSubscribers {
             long cursor = -1;
             PagableResponseList<User> usres;
             do {
-                usres = twitter.getUserListSubscribers(Integer.parseInt(args[0]), cursor);
+                usres = twitter.v1Resources().getUserListSubscribers(Integer.parseInt(args[0]), cursor);
                 for (User list : usres) {
                     System.out.println("@" + list.getScreenName());
                 }

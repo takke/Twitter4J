@@ -39,7 +39,7 @@ public final class DestroyUserList {
         }
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            UserList list = twitter.destroyUserList(Integer.parseInt(args[0]));
+            UserList list = twitter.v1Resources().destroyUserList(Integer.parseInt(args[0]));
             System.out.println("Successfully deleted the list (id:" + list.getId() + ", slug:" + list.getSlug() + ").");
             System.exit(0);
         } catch (TwitterException te) {

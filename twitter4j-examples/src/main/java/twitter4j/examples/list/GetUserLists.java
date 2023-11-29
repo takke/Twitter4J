@@ -36,7 +36,7 @@ public final class GetUserLists {
         }
         try {
             Twitter twitter = new TwitterFactory().getInstance();
-            ResponseList<UserList> lists = twitter.getUserLists(args[0]);
+            ResponseList<UserList> lists = twitter.v1Resources().getUserLists(args[0]);
             for (UserList list : lists) {
                 System.out.println("id:" + list.getId() + ", name:" + list.getName() + ", description:"
                         + list.getDescription() + ", slug:" + list.getSlug() + "");

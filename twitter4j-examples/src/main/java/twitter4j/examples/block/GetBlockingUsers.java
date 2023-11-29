@@ -40,7 +40,7 @@ public final class GetBlockingUsers {
             int page = 1;
             List<User> users;
             do {
-                users = twitter.getBlocksList(page);
+                users = twitter.v1Resources().getBlocksList(page);
                 for (User user : users) {
                     System.out.println("@" + user.getScreenName());
                 }
