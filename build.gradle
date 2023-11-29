@@ -31,16 +31,16 @@ subprojects {
 }
 
 // Kotlin 仮導入
-//buildscript {
-//    ext.kotlin_version = '1.9.21'
-//    repositories {
-//        mavenCentral()
-//    }
-//    dependencies {
-//        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-//    }
-//}
-//
+buildscript {
+    ext.kotlin_version = '1.9.21'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
 ////apply plugin: 'kotlin'
 //dependencies {
 //    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
