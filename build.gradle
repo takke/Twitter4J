@@ -30,7 +30,7 @@ subprojects {
     }
 }
 
-// Kotlin 仮導入
+// Kotlin
 buildscript {
     ext.kotlin_version = '1.9.21'
     repositories {
