@@ -13,58 +13,59 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package twitter4j
 
-package twitter4j;
-
-import java.util.Date;
+import java.io.Serializable
+import java.util.Date
 
 /**
  * A data interface representing Basic user information element
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-public interface User extends Comparable<User>, TwitterResponse, java.io.Serializable {
+interface User : Comparable<User?>, TwitterResponse, Serializable {
+
     /**
      * Returns the id of the user
      *
      * @return the id of the user
      */
-    long getId();
+    val id: Long
 
     /**
      * Returns the name of the user
      *
      * @return the name of the user
      */
-    String getName();
-    
+    val name: String?
+
     /**
      * Returns the email of the user, if the app is whitelisted by Twitter
      *
      * @return the email of the user
      */
-    String getEmail();
+    val email: String?
 
     /**
      * Returns the screen name of the user
      *
      * @return the screen name of the user
      */
-    String getScreenName();
+    val screenName: String?
 
     /**
      * Returns the location of the user
      *
      * @return the location of the user
      */
-    String getLocation();
+    val location: String?
 
     /**
      * Returns the description of the user
      *
      * @return the description of the user
      */
-    String getDescription();
+    val description: String?
 
     /**
      * Tests if the user is enabling contributors
@@ -72,47 +73,44 @@ public interface User extends Comparable<User>, TwitterResponse, java.io.Seriali
      * @return if the user is enabling contributors
      * @since Twitter4J 2.1.2
      */
-    boolean isContributorsEnabled();
+    val isContributorsEnabled: Boolean
 
     /**
      * Returns the profile image url of the user
      *
      * @return the profile image url of the user
      */
-    String getProfileImageURLHttps();
-
-    String getBiggerProfileImageURLHttps();
-
-    String getMiniProfileImageURLHttps();
-
-    String getOriginalProfileImageURLHttps();
+    val profileImageURLHttps: String?
+    val biggerProfileImageURLHttps: String?
+    val miniProfileImageURLHttps: String?
+    val originalProfileImageURLHttps: String?
 
     /**
      * @since Twitter4J 4.0.7
      * @return profile image url
      */
-    String get400x400ProfileImageURLHttps();
+    fun get400x400ProfileImageURLHttps(): String?
 
     /**
      * Tests if the user has not uploaded their own avatar
      *
      * @return if the user has not uploaded their own avatar
      */
-    boolean isDefaultProfileImage();
+    val isDefaultProfileImage: Boolean
 
     /**
      * Returns the url of the user
      *
      * @return the url of the user
      */
-    String getURL();
+    val uRL: String?
 
     /**
      * Test if the user status is protected
      *
      * @return true if the user status is protected
      */
-    boolean isProtected();
+    val isProtected: Boolean
 
     /**
      * Returns the number of followers
@@ -120,94 +118,90 @@ public interface User extends Comparable<User>, TwitterResponse, java.io.Seriali
      * @return the number of followers
      * @since Twitter4J 1.0.4
      */
-    int getFollowersCount();
+    val followersCount: Int
 
     /**
-     * Returns the current status of the user<br>
+     * Returns the current status of the user<br></br>
      * This can be null if the instance if from Status.getUser().
      *
      * @return current status of the user
      * @since Twitter4J 2.1.1
      */
-    Status getStatus();
+    val status: Status?
 
     /**
      * Tests if the user has not altered the theme or background
      *
      * @return if the user has not altered the theme or background
      */
-    boolean isDefaultProfile();
-
-    boolean isShowAllInlineMedia();
+    val isDefaultProfile: Boolean
+    val isShowAllInlineMedia: Boolean
 
     /**
      * Returns the number of users the user follows (AKA "followings")
      *
      * @return the number of users the user follows
      */
-    int getFriendsCount();
+    val friendsCount: Int
 
-    Date getCreatedAt();
-
-    int getFavouritesCount();
-
-    int getUtcOffset();
-
-    String getTimeZone();
+    val createdAt: Date?
+    val favouritesCount: Int
+    val utcOffset: Int
+    val timeZone: String?
 
     /**
      * @since Twitter4J 3.0.0
      * @return profile banner URL
      */
-    String getProfileBannerURL();
+    val profileBannerURL: String?
 
     /**
      * @since Twitter4J 3.0.0
      * @return profile banner retina URL
      */
-    String getProfileBannerRetinaURL();
+    val profileBannerRetinaURL: String?
 
     /**
      * @since Twitter4J 3.0.0
      * @return profile banner iPad URL
      */
-    String getProfileBannerIPadURL();
+    val profileBannerIPadURL: String?
 
     /**
      * @since Twitter4J 3.0.0
      * @return profile banner iPad retina URL
      */
-    String getProfileBannerIPadRetinaURL();
+    val profileBannerIPadRetinaURL: String?
 
     /**
      * @since Twitter4J 3.0.0
      * @return profile banner mobile URL
      */
-    String getProfileBannerMobileURL();
+    val profileBannerMobileURL: String?
 
     /**
      * @since Twitter4J 3.0.0
      * @return profile banner mobile retina URL
      */
-    String getProfileBannerMobileRetinaURL();
+    val profileBannerMobileRetinaURL: String?
 
     /**
      * @since Twitter4J 4.0.7
      * @return profile banner 300x100 URL
      */
-    String getProfileBanner300x100URL();
+    val profileBanner300x100URL: String?
 
     /**
      * @since Twitter4J 4.0.7
      * @return profile banner 600x200 URL
      */
-    String getProfileBanner600x200URL();
+    val profileBanner600x200URL: String?
 
     /**
      * @since Twitter4J 4.0.7
      * @return profile banner 1500x500 URL
      */
-    String getProfileBanner1500x500URL();
+    val profileBanner1500x500URL: String?
 
     /**
      * Returns the preferred language of the user
@@ -215,27 +209,27 @@ public interface User extends Comparable<User>, TwitterResponse, java.io.Seriali
      * @return the preferred language of the user
      * @since Twitter4J 2.1.2
      */
-    String getLang();
+    val lang: String?
 
-    int getStatusesCount();
+    val statusesCount: Int
 
     /**
      * @return the user is enabling geo location
      * @since Twitter4J 2.0.10
      */
-    boolean isGeoEnabled();
+    val isGeoEnabled: Boolean
 
     /**
      * @return returns true if the user is a verified celebrity
      * @since Twitter4J 2.0.10
      */
-    boolean isVerified();
+    val isVerified: Boolean
 
     /**
      * @return returns true if the user is a translator
      * @since Twitter4J 2.1.9
      */
-    boolean isTranslator();
+    val isTranslator: Boolean
 
     /**
      * Returns the number of public lists the user is listed on, or -1
@@ -244,7 +238,7 @@ public interface User extends Comparable<User>, TwitterResponse, java.io.Seriali
      * @return the number of public lists the user is listed on.
      * @since Twitter4J 2.1.4
      */
-    int getListedCount();
+    val listedCount: Int
 
     /**
      * Returns true if the authenticating user has requested to follow this user,
@@ -253,7 +247,7 @@ public interface User extends Comparable<User>, TwitterResponse, java.io.Seriali
      * @return true if the authenticating user has requested to follow this user.
      * @since Twitter4J 2.1.4
      */
-    boolean isFollowRequestSent();
+    val isFollowRequestSent: Boolean
 
     /**
      * Returns URL entities for user description.
@@ -261,7 +255,7 @@ public interface User extends Comparable<User>, TwitterResponse, java.io.Seriali
      * @return URL entities for user description
      * @since Twitter4J 3.0.3
      */
-    URLEntity[] getDescriptionURLEntities();
+    val descriptionURLEntities: Array<URLEntity?>?
 
     /**
      * Returns URL entity for user's URL.
@@ -269,14 +263,13 @@ public interface User extends Comparable<User>, TwitterResponse, java.io.Seriali
      * @return URL entity for user's URL.
      * @since Twitter4J 3.0.3
      */
-    URLEntity getURLEntity();
+    val uRLEntity: URLEntity?
 
     /**
-     *  Returns the list of country codes where the user is withheld
+     * Returns the list of country codes where the user is withheld
      *
-     *  @return list of country codes where the tweet is withheld - null if not withheld
-     *  @since Twitter4j 4.0.3
+     * @return list of country codes where the tweet is withheld - null if not withheld
+     * @since Twitter4j 4.0.3
      */
-    String[] getWithheldInCountries();
-
+    val withheldInCountries: Array<String?>?
 }
