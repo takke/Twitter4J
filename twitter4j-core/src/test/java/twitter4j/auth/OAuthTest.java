@@ -67,7 +67,7 @@ class OAuthTest extends TwitterTestBase {
         build.setOAuthConsumerSecret(oAuthConsumerSecret);
         OAuthAuthorization auth = new OAuthAuthorization(build.build());
         Twitter twitter = new TwitterFactory().getInstance(auth);
-        twitter.verifyCredentials();
+        twitter.v1Resources().verifyCredentials();
     }
 
     @Disabled
@@ -110,7 +110,7 @@ class OAuthTest extends TwitterTestBase {
         assertEquals(at.getUserId(), numberIdId);
         AccessToken at1 = twitter.getOAuthAccessToken();
         assertEquals(at, at1);
-        TwitterResponse res = twitter.getLanguages();
+        TwitterResponse res = twitter.v1Resources().getLanguages();
         assertEquals(TwitterResponse.READ, res.getAccessLevel());
     }
 
@@ -315,7 +315,7 @@ class OAuthTest extends TwitterTestBase {
             Configuration conf = new PropertyConfiguration(props);
             twitter = new TwitterFactory(conf).getInstance();
             twitter.getOAuthAccessToken(id1.screenName, id1.password);
-            twitter.updateStatus(new Date() + ": xAuth test.");
+            twitter.v1Resources().updateStatus(new Date() + ": xAuth test.");
 
             twitter = new TwitterFactory().getInstance();
             twitter.setOAuthConsumer(conf.getOAuthConsumerKey(), conf.getOAuthConsumerSecret());

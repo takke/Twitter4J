@@ -29,24 +29,24 @@ class FavoritesResourcesTest extends TwitterTestBase {
 
     @Test
     void testFavoriteMethods() throws Exception {
-        Status status = twitter1.getHomeTimeline().get(0);
+        Status status = twitter1.v1Resources().getHomeTimeline().get(0);
         try {
-            twitter2.destroyFavorite(status.getId());
+            twitter2.v1Resources().destroyFavorite(status.getId());
         } catch (TwitterException te) {
         }
         assertNotNull(TwitterObjectFactory.getRawJSON(status));
         assertEquals(status, TwitterObjectFactory.createStatus(TwitterObjectFactory.getRawJSON(status)));
-        status = twitter2.createFavorite(status.getId());
+        status = twitter2.v1Resources().createFavorite(status.getId());
         assertNotNull(TwitterObjectFactory.getRawJSON(status));
         assertEquals(status, TwitterObjectFactory.createStatus(TwitterObjectFactory.getRawJSON(status)));
-        assertTrue(twitter2.getFavorites().size() > 0);
-        assertTrue(twitter2.getFavorites("t4j_news").size() > 0);
-        assertTrue(twitter2.getFavorites("t4j_news", new Paging().count(1)).size() == 1);
+        assertTrue(twitter2.v1Resources().getFavorites().size() > 0);
+        assertTrue(twitter2.v1Resources().getFavorites("t4j_news").size() > 0);
+        assertTrue(twitter2.v1Resources().getFavorites("t4j_news", new Paging().count(1)).size() == 1);
         long t4j_news_user_id = 72297675;
-        assertTrue(twitter2.getFavorites(t4j_news_user_id).size() > 0);
-        assertTrue(twitter2.getFavorites(t4j_news_user_id, new Paging().count(1)).size() == 1);
+        assertTrue(twitter2.v1Resources().getFavorites(t4j_news_user_id).size() > 0);
+        assertTrue(twitter2.v1Resources().getFavorites(t4j_news_user_id, new Paging().count(1)).size() == 1);
         try {
-            twitter2.destroyFavorite(status.getId());
+            twitter2.v1Resources().destroyFavorite(status.getId());
         } catch (TwitterException te) {
             // sometimes destroying favorite fails with 404
             assertEquals(404, te.getStatusCode());

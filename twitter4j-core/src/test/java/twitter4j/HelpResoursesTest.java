@@ -29,14 +29,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class HelpResoursesTest extends TwitterTestBase {
     @Test
     void testHelpMethods() throws Exception {
-        ResponseList<HelpResources.Language> languages = twitter1.getLanguages();
+        ResponseList<HelpResources.Language> languages = twitter1.v1Resources().getLanguages();
         assertTrue(languages.size() > 5);
         HelpResources.Language language = languages.get(0);
         assertNotNull(language.getCode());
         assertNotNull(language.getName());
         assertNotNull(language.getStatus());
 
-        TwitterAPIConfiguration conf = twitter1.getAPIConfiguration();
+        TwitterAPIConfiguration conf = twitter1.v1Resources().getAPIConfiguration();
         assertEquals(3145728, conf.getPhotoSizeLimit());
         assertEquals(24, conf.getCharactersReservedPerMedia());
         assertEquals(23, conf.getShortURLLength());
@@ -48,7 +48,7 @@ class HelpResoursesTest extends TwitterTestBase {
 
     @Test
     void testLegalResources() throws Exception {
-        assertNotNull(twitter1.getTermsOfService());
-        assertNotNull(twitter1.getPrivacyPolicy());
+        assertNotNull(twitter1.v1Resources().getTermsOfService());
+        assertNotNull(twitter1.v1Resources().getPrivacyPolicy());
     }
 }

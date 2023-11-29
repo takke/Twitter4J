@@ -30,27 +30,27 @@ class PlaceGeoResourcesTest extends TwitterTestBase {
         ResponseList<Place> places;
         query = new GeoQuery(new GeoLocation(0, 0));
 
-        places = twitter1.reverseGeoCode(query);
+        places = twitter1.v1Resources().reverseGeoCode(query);
         assertEquals(0, places.size());
 
         query = new GeoQuery(new GeoLocation(37.78215, -122.40060));
-        places = twitter1.reverseGeoCode(query);
+        places = twitter1.v1Resources().reverseGeoCode(query);
         assertNotNull(TwitterObjectFactory.getRawJSON(places));
         assertEquals(places.get(0), TwitterObjectFactory.createPlace(TwitterObjectFactory.getRawJSON(places.get(0))));
 
         assertTrue(places.size() > 0);
 
-        places = twitter1.searchPlaces(query);
+        places = twitter1.v1Resources().searchPlaces(query);
         assertNotNull(TwitterObjectFactory.getRawJSON(places));
         assertEquals(places.get(0), TwitterObjectFactory.createPlace(TwitterObjectFactory.getRawJSON(places.get(0))));
         assertTrue(places.size() > 0);
-        places = twitter1.getSimilarPlaces(new GeoLocation(37.78215, -122.40060), "SoMa", null, null);
+        places = twitter1.v1Resources().getSimilarPlaces(new GeoLocation(37.78215, -122.40060), "SoMa", null, null);
         assertNotNull(TwitterObjectFactory.getRawJSON(places));
         assertEquals(places.get(0), TwitterObjectFactory.createPlace(TwitterObjectFactory.getRawJSON(places.get(0))));
         assertTrue(places.size() > 0);
 
         try {
-            Place place = twitter1.getGeoDetails("5a110d312052166f");
+            Place place = twitter1.v1Resources().getGeoDetails("5a110d312052166f");
             assertNotNull(TwitterObjectFactory.getRawJSON(place));
             assertEquals(place, TwitterObjectFactory.createPlace(TwitterObjectFactory.getRawJSON(place)));
             assertEquals("San Francisco, CA", place.getFullName());
@@ -60,7 +60,7 @@ class PlaceGeoResourcesTest extends TwitterTestBase {
             assertEquals(400, te.getStatusCode());
         }
         String sanFrancisco = "5a110d312052166f";
-        Status status = twitter1.updateStatus(new StatusUpdate(new java.util.Date() + " status with place").
+        Status status = twitter1.v1Resources().updateStatus(new StatusUpdate(new java.util.Date() + " status with place").
                 placeId(sanFrancisco));
         assertNotNull(TwitterObjectFactory.getRawJSON(status));
         assertEquals(status, TwitterObjectFactory.createStatus(TwitterObjectFactory.getRawJSON(status)));
@@ -72,13 +72,13 @@ class PlaceGeoResourcesTest extends TwitterTestBase {
         final double LATITUDE = 12.3456;
         final double LONGITUDE = -34.5678;
 
-        Status withgeo = twitter1.updateStatus(new StatusUpdate(new java.util.Date().toString() + ": updating geo location").location(new GeoLocation(LATITUDE, LONGITUDE)));
+        Status withgeo = twitter1.v1Resources().updateStatus(new StatusUpdate(new java.util.Date().toString() + ": updating geo location").location(new GeoLocation(LATITUDE, LONGITUDE)));
         assertNotNull(TwitterObjectFactory.getRawJSON(withgeo));
         assertEquals(withgeo, TwitterObjectFactory.createStatus(TwitterObjectFactory.getRawJSON(withgeo)));
         assertTrue(withgeo.getUser().isGeoEnabled());
         assertEquals(LATITUDE, withgeo.getGeoLocation().getLatitude());
         assertEquals(LONGITUDE, withgeo.getGeoLocation().getLongitude());
-        assertFalse(twitter2.verifyCredentials().isGeoEnabled());
+        assertFalse(twitter2.v1Resources().verifyCredentials().isGeoEnabled());
     }
 
 }

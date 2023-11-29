@@ -32,7 +32,7 @@ class MBeansIntegrationTest extends TwitterTestBase {
         // monitoring is turned on with mbeanEnabled=true
         TwitterAPIMonitor monitor = TwitterAPIMonitor.getInstance();
         long count = monitor.getStatistics().getCallCount();
-        twitter1.getHomeTimeline();
+        twitter1.v1Resources().getHomeTimeline();
         assertEquals(count + 1, monitor.getStatistics().getCallCount());
     }
 }

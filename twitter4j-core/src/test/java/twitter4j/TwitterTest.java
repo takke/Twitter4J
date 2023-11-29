@@ -44,7 +44,7 @@ class TwitterTest extends TwitterTestBase {
     //need to think of a way to test this, perhaps mocking out Twitter is the way to go
     @Test
     void testRateLimitStatus() throws Exception {
-        Map<String, RateLimitStatus> rateLimitStatus = twitter1.getRateLimitStatus();
+        Map<String, RateLimitStatus> rateLimitStatus = twitter1.v1Resources().getRateLimitStatus();
         assertNotNull(TwitterObjectFactory.getRawJSON(rateLimitStatus));
         assertEquals(rateLimitStatus, TwitterObjectFactory.createRateLimitStatus(TwitterObjectFactory.getRawJSON(rateLimitStatus)));
         RateLimitStatus status = rateLimitStatus.values().iterator().next();
@@ -52,7 +52,7 @@ class TwitterTest extends TwitterTestBase {
         assertTrue(10 < status.getRemaining());
         assertTrue(0 < status.getSecondsUntilReset());
 
-        rateLimitStatus = twitter1.getRateLimitStatus("block", "statuses");
+        rateLimitStatus = twitter1.v1Resources().getRateLimitStatus("block", "statuses");
         assertTrue(rateLimitStatus.values().size() > 5);
 
         twitter1.addRateLimitStatusListener(new RateLimitStatusListener() {
@@ -84,11 +84,11 @@ class TwitterTest extends TwitterTestBase {
         // the listener doesn't implement serializable and deserialized form should not be equal to the original object
         assertDeserializedFormIsNotEqual(twitter1);
 
-        twitter1.getMentionsTimeline();
+        twitter1.v1Resources().getMentionsTimeline();
         assertTrue(accountLimitStatusAcquired);
         assertFalse(ipLimitStatusAcquired);
         RateLimitStatus previous = this.rateLimitStatus;
-        twitter1.getMentionsTimeline();
+        twitter1.v1Resources().getMentionsTimeline();
         assertTrue(accountLimitStatusAcquired);
         assertFalse(ipLimitStatusAcquired);
         assertTrue(previous.getRemaining() > this.rateLimitStatus.getRemaining());
@@ -98,9 +98,9 @@ class TwitterTest extends TwitterTestBase {
     @Test
     void testGetAccessLevel() throws Exception {
         TwitterResponse response;
-        response = twitter1.verifyCredentials();
+        response = twitter1.v1Resources().verifyCredentials();
         assertEquals(TwitterResponse.READ_WRITE, response.getAccessLevel());
-        response = rwPrivateMessage.verifyCredentials();
+        response = rwPrivateMessage.v1Resources().verifyCredentials();
         assertEquals(TwitterResponse.READ_WRITE_DIRECTMESSAGES, response.getAccessLevel());
     }
 
