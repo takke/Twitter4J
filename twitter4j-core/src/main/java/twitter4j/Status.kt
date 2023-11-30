@@ -48,6 +48,8 @@ interface Status : Comparable<Status?>, TwitterResponse, EntitySupport, Serializ
      */
     val text: String
 
+    val isPromoted: Boolean
+
     val displayTextRangeStart: Int
     val displayTextRangeEnd: Int
 

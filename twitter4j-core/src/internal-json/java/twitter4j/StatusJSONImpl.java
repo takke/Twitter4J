@@ -16,14 +16,15 @@
 
 package twitter4j;
 
+import static twitter4j.ParseUtil.getDate;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import twitter4j.conf.Configuration;
 
 import java.util.Arrays;
 import java.util.Date;
 
-import static twitter4j.ParseUtil.getDate;
+import twitter4j.conf.Configuration;
 
 /**
  * A data class representing one single status of a user.
@@ -501,6 +502,11 @@ import static twitter4j.ParseUtil.getDate;
     @Nullable
     public String getLang() {
         return lang;
+    }
+
+    @Override
+    public boolean isPromoted() {
+        return false;
     }
 
     /*package*/
