@@ -1,6 +1,6 @@
 dependencies {
     implementation project(':twitter4j-core')
-    implementation 'com.squareup.okhttp3:okhttp:3.0.1'
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.3'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     // this is just to install alpn-boot jar to local .m2 repository. to be used by maven-surefire-plugin and included in the bootclasspath
