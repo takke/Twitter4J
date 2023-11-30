@@ -57,7 +57,7 @@ interface Status : Comparable<Status?>, TwitterResponse, EntitySupport, Serializ
      * @return the source (e.g. &lt;a href="http://twitter.com" rel="nofollow"&gt;Twitter Web Client&lt;/a&gt;)
      * @since Twitter4J 1.0.4
      */
-    var source: String?
+    var source: String
 
     /**
      * Test if the status is truncated
@@ -215,7 +215,7 @@ interface Status : Comparable<Status?>, TwitterResponse, EntitySupport, Serializ
      * @return list of country codes where the tweet is withheld - null if not withheld
      * @since Twitter4j 4.0.3
      */
-    val withheldInCountries: Array<String?>?
+    val withheldInCountries: Array<String>?
 
     /**
      * Returns the Tweet ID of the quoted Tweet
