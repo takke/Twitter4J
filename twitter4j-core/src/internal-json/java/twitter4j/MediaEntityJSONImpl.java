@@ -53,8 +53,9 @@ public class MediaEntityJSONImpl extends EntityIndex implements MediaEntity {
 
             this.url = json.getString("url");
             this.expandedURL = json.getString("expanded_url");
-            this.mediaURL = json.getString("media_url");
-            this.mediaURLHttps = json.getString("media_url_https");
+
+            // Use "media_url_https" instead of "media_url". some media_url values are not accessible.
+            this.mediaURL = this.mediaURLHttps = json.getString("media_url_https");
             this.displayURL = json.getString("display_url");
 
             JSONObject sizes = json.getJSONObject("sizes");
