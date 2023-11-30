@@ -51,7 +51,7 @@ interface User : Comparable<User?>, TwitterResponse, Serializable {
      *
      * @return the screen name of the user
      */
-    val screenName: String
+    val screenName: String?
 
     /**
      * Returns the location of the user
