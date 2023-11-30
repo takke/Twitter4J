@@ -49,7 +49,9 @@ public class MediaEntityJSONImpl extends EntityIndex implements MediaEntity {
             JSONArray indicesArray = json.getJSONArray("indices");
             setStart(indicesArray.getInt(0));
             setEnd(indicesArray.getInt(1));
-            this.id = ParseUtil.getLong("id", json);
+
+            // some json doesn't have "id"
+            this.id = ParseUtil.getLong("id_str", json);
 
             this.url = json.getString("url");
             this.expandedURL = json.getString("expanded_url");
