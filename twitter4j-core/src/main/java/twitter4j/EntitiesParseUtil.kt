@@ -1,78 +1,83 @@
-package twitter4j;
+package twitter4j
 
-import org.jetbrains.annotations.Nullable;
+object EntitiesParseUtil {
 
-/*package*/ class EntitiesParseUtil {
-
-    /*package*/ static UserMentionEntity[] getUserMentions(JSONObject entities) throws JSONException, TwitterException {
-        if (!entities.isNull("user_mentions")) {
-            JSONArray userMentionsArray = entities.getJSONArray("user_mentions");
-            int len = userMentionsArray.length();
-            UserMentionEntity[] userMentionEntities = new UserMentionEntity[len];
-            for (int i = 0; i < len; i++) {
-                userMentionEntities[i] = new UserMentionEntityJSONImpl(userMentionsArray.getJSONObject(i));
+    @JvmStatic
+    @Throws(JSONException::class, TwitterException::class)
+    fun getUserMentions(entities: JSONObject): Array<UserMentionEntity?>? {
+        return if (!entities.isNull("user_mentions")) {
+            val userMentionsArray = entities.getJSONArray("user_mentions")
+            val len = userMentionsArray.length()
+            val userMentionEntities = arrayOfNulls<UserMentionEntity>(len)
+            for (i in 0 until len) {
+                userMentionEntities[i] = UserMentionEntityJSONImpl(userMentionsArray.getJSONObject(i))
             }
-            return userMentionEntities;
+            userMentionEntities
         } else {
-            return null;
+            null
         }
     }
 
-    /*package*/ static URLEntity[] getUrls(JSONObject entities) throws JSONException, TwitterException {
-        if (!entities.isNull("urls")) {
-            JSONArray urlsArray = entities.getJSONArray("urls");
-            int len = urlsArray.length();
-            URLEntity[] urlEntities = new URLEntity[len];
-            for (int i = 0; i < len; i++) {
-                urlEntities[i] = new URLEntityJSONImpl(urlsArray.getJSONObject(i));
+    @JvmStatic
+    @Throws(JSONException::class, TwitterException::class)
+    fun getUrls(entities: JSONObject): Array<URLEntity?>? {
+        return if (!entities.isNull("urls")) {
+            val urlsArray = entities.getJSONArray("urls")
+            val len = urlsArray.length()
+            val urlEntities = arrayOfNulls<URLEntity>(len)
+            for (i in 0 until len) {
+                urlEntities[i] = URLEntityJSONImpl(urlsArray.getJSONObject(i))
             }
-            return urlEntities;
+            urlEntities
         } else {
-            return null;
+            null
         }
     }
 
-    /*package*/ static HashtagEntity[] getHashtags(JSONObject entities) throws JSONException, TwitterException {
-        if (!entities.isNull("hashtags")) {
-            JSONArray hashtagsArray = entities.getJSONArray("hashtags");
-            int len = hashtagsArray.length();
-            HashtagEntity[] hashtagEntities = new HashtagEntity[len];
-            for (int i = 0; i < len; i++) {
-                hashtagEntities[i] = new HashtagEntityJSONImpl(hashtagsArray.getJSONObject(i));
+    @JvmStatic
+    @Throws(JSONException::class, TwitterException::class)
+    fun getHashtags(entities: JSONObject): Array<HashtagEntity?>? {
+        return if (!entities.isNull("hashtags")) {
+            val hashtagsArray = entities.getJSONArray("hashtags")
+            val len = hashtagsArray.length()
+            val hashtagEntities = arrayOfNulls<HashtagEntity>(len)
+            for (i in 0 until len) {
+                hashtagEntities[i] = HashtagEntityJSONImpl(hashtagsArray.getJSONObject(i))
             }
-            return hashtagEntities;
+            hashtagEntities
         } else {
-            return null;
+            null
         }
     }
 
-    /*package*/ static SymbolEntity[] getSymbols(JSONObject entities) throws JSONException, TwitterException {
-        if (!entities.isNull("symbols")) {
-            JSONArray symbolsArray = entities.getJSONArray("symbols");
-            int len = symbolsArray.length();
-            SymbolEntity[] symbolEntities = new SymbolEntity[len];
-            for (int i = 0; i < len; i++) {
+    @JvmStatic
+    @Throws(JSONException::class, TwitterException::class)
+    fun getSymbols(entities: JSONObject): Array<SymbolEntity?>? {
+        return if (!entities.isNull("symbols")) {
+            val symbolsArray = entities.getJSONArray("symbols")
+            val len = symbolsArray.length()
+            val symbolEntities = arrayOfNulls<SymbolEntity>(len)
+            for (i in 0 until len) {
                 // HashtagEntityJSONImpl also implements SymbolEntities
-                symbolEntities[i] = new HashtagEntityJSONImpl(symbolsArray.getJSONObject(i));
+                symbolEntities[i] = HashtagEntityJSONImpl(symbolsArray.getJSONObject(i))
             }
-            return symbolEntities;
+            symbolEntities
         } else {
-            return null;
+            null
         }
     }
 
-    @Nullable
-    /*package*/ static MediaEntity[] getMedia(JSONObject entities) throws JSONException, TwitterException {
-        if (!entities.isNull("media")) {
-            JSONArray mediaArray = entities.getJSONArray("media");
-            int len = mediaArray.length();
-            MediaEntity[] mediaEntities = new MediaEntity[len];
-            for (int i = 0; i < len; i++) {
-                mediaEntities[i] = new MediaEntityJSONImpl(mediaArray.getJSONObject(i));
+    @JvmStatic
+    @Throws(JSONException::class, TwitterException::class)
+    fun getMedia(entities: JSONObject): Array<MediaEntity>? {
+        return if (!entities.isNull("media")) {
+            val mediaArray = entities.getJSONArray("media")
+            val len = mediaArray.length()
+            Array(len) {
+                MediaEntityJSONImpl(mediaArray.getJSONObject(it))
             }
-            return mediaEntities;
         } else {
-            return null;
+            null
         }
     }
 }
