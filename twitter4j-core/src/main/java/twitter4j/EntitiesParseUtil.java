@@ -1,5 +1,7 @@
 package twitter4j;
 
+import org.jetbrains.annotations.Nullable;
+
 /*package*/ class EntitiesParseUtil {
 
     /*package*/ static UserMentionEntity[] getUserMentions(JSONObject entities) throws JSONException, TwitterException {
@@ -59,6 +61,7 @@ package twitter4j;
         }
     }
 
+    @Nullable
     /*package*/ static MediaEntity[] getMedia(JSONObject entities) throws JSONException, TwitterException {
         if (!entities.isNull("media")) {
             JSONArray mediaArray = entities.getJSONArray("media");
