@@ -17,16 +17,17 @@
 
 package twitter4j;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class SearchAPITest extends TwitterTestBase {
 
@@ -95,13 +96,13 @@ class SearchAPITest extends TwitterTestBase {
         queryResult = twitter1.v1Resources().search(query);
         assertEquals(queryStr, queryResult.getQuery());
         assertTrue(0 < queryResult.getTweets().size());
-        query.setQuery("from:al3x");
+        query.query = "from:al3x";
         query.setGeoCode(new GeoLocation(37.78233252646689, -122.39301681518555), 10, Query.KILOMETERS);
         queryResult = twitter1.v1Resources().search(query);
         assertTrue(0 <= queryResult.getTweets().size());
 
         query = new Query("from:tsuda");
-        query.setSinceId(1671199128);
+        query.sinceId = 1671199128;
         queryResult = twitter1.v1Resources().search(query);
         assertTrue(0 < queryResult.getTweets().size());
         assertEquals(4171231, queryResult.getTweets().get(0).getUser().getId());
@@ -137,12 +138,12 @@ class SearchAPITest extends TwitterTestBase {
                 .resultType(Query.ResultType.recent)
                 .since("2017-01-01")
                 .until(until);
-        assertEquals(lang, query.getLang());
+        assertEquals(lang, query.lang);
         QueryResult qr = twitter1.v1Resources().search(query);
         Query nextQuery = qr.nextQuery();
         if (nextQuery != null) {
-            assertEquals(Query.ResultType.recent, nextQuery.getResultType());
-            assertTrue(nextQuery.getMaxId() != -1L, "max id not set");
+            assertEquals(Query.ResultType.recent, nextQuery.resultType);
+            assertTrue(nextQuery.maxId != -1L, "max id not set");
         }
     }
 

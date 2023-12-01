@@ -16,10 +16,10 @@
 
 package twitter4j;
 
-import twitter4j.conf.Configuration;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import twitter4j.conf.Configuration;
 
 /**
  * A data class representing search API response
@@ -67,8 +67,8 @@ import java.util.List;
 
     /*package*/ QueryResultJSONImpl(Query query) {
         super();
-        sinceId = query.getSinceId();
-        count = query.getCount();
+        sinceId = query.sinceId;
+        count = query.count;
         tweets = new ArrayList<Status>(0);
     }
 
