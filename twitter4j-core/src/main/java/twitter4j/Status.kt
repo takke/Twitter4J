@@ -50,6 +50,8 @@ interface Status : Comparable<Status?>, TwitterResponse, EntitySupport, Serializ
 
     val isPromoted: Boolean
 
+    val card: Card?
+
     val displayTextRangeStart: Int
     val displayTextRangeEnd: Int
 

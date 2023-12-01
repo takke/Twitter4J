@@ -509,6 +509,12 @@ import twitter4j.conf.Configuration;
         return false;
     }
 
+    @Nullable
+    @Override
+    public Card getCard() {
+        return null;
+    }
+
     /*package*/
     static ResponseList<Status> createStatusList(HttpResponse res, Configuration conf) throws TwitterException {
         try {
