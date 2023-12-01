@@ -4,15 +4,13 @@ object EntitiesParseUtil {
 
     @JvmStatic
     @Throws(JSONException::class, TwitterException::class)
-    fun getUserMentions(entities: JSONObject): Array<UserMentionEntity?>? {
+    fun getUserMentions(entities: JSONObject): Array<UserMentionEntity>? {
         return if (!entities.isNull("user_mentions")) {
             val userMentionsArray = entities.getJSONArray("user_mentions")
             val len = userMentionsArray.length()
-            val userMentionEntities = arrayOfNulls<UserMentionEntity>(len)
-            for (i in 0 until len) {
-                userMentionEntities[i] = UserMentionEntityJSONImpl(userMentionsArray.getJSONObject(i))
+            Array(len) {
+                UserMentionEntityJSONImpl(userMentionsArray.getJSONObject(it))
             }
-            userMentionEntities
         } else {
             null
         }
@@ -20,15 +18,13 @@ object EntitiesParseUtil {
 
     @JvmStatic
     @Throws(JSONException::class, TwitterException::class)
-    fun getUrls(entities: JSONObject): Array<URLEntity?>? {
+    fun getUrls(entities: JSONObject): Array<URLEntity>? {
         return if (!entities.isNull("urls")) {
             val urlsArray = entities.getJSONArray("urls")
             val len = urlsArray.length()
-            val urlEntities = arrayOfNulls<URLEntity>(len)
-            for (i in 0 until len) {
-                urlEntities[i] = URLEntityJSONImpl(urlsArray.getJSONObject(i))
+            Array(len) {
+                URLEntityJSONImpl(urlsArray.getJSONObject(it))
             }
-            urlEntities
         } else {
             null
         }
@@ -36,15 +32,13 @@ object EntitiesParseUtil {
 
     @JvmStatic
     @Throws(JSONException::class, TwitterException::class)
-    fun getHashtags(entities: JSONObject): Array<HashtagEntity?>? {
+    fun getHashtags(entities: JSONObject): Array<HashtagEntity>? {
         return if (!entities.isNull("hashtags")) {
             val hashtagsArray = entities.getJSONArray("hashtags")
             val len = hashtagsArray.length()
-            val hashtagEntities = arrayOfNulls<HashtagEntity>(len)
-            for (i in 0 until len) {
-                hashtagEntities[i] = HashtagEntityJSONImpl(hashtagsArray.getJSONObject(i))
+            Array(len) {
+                HashtagEntityJSONImpl(hashtagsArray.getJSONObject(it))
             }
-            hashtagEntities
         } else {
             null
         }
@@ -52,16 +46,14 @@ object EntitiesParseUtil {
 
     @JvmStatic
     @Throws(JSONException::class, TwitterException::class)
-    fun getSymbols(entities: JSONObject): Array<SymbolEntity?>? {
+    fun getSymbols(entities: JSONObject): Array<SymbolEntity>? {
         return if (!entities.isNull("symbols")) {
             val symbolsArray = entities.getJSONArray("symbols")
             val len = symbolsArray.length()
-            val symbolEntities = arrayOfNulls<SymbolEntity>(len)
-            for (i in 0 until len) {
+            Array(len) {
                 // HashtagEntityJSONImpl also implements SymbolEntities
-                symbolEntities[i] = HashtagEntityJSONImpl(symbolsArray.getJSONObject(i))
+                HashtagEntityJSONImpl(symbolsArray.getJSONObject(it))
             }
-            symbolEntities
         } else {
             null
         }
