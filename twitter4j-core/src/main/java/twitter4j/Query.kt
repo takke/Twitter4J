@@ -30,6 +30,11 @@ import java.io.Serializable
 class Query : Serializable {
 
     /**
+     * Cursor for some queries
+     */
+    var cursor: String? = null
+
+    /**
      * the query string
      *
      * @param query the query string
@@ -341,19 +346,7 @@ class Query : Serializable {
     }
 
     override fun toString(): String {
-        return "Query{" +
-                "query='" + query + '\'' +
-                ", lang='" + lang + '\'' +
-                ", locale='" + locale + '\'' +
-                ", maxId=" + maxId +
-                ", count=" + count +
-                ", since='" + since + '\'' +
-                ", sinceId=" + sinceId +
-                ", geocode='" + geocode + '\'' +
-                ", until='" + until + '\'' +
-                ", resultType='" + resultType + '\'' +
-                ", nextPageQuery='" + nextPageQuery + '\'' +
-                '}'
+        return "Query(cursor=$cursor, query=$query, lang=$lang, locale=$locale, maxId=$maxId, count=$count, since=$since, sinceId=$sinceId, geocode=$geocode, until=$until, resultType=$resultType, nextPageQuery=$nextPageQuery)"
     }
 
     companion object {
