@@ -16,10 +16,10 @@
 
 package twitter4j;
 
-import twitter4j.conf.Configuration;
-
 import java.util.Arrays;
 import java.util.Date;
+
+import twitter4j.conf.Configuration;
 
 /**
  * A data class representing Basic user information element
@@ -188,7 +188,7 @@ import java.util.Date;
 
     @Override
     public String getName() {
-        return name;
+        return name != null ? name : "";
     }
     
     @Override
@@ -198,7 +198,7 @@ import java.util.Date;
 
     @Override
     public String getScreenName() {
-        return screenName;
+        return screenName != null ? screenName : "";
     }
 
     @Override
