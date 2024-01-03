@@ -1,3 +1,17 @@
+apply plugin: "org.jetbrains.kotlin.jvm"
+apply plugin: 'java'
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
+
+java {
+    sourceCompatibility = 11
+    targetCompatibility = 11
+}
+
 dependencies {
     implementation project(':twitter4j-core')
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.3'
