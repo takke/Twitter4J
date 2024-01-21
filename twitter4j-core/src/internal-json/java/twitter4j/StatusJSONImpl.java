@@ -414,6 +414,21 @@ import twitter4j.conf.Configuration;
     }
 
     @Override
+    public int getQuoteCount() {
+        return 0;
+    }
+
+    @Override
+    public int getReplyCount() {
+        return 0;
+    }
+
+    @Override
+    public int getBookmarkCount() {
+        return 0;
+    }
+
+    @Override
     public boolean isRetweetedByMe() {
         return currentUserRetweetId != -1L;
     }

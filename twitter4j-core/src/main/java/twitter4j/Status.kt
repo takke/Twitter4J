@@ -171,6 +171,12 @@ interface Status : Comparable<Status?>, TwitterResponse, EntitySupport, Serializ
      */
     val retweetCount: Int
 
+    val quoteCount: Int
+
+    val replyCount: Int
+
+    val bookmarkCount: Int
+
     /**
      * Returns true if the authenticating user has retweeted this tweet, or false when the tweet was
      * created before this feature was enabled.
