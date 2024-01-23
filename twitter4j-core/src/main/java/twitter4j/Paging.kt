@@ -27,6 +27,12 @@ import java.io.Serializable
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
 class Paging : Serializable {
+
+    /**
+     * Cursor for some queries
+     */
+    var cursor: String? = null
+
     private var _page = -1
     var page: Int
         get() = _page
