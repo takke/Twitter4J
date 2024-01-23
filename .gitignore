@@ -23,3 +23,5 @@ sitestream-test.properties
 .gradle/
 build
 local.properties
+/fix_mv.sh
+/auto_fix_mv.sh
