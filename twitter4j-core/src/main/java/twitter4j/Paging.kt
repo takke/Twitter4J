@@ -169,29 +169,28 @@ class Paging : Serializable {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is Paging) return false
-        val paging = other
-        if (count != paging.count) return false
-        if (maxId != paging.maxId) return false
-        if (page != paging.page) return false
-        return if (sinceId != paging.sinceId) false else true
+        if (javaClass != other?.javaClass) return false
+
+        other as Paging
+
+        if (cursor != other.cursor) return false
+        if (page != other.page) return false
+        if (count != other.count) return false
+        if (sinceId != other.sinceId) return false
+        return maxId == other.maxId
     }
 
     override fun hashCode(): Int {
-        var result = page
+        var result = cursor?.hashCode() ?: 0
+        result = 31 * result + page
         result = 31 * result + count
-        result = 31 * result + (sinceId xor (sinceId ushr 32)).toInt()
-        result = 31 * result + (maxId xor (maxId ushr 32)).toInt()
+        result = 31 * result + sinceId.hashCode()
+        result = 31 * result + maxId.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "Paging{" +
-                "page=" + page +
-                ", count=" + count +
-                ", sinceId=" + sinceId +
-                ", maxId=" + maxId +
-                '}'
+        return "Paging(cursor=$cursor, page=$page, count=$count, sinceId=$sinceId, maxId=$maxId)"
     }
 
     companion object {
