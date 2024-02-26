@@ -1,6 +1,6 @@
 ext {
     groupId = 'org.twitter4j'
-    versionName = '4.0.8-20221004'
+    versionName = '4.0.8-20240226'
     versionDescription = 'Twitter4J Version ' + versionName
 }
 
