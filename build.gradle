@@ -58,43 +58,45 @@ buildscript {
 
 // for publish
 // $ ./gradlew publishToMavenLocal  # deploy to ~/.m2/repository/org/twitter4j/
-//subprojects {
-//    apply plugin: 'maven-publish'
-//
-//    javadoc {
-//        failOnError = false
-//    }
-//
-//    // custom tasks for creating source/javadoc jars
-//    task sourcesJar(type: Jar, dependsOn: classes) {
-//        classifier = 'sources'
-//        from sourceSets.main.allSource
-//    }
-//
-//    task javadocJar(type: Jar, dependsOn: javadoc) {
-//        classifier = 'javadoc'
-//        from javadoc.destinationDir
-//    }
-//
-//    // add javadoc/source jar tasks as artifacts
-//    artifacts {
-//        archives sourcesJar, javadocJar
-//    }
-//
-//    publishing {
-//        publications {
-//            MyPublication(MavenPublication) {
-//                from components.java
-//                artifact sourcesJar
-//                artifact javadocJar
-//                groupId groupId
-//                version versionName
-//            }
-//        }
-//        repositories {
-//            maven {
-//                url "file://${rootDir}/release_to_github_io/takke.github.io/maven/"
-//            }
-//        }
-//    }
-//}
+subprojects {
+    apply plugin: 'maven-publish'
+
+    javadoc {
+        failOnError = false
+    }
+
+    // custom tasks for creating source/javadoc jars
+    tasks.register('sourcesJar', Jar) {
+        dependsOn classes
+        archiveClassifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    tasks.register('javadocJar', Jar) {
+        dependsOn javadoc
+        archiveClassifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    // add javadoc/source jar tasks as artifacts
+    artifacts {
+        archives sourcesJar, javadocJar
+    }
+
+    publishing {
+        publications {
+            MyPublication(MavenPublication) {
+                from components.java
+                artifact sourcesJar
+                artifact javadocJar
+                groupId groupId
+                version versionName
+            }
+        }
+        repositories {
+            maven {
+                url "file://${rootDir}/release_to_github_io/takke.github.io/maven/"
+            }
+        }
+    }
+}
