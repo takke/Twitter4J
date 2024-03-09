@@ -1,6 +1,19 @@
 Change Log
 ==========
 
+v4.0.8-20240309
+---------------
+- OkHttp 5.0.0-alpha.12
+
+v4.0.8-20240226
+---------------
+- support core and http2-support only
+- v1Resources
+- Introduce Kotlin
+- OkHttp 5.0.0-alpha.3
+- Gradle 7.5 -> 8.6
+- Java 1.8
+
 v4.0.8-20221004
 ---------------
 - Add `CHANGELOG.md`
