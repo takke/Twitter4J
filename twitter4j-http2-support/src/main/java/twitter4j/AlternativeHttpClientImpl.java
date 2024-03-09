@@ -38,7 +38,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Protocol;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.internal.Util;
+import okhttp3.internal._UtilCommonKt;
 import okio.BufferedSink;
 import okio.Okio;
 import okio.Source;
@@ -252,7 +252,9 @@ public class AlternativeHttpClientImpl extends HttpClientBase implements HttpRes
                     source = Okio.source(inputStream);
                     sink.writeAll(source);
                 } finally {
-                    Util.closeQuietly(source);
+                    if (source != null) {
+                        _UtilCommonKt.closeQuietly(source);
+                    }
                 }
             }
         };
