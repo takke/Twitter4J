@@ -272,4 +272,25 @@ interface User : Comparable<User?>, TwitterResponse, Serializable {
      * @since Twitter4j 4.0.3
      */
     val withheldInCountries: Array<String>?
+
+    /**
+     * Returns whether the authenticating user is following this user
+     *
+     * @since Twitter4J v4.0.8-20240823
+     */
+    val following: Boolean?
+
+    /**
+     * Returns whether the authenticating user is followed by this user
+     *
+     * @since Twitter4J v4.0.8-20240823
+     */
+    val followedBy: Boolean?
+
+    /**
+     * Returns whether the authenticating user can send a direct message to this user
+     *
+     * @since Twitter4J v4.0.8-20240823
+     */
+    val canDm: Boolean?
 }

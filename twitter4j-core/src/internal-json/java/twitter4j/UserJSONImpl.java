@@ -16,6 +16,8 @@
 
 package twitter4j;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Arrays;
 import java.util.Date;
 
@@ -419,6 +421,24 @@ import twitter4j.conf.Configuration;
     @Override
     public String[] getWithheldInCountries() {
         return withheldInCountries;
+    }
+
+    @Nullable
+    @Override
+    public Boolean getFollowing() {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public Boolean getFollowedBy() {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public Boolean getCanDm() {
+        return null;
     }
 
     /*package*/
