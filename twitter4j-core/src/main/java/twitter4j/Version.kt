@@ -25,7 +25,7 @@ class Version private constructor() {
 
     companion object {
         @JvmStatic
-        val version = "v4.0.8-20221004"
+        val version = "v4.0.8-20240823"
 
         private const val TITLE = "Twitter4J"
 

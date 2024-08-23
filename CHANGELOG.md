@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+v4.0.8-20240823
+---------------
+- Add `User.following`, `User.followedBy`, `User.canDm`
+- Kotlin 2.0.0
+
 v4.0.8-20240311
 ---------------
 - OkHttp 4.12.0
