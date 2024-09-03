@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+v4.0.8-20240903
+---------------
+- Add TwitterObjectFactory.removeJSONObject
+
 v4.0.8-20240823
 ---------------
 - Add `User.following`, `User.followedBy`, `User.canDm`
