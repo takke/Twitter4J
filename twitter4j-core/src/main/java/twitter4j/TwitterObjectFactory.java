@@ -342,4 +342,13 @@ public final class TwitterObjectFactory {
         rawJsonMap.get().put(key, json);
         return key;
     }
+
+    /**
+     * remove a raw JSON form from the current thread<br>
+     *
+     * @since Twitter4J 2.1.7
+     */
+    static <T> void removeJSONObject(T key) {
+        rawJsonMap.get().remove(key);
+    }
 }
