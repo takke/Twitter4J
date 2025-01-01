@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+v4.0.8-20250101
+---------------
+- Gradle 8.12
+
 v4.0.8-20240903
 ---------------
 - Add TwitterObjectFactory.removeJSONObject
