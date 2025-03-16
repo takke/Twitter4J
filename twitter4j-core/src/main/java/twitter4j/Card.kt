@@ -9,4 +9,5 @@ data class Card(
     val imageHeight: Int,
 
     val title: String,
+    val description: String,
 )
