@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+v4.0.8-2025xxxx
+---------------
+- Add Card.description
+
 v4.0.8-20250302
 ---------------
 - Gradle 8.13
