@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package twitter4j;
-
+package twitter4j
 
 /**
  * Super interface of Twitter Response data interfaces which indicates that rate limit status is available.
@@ -25,28 +24,25 @@ package twitter4j;
  * @see twitter4j.Status
  * @see twitter4j.User
  */
-/*package*/ abstract class TwitterResponseImpl implements TwitterResponse, java.io.Serializable {
+abstract class TwitterResponseImpl : TwitterResponse, java.io.Serializable {
 
-    private static final long serialVersionUID = 7422171124869859808L;
-    private transient RateLimitStatus rateLimitStatus = null;
-    private final transient int accessLevel;
+    @Transient
+    final override val rateLimitStatus: RateLimitStatus?
 
-    public TwitterResponseImpl() {
-        accessLevel = NONE;
+    @Transient
+    final override val accessLevel: Int
+
+    constructor() {
+        rateLimitStatus = null
+        accessLevel = TwitterResponse.NONE
     }
 
-    public TwitterResponseImpl(HttpResponse res) {
-        this.rateLimitStatus = RateLimitStatusJSONImpl.createFromResponseHeader(res);
-        accessLevel = ParseUtil.toAccessLevel(res);
+    constructor(res: HttpResponse?) {
+        rateLimitStatus = RateLimitStatusJSONImpl.createFromResponseHeader(res)
+        accessLevel = ParseUtil.toAccessLevel(res)
     }
 
-    @Override
-    public RateLimitStatus getRateLimitStatus() {
-        return rateLimitStatus;
-    }
-
-    @Override
-    public int getAccessLevel() {
-        return accessLevel;
+    companion object {
+        private const val serialVersionUID = 7422171124869859808L
     }
 }

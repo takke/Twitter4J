@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package twitter4j;
+package twitter4j
 
 /**
  * A data interface representing targeting scopes applied to a status.
@@ -21,23 +21,24 @@ package twitter4j;
  * @author Aaron Rankin - aaron at sproutsocial.com
  * @since Twitter4J 3.0.6
  */
-public class ScopesImpl implements Scopes {
-    private static final long serialVersionUID = -6301829625595514787L;
+class ScopesImpl : Scopes {
 
-    private final String[] placeIds;
-    
+    private val placeIds: Array<String>
+
     /* Only for serialization purposes. */
-    /*package*/ ScopesImpl() {
-        this.placeIds = new String[0];
+    constructor() {
+        this.placeIds = arrayOf()
     }
 
-    public ScopesImpl(final String[] placeIds) {
-        this.placeIds = placeIds;
+    constructor(placeIds: Array<String>) {
+        this.placeIds = placeIds
     }
 
-    @Override
-    public String[] getPlaceIds() {
-        return placeIds;
+    override fun getPlaceIds(): Array<String> {
+        return placeIds
     }
 
+    companion object {
+        private const val serialVersionUID = -6301829625595514787L
+    }
 }
