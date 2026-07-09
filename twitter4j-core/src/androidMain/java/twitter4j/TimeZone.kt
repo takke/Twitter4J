@@ -19,7 +19,7 @@ package twitter4j
 /**
  * @author Alessandro Bahgat - ale.bahgat at gmail.com
  */
-interface TimeZone : java.io.Serializable {
+interface TimeZone : Serializable {
     val name: String
 
     fun tzinfoName(): String

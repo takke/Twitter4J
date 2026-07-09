@@ -24,7 +24,7 @@ import java.util.Date
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.0.8
  */
-interface SavedSearch : Comparable<SavedSearch>, TwitterResponse, java.io.Serializable {
+interface SavedSearch : Comparable<SavedSearch>, TwitterResponse, Serializable {
     val createdAt: Date
 
     val query: String

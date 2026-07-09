@@ -34,7 +34,7 @@ class HttpParameter private constructor(
     val jsonObject: JSONObject?,
     val file: File?,
     val fileBody: InputStream?
-) : Comparable<HttpParameter>, java.io.Serializable {
+) : Comparable<HttpParameter>, Serializable {
 
     constructor(name: String?, value: String?) : this(name, value, null, null, null)
 

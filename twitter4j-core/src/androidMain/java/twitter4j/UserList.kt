@@ -23,7 +23,7 @@ import java.util.Date
  *
  * @author Dan Checkoway - dcheckoway at gmail.com
  */
-interface UserList : Comparable<UserList?>, TwitterResponse, java.io.Serializable {
+interface UserList : Comparable<UserList?>, TwitterResponse, Serializable {
     /**
      * Returns the id of the list
      *

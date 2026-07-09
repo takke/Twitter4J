@@ -21,6 +21,6 @@ package twitter4j
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-interface IDs : TwitterResponse, CursorSupport, java.io.Serializable {
+interface IDs : TwitterResponse, CursorSupport, Serializable {
     val iDs: LongArray
 }

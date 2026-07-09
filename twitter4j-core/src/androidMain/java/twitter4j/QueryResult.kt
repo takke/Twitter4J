@@ -21,7 +21,7 @@ package twitter4j
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-interface QueryResult : TwitterResponse, java.io.Serializable {
+interface QueryResult : TwitterResponse, Serializable {
     val sinceId: Long
 
     val maxId: Long

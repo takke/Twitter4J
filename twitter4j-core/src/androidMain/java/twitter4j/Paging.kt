@@ -15,7 +15,6 @@
  */
 package twitter4j
 
-import java.io.Serializable
 
 /**
  * Controls pagination.<br></br>

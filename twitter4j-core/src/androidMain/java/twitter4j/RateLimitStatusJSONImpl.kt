@@ -25,7 +25,7 @@ import java.util.Collections
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @see <a href="https://dev.twitter.com/docs/rate-limiting">Rate Limiting | Twitter Developers</a>
  */
-class RateLimitStatusJSONImpl : RateLimitStatus, java.io.Serializable {
+class RateLimitStatusJSONImpl : RateLimitStatus, Serializable {
 
     override var remaining: Int = 0
         private set

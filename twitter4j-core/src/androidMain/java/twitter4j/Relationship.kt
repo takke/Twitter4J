@@ -23,7 +23,7 @@ package twitter4j
  * @see [GET friendships/show | Twitter Developers](https://dev.twitter.com/docs/api/1.1/get/friendships/show)
  * @since Twitter4J 2.1.0
  */
-interface Relationship : TwitterResponse, java.io.Serializable {
+interface Relationship : TwitterResponse, Serializable {
     /**
      * Returns the source user id
      *

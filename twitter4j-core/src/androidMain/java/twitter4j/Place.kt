@@ -4,7 +4,7 @@ package twitter4j
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.1.1
  */
-interface Place : TwitterResponse, Comparable<Place>, java.io.Serializable {
+interface Place : TwitterResponse, Comparable<Place>, Serializable {
     val name: String
 
     val streetAddress: String

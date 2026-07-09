@@ -40,7 +40,7 @@ import java.io.ObjectInputStream
 // http / auth / conf フィールドを直接参照するため、旧Javaの package-private 相当を
 // @JvmField 付き public フィールドとして公開する（バイトコード上のフィールド名を維持）。
 abstract class TwitterBaseImpl internal constructor(conf: Configuration, auth: Authorization?) :
-    TwitterBase, java.io.Serializable, OAuthSupport, OAuth2Support, HttpResponseListener {
+    TwitterBase, Serializable, OAuthSupport, OAuth2Support, HttpResponseListener {
 
     @JvmField
     var conf: Configuration

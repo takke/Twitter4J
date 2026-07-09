@@ -48,7 +48,7 @@ interface MediaEntity : URLEntity {
      */
     val sizes: Map<Int, Size>
 
-    interface Size : java.io.Serializable {
+    interface Size : Serializable {
         val width: Int
 
         val height: Int
@@ -78,7 +78,7 @@ interface MediaEntity : URLEntity {
 
     val videoDurationMillis: Long
 
-    interface Variant : java.io.Serializable {
+    interface Variant : Serializable {
 
         val bitrate: Int
 

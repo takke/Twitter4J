@@ -23,7 +23,7 @@ package twitter4j
  * @since Twitter4J 2.0.2
  */
 @Suppress("PropertyName")
-internal class TrendJSONImpl : Trend, java.io.Serializable {
+internal class TrendJSONImpl : Trend, Serializable {
 
     override val name: String
     override val URL: String

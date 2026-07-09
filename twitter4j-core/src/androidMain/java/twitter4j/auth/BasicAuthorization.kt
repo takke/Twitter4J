@@ -16,6 +16,8 @@
 
 package twitter4j.auth
 
+import twitter4j.Serializable
+
 import twitter4j.BASE64Encoder
 import twitter4j.HttpRequest
 
@@ -27,7 +29,7 @@ import twitter4j.HttpRequest
 class BasicAuthorization(
     val userId: String?,
     val password: String?
-) : Authorization, java.io.Serializable {
+) : Authorization, Serializable {
 
     private val basic: String? = encodeBasicAuthenticationString()
 

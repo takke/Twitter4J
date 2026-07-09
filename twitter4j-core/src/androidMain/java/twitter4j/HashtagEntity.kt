@@ -22,7 +22,7 @@ package twitter4j
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.1.9
  */
-interface HashtagEntity : TweetEntity, java.io.Serializable {
+interface HashtagEntity : TweetEntity, Serializable {
     /**
      * Returns the text of the hashtag without #.
      *

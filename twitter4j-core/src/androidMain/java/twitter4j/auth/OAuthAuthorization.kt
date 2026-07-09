@@ -16,6 +16,8 @@
 
 package twitter4j.auth
 
+import twitter4j.Serializable
+
 import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
 import java.security.InvalidKeyException
@@ -40,7 +42,7 @@ import twitter4j.conf.Configuration
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @see <a href="http://oauth.net/core/1.0a/">OAuth Core 1.0a</a>
  */
-class OAuthAuthorization(private val conf: Configuration) : Authorization, java.io.Serializable, OAuthSupport {
+class OAuthAuthorization(private val conf: Configuration) : Authorization, Serializable, OAuthSupport {
 
     private var consumerKey: String? = ""
     private var consumerSecret: String? = null

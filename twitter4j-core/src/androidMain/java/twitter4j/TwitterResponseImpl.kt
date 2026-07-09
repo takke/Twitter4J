@@ -24,7 +24,7 @@ package twitter4j
  * @see twitter4j.Status
  * @see twitter4j.User
  */
-abstract class TwitterResponseImpl : TwitterResponse, java.io.Serializable {
+abstract class TwitterResponseImpl : TwitterResponse, Serializable {
 
     @Transient
     final override val rateLimitStatus: RateLimitStatus?

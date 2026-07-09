@@ -22,7 +22,7 @@ package twitter4j
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.0.2
  */
-interface Trend : java.io.Serializable {
+interface Trend : Serializable {
     val name: String
 
     val URL: String

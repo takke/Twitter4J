@@ -16,6 +16,8 @@
 
 package twitter4j.auth
 
+import twitter4j.Serializable
+
 import java.io.ObjectStreamException
 import twitter4j.HttpRequest
 
@@ -24,7 +26,7 @@ import twitter4j.HttpRequest
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-class NullAuthorization private constructor() : Authorization, java.io.Serializable {
+class NullAuthorization private constructor() : Authorization, Serializable {
 
     override fun getAuthorizationHeader(req: HttpRequest): String? {
         return null

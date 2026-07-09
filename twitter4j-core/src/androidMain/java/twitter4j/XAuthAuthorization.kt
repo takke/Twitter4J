@@ -23,7 +23,7 @@ import twitter4j.auth.BasicAuthorization
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.1.3
  */
-class XAuthAuthorization(private val basic: BasicAuthorization) : Authorization, java.io.Serializable {
+class XAuthAuthorization(private val basic: BasicAuthorization) : Authorization, Serializable {
 
     var consumerKey: String? = null
         private set

@@ -20,7 +20,7 @@ package twitter4j
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.1.3
  */
-internal class ExceptionDiagnosis : java.io.Serializable {
+internal class ExceptionDiagnosis : Serializable {
     private var stackLineHash = 0
     private var lineNumberHash = 0
     private var hexString = ""

@@ -26,7 +26,7 @@ package twitter4j
  *
  * @see twitter4j.User
  */
-interface TwitterResponse : java.io.Serializable {
+interface TwitterResponse : Serializable {
     /**
      * Returns the current rate limit status if available.
      *

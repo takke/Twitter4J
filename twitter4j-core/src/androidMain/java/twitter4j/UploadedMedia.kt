@@ -21,7 +21,7 @@ package twitter4j
  * @author Hiroaki TAKEUCHI - takke30 at gmail.com
  * @since Twitter4J 4.0.2
  */
-class UploadedMedia @Throws(TwitterException::class) internal constructor(json: JSONObject) : java.io.Serializable {
+class UploadedMedia @Throws(TwitterException::class) internal constructor(json: JSONObject) : Serializable {
 
     var imageWidth = 0
         private set

@@ -23,7 +23,7 @@ import java.util.Date
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-interface DirectMessage : TwitterResponse, EntitySupport, java.io.Serializable {
+interface DirectMessage : TwitterResponse, EntitySupport, Serializable {
 
     val id: Long
 

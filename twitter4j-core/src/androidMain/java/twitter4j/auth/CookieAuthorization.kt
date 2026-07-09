@@ -16,6 +16,8 @@
 
 package twitter4j.auth
 
+import twitter4j.Serializable
+
 import java.util.Objects
 
 import twitter4j.HttpRequest
@@ -24,7 +26,7 @@ import twitter4j.conf.Configuration
 /**
  * Cookie Authorization
  */
-class CookieAuthorization(conf: Configuration) : Authorization, java.io.Serializable {
+class CookieAuthorization(conf: Configuration) : Authorization, Serializable {
 //    private final Configuration conf;
 //    private transient static HttpClient http;
 

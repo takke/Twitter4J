@@ -23,7 +23,7 @@ import twitter4j.auth.OAuthSupport
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.2.0
  */
-interface Twitter : java.io.Serializable,
+interface Twitter : Serializable,
     OAuthSupport,
     OAuth2Support,
     TwitterBase {

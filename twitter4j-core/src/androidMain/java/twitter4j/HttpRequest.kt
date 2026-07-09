@@ -36,7 +36,7 @@ class HttpRequest(
     parameters: Array<HttpParameter>?,
     val authorization: Authorization?,
     val requestHeaders: Map<String, String>?
-) : java.io.Serializable {
+) : Serializable {
 
     @get:JvmName("getURL")
     val url: String

@@ -22,7 +22,7 @@ package twitter4j
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @see [Rate Limiting | Twitter Developers](https://dev.twitter.com/docs/rate-limiting)
  */
-interface RateLimitStatus : java.io.Serializable {
+interface RateLimitStatus : Serializable {
     /**
      * Returns the remaining number of API requests available.<br>
      * This value is identical to the &quot;X-Rate-Limit-Remaining&quot; response header.

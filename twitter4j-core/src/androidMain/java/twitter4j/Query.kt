@@ -15,7 +15,6 @@
  */
 package twitter4j
 
-import java.io.Serializable
 
 /**
  * A data class represents search query.<br></br>

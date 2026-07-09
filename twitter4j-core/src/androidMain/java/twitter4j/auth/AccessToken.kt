@@ -16,6 +16,8 @@
 
 package twitter4j.auth
 
+import twitter4j.Serializable
+
 import twitter4j.HttpResponse
 import twitter4j.TwitterException
 
@@ -25,7 +27,7 @@ import twitter4j.TwitterException
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-open class AccessToken : OAuthToken, java.io.Serializable {
+open class AccessToken : OAuthToken, Serializable {
 
     /**
      * @return screen name

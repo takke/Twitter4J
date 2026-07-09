@@ -25,7 +25,7 @@ class QuickReply
     val label: String?,
     val description: String?,
     val metadata: String?
-) : java.io.Serializable {
+) : Serializable {
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true

@@ -16,6 +16,8 @@
 
 package twitter4j.auth
 
+import twitter4j.Serializable
+
 import twitter4j.HttpResponse
 import twitter4j.TwitterException
 import twitter4j.conf.Configuration
@@ -25,7 +27,7 @@ import twitter4j.conf.ConfigurationContext
  * @author Yusuke Yamamoto - yusuke at mac.com
  *         representing unauthorized Request Token which is passed to the service provider when acquiring the authorized Access Token
  */
-class RequestToken : OAuthToken, java.io.Serializable {
+class RequestToken : OAuthToken, Serializable {
     private val conf: Configuration
     private var oauth: OAuthSupport? = null
 

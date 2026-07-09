@@ -19,7 +19,7 @@ package twitter4j
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-interface Location : java.io.Serializable {
+interface Location : Serializable {
     val woeid: Int
 
     val countryName: String

@@ -16,7 +16,6 @@
 
 package twitter4j
 
-import java.io.Serializable
 
 /**
  * A data interface representing one single user mention entity.

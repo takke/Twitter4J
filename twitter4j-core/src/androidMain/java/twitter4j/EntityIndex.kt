@@ -19,7 +19,7 @@ package twitter4j
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-abstract class EntityIndex : Comparable<EntityIndex>, java.io.Serializable {
+abstract class EntityIndex : Comparable<EntityIndex>, Serializable {
     // TwitPane(MyHTMLEntity 等)から `entity.start = x` の形で外部モジュールから更新するため public な var とする。
     // Java 側(旧 setStart/setEnd)や Kotlin プロパティアクセスの双方から利用できるように getter/setter を公開する。
     open var start: Int = -1

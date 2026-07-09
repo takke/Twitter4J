@@ -16,7 +16,8 @@
 
 package twitter4j.util
 
-import java.io.Serializable
+import twitter4j.Serializable
+
 import java.text.MessageFormat
 import java.text.SimpleDateFormat
 import java.util.Date

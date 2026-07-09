@@ -16,6 +16,8 @@
 
 package twitter4j.conf
 
+import twitter4j.Serializable
+
 import java.util.Properties
 
 import twitter4j.HttpClientConfiguration
@@ -24,7 +26,7 @@ import twitter4j.auth.AuthorizationConfiguration
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-interface Configuration : AuthorizationConfiguration, java.io.Serializable {
+interface Configuration : AuthorizationConfiguration, Serializable {
 
     fun isDebugEnabled(): Boolean
 

@@ -16,8 +16,9 @@
 
 package twitter4j.conf
 
+import twitter4j.Serializable
+
 import java.io.ObjectStreamException
-import java.io.Serializable
 import java.net.Proxy
 import java.util.Properties
 
@@ -29,7 +30,7 @@ import twitter4j.Logger
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-internal open class ConfigurationBase constructor() : Configuration, java.io.Serializable {
+internal open class ConfigurationBase constructor() : Configuration, Serializable {
     private var debug = false
     override var user: String? = null
     override var password: String? = null

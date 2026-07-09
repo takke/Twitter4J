@@ -16,6 +16,8 @@
 
 package twitter4j.auth
 
+import twitter4j.Serializable
+
 import twitter4j.HttpResponse
 import twitter4j.JSONException
 import twitter4j.JSONObject
@@ -25,7 +27,7 @@ import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
 import java.net.URLEncoder
 
-class OAuth2Token : java.io.Serializable {
+class OAuth2Token : Serializable {
 
     var tokenType: String? = null
         private set

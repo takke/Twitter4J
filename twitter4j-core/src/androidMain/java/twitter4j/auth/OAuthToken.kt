@@ -16,12 +16,14 @@
 
 package twitter4j.auth
 
+import twitter4j.Serializable
+
 import twitter4j.HttpResponse
 import twitter4j.TwitterException
 
 import javax.crypto.spec.SecretKeySpec
 
-abstract class OAuthToken : java.io.Serializable {
+abstract class OAuthToken : Serializable {
 
     val token: String
     val tokenSecret: String

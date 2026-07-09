@@ -38,7 +38,7 @@ class TwitterFactory
  * @param conf the configuration to use
  * @since Twitter4J 2.1.1
  */
-(private val conf: Configuration) : java.io.Serializable {
+(private val conf: Configuration) : Serializable {
 
     /**
      * Creates a TwitterFactory with the root configuration.

@@ -20,7 +20,7 @@ package twitter4j
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.1.9
  */
-interface AccountSettings : TwitterResponse, java.io.Serializable {
+interface AccountSettings : TwitterResponse, Serializable {
     /**
      * Returns true if the user enabled sleep time.
      *

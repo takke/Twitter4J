@@ -24,7 +24,7 @@ import java.util.Arrays
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.1.1
  */
-class StatusUpdate(val status: String) : java.io.Serializable {
+class StatusUpdate(val status: String) : Serializable {
 
     var inReplyToStatusId: Long = -1L
     var location: GeoLocation? = null

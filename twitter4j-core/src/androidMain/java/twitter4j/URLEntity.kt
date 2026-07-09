@@ -22,7 +22,7 @@ package twitter4j
  * @author Mocel - mocel at guma.jp
  * @since Twitter4J 2.1.9
  */
-interface URLEntity : TweetEntity, java.io.Serializable {
+interface URLEntity : TweetEntity, Serializable {
 
     /**
      * Returns the URL mentioned in the tweet.<br>

@@ -16,6 +16,8 @@
 
 package twitter4j.auth
 
+import twitter4j.Serializable
+
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 
@@ -31,7 +33,7 @@ import twitter4j.conf.Configuration
  * @author KOMIYA Atsushi - komiya.atsushi at gmail.com
  * @see <a href="https://dev.twitter.com/docs/auth/application-only-auth">Application-only authentication</a>
  */
-class OAuth2Authorization(private val conf: Configuration) : Authorization, java.io.Serializable, OAuth2Support {
+class OAuth2Authorization(private val conf: Configuration) : Authorization, Serializable, OAuth2Support {
 
     private val http: HttpClient
 

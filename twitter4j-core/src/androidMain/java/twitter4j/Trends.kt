@@ -24,7 +24,7 @@ import java.util.Date
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.0.2
  */
-interface Trends : TwitterResponse, Comparable<Trends>, java.io.Serializable {
+interface Trends : TwitterResponse, Comparable<Trends>, Serializable {
     val trends: Array<Trend>
 
     /**

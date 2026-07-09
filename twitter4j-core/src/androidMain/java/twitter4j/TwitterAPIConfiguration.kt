@@ -19,7 +19,7 @@ package twitter4j
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.2.3
  */
-interface TwitterAPIConfiguration : TwitterResponse, java.io.Serializable {
+interface TwitterAPIConfiguration : TwitterResponse, Serializable {
     val photoSizeLimit: Int
 
     val shortURLLength: Int

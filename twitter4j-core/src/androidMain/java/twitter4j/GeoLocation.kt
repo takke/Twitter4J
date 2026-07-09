@@ -41,7 +41,7 @@ class GeoLocation
      * @return the longitude
      */
     val longitude: Double
-) : java.io.Serializable {
+) : Serializable {
 
     /* For serialization purposes only. */
     internal constructor() : this(0.0, 0.0)

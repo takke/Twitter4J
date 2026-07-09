@@ -17,7 +17,6 @@
 package twitter4j
 
 import twitter4j.api.HelpResources
-import java.io.Serializable
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
