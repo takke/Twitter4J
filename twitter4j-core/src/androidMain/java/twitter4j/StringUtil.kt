@@ -14,37 +14,35 @@
  * limitations under the License.
  */
 
-package twitter4j;
+package twitter4j
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.1.4
  */
-class StringUtil {
-    private StringUtil() {
-        throw new AssertionError();
-    }
+internal object StringUtil {
 
-    public static String join(long[] follows) {
-        StringBuilder buf = new StringBuilder(11 * follows.length);
-        for (long follow : follows) {
-            if (0 != buf.length()) {
-                buf.append(",");
+    @JvmStatic
+    fun join(follows: LongArray): String {
+        val buf = StringBuilder(11 * follows.size)
+        for (follow in follows) {
+            if (0 != buf.length) {
+                buf.append(",")
             }
-            buf.append(follow);
+            buf.append(follow)
         }
-        return buf.toString();
+        return buf.toString()
     }
 
-    public static String join(String[] track) {
-        StringBuilder buf = new StringBuilder(11 * track.length);
-        for (String str : track) {
-            if (0 != buf.length()) {
-                buf.append(",");
+    @JvmStatic
+    fun join(track: Array<String>): String {
+        val buf = StringBuilder(11 * track.size)
+        for (str in track) {
+            if (0 != buf.length) {
+                buf.append(",")
             }
-            buf.append(str);
+            buf.append(str)
         }
-        return buf.toString();
+        return buf.toString()
     }
-
 }

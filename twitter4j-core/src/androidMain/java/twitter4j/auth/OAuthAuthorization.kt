@@ -174,7 +174,7 @@ class OAuthAuthorization(private val conf: Configuration) : Authorization, java.
             )
             return oauthToken as AccessToken
         } catch (te: TwitterException) {
-            throw TwitterException("The screen name / password combination seems to be invalid.", te, te.getStatusCode())
+            throw TwitterException("The screen name / password combination seems to be invalid.", te, te.statusCode)
         }
     }
 

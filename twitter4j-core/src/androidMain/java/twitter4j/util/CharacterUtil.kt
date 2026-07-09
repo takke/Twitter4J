@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-package twitter4j.util;
+package twitter4j.util
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.1.2
  */
-public final class CharacterUtil {
+object CharacterUtil {
 
-    public static final int MAX_TWEET_LENGTH = 280;
-
-    private CharacterUtil() {
-        throw new AssertionError();
-    }
+    const val MAX_TWEET_LENGTH = 280
 
     /**
      * Counts the length of the tweet
@@ -34,8 +30,9 @@ public final class CharacterUtil {
      * @param text tweet to be counted
      * @return the length of the tweet
      */
-    public static int count(String text) {
-        return text.length();
+    @JvmStatic
+    fun count(text: String): Int {
+        return text.length
     }
 
     /**
@@ -44,7 +41,8 @@ public final class CharacterUtil {
      * @param text String to be examined
      * @return if the length of the string is exceeding length limitation
      */
-    public static boolean isExceedingLengthLimitation(String text) {
-        return count(text) > MAX_TWEET_LENGTH;
+    @JvmStatic
+    fun isExceedingLengthLimitation(text: String): Boolean {
+        return count(text) > MAX_TWEET_LENGTH
     }
 }

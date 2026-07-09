@@ -13,13 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package twitter4j.util.function;
 
+package twitter4j.conf
 
 /**
- * Functional interface for handling TwitterExceptions
- * @since Twitter4J 4.0.4
+ * @author Yusuke Yamamoto - yusuke at mac.com
  */
-public interface Consumer<T> {
-    void accept(T t);
+interface ConfigurationFactory {
+    /**
+     * returns the root configuration
+     *
+     * @return root configuration
+     */
+    fun getInstance(): Configuration
+
+    /**
+     * returns the configuration specified by the path
+     *
+     * @param configTreePath the path
+     * @return the configuration
+     */
+    fun getInstance(configTreePath: String): Configuration
+
+    /**
+     * clean up resources acquired by this factory.
+     */
+    fun dispose()
 }
