@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package twitter4j;
+package twitter4j
 
-import twitter4j.auth.Authorization;
-import twitter4j.conf.Configuration;
+import twitter4j.auth.Authorization
+import twitter4j.conf.Configuration
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.2.0
  */
-public interface TwitterBase {
+interface TwitterBase {
 
     /**
      * Returns authenticating user's screen name.<br>
@@ -36,7 +36,8 @@ public interface TwitterBase {
      * @throws IllegalStateException if no credentials are supplied. i.e.) this is an anonymous Twitter instance
      * @since Twitter4J 2.1.1
      */
-    String getScreenName() throws TwitterException, IllegalStateException;
+    @Throws(TwitterException::class, IllegalStateException::class)
+    fun getScreenName(): String
 
     /**
      * Returns authenticating user's user id.<br>
@@ -49,7 +50,8 @@ public interface TwitterBase {
      * @throws IllegalStateException if no credentials are supplied. i.e.) this is an anonymous Twitter instance
      * @since Twitter4J 2.1.1
      */
-    long getId() throws TwitterException, IllegalStateException;
+    @Throws(TwitterException::class, IllegalStateException::class)
+    fun getId(): Long
 
     /**
      * Returns the authorization scheme for this instance.<br>
@@ -57,7 +59,9 @@ public interface TwitterBase {
      *
      * @return the authorization scheme for this instance
      */
-    Authorization getAuthorization();
+    // TwitPane(Kotlin) は `twitter.authorization`（プロパティ構文）で、twitter4j-v2 バイナリは
+    // `getAuthorization()`（メソッド）で参照するため、val プロパティとして公開して両者を満たす。
+    val authorization: Authorization
 
     /**
      * Returns the configuration associated with this instance
@@ -65,5 +69,7 @@ public interface TwitterBase {
      * @return configuration associated with this instance
      * @since Twitter4J 2.1.8
      */
-    Configuration getConfiguration();
+    // TwitPane(Kotlin) は `twitter.configuration`（プロパティ構文）で、twitter4j-v2 バイナリは
+    // `getConfiguration()`（メソッド）で参照するため、val プロパティとして公開して両者を満たす。
+    val configuration: Configuration
 }
