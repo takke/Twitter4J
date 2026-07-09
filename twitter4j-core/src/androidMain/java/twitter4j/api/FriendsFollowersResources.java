@@ -186,34 +186,6 @@ public interface FriendsFollowersResources {
 
 
     /**
-     * Returns the relationship of the authenticating user to the specified users.
-     * <br>This method has not been finalized and the interface is subject to change in incompatible ways.
-     * <br>This method calls https://api.twitter.com/1.1/friendships/lookup.json
-     *
-     * @param ids array of the ids to lookup
-     * @return list of Relationships
-     * @throws TwitterException when Twitter service or network is unavailable
-     * @see <a href="http://groups.google.com/group/twitter-api-announce/msg/34909da7c399169e">#newtwitter and the API - Twitter API Announcements | Google Group</a>
-     * @since Twitter4J 2.1.9
-     */
-    ResponseList<Friendship> lookupFriendships(long... ids)
-            throws TwitterException;
-
-    /**
-     * Returns the relationship of the authenticating user to the specified users.
-     * <br>This method has not been finalized and the interface is subject to change in incompatible ways.
-     * <br>This method calls https://api.twitter.com/1.1/friendships/lookup.json
-     *
-     * @param screenNames array of the screen names to lookup
-     * @return list of Relationships
-     * @throws TwitterException when Twitter service or network is unavailable
-     * @see <a href="http://groups.google.com/group/twitter-api-announce/msg/34909da7c399169e">#newtwitter and the API - Twitter API Announcements | Google Group</a>
-     * @since Twitter4J 2.1.9
-     */
-    ResponseList<Friendship> lookupFriendships(String... screenNames)
-            throws TwitterException;
-
-    /**
      * Returns an array of numeric IDs for every user who has a pending request to follow the authenticating user.
      * <br>This method calls https://api.twitter.com/1.1/friendships/incoming.json
      *

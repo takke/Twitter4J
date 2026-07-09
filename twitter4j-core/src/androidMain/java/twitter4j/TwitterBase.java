@@ -17,7 +17,6 @@ package twitter4j;
 
 import twitter4j.auth.Authorization;
 import twitter4j.conf.Configuration;
-import twitter4j.util.function.Consumer;
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
@@ -51,33 +50,6 @@ public interface TwitterBase {
      * @since Twitter4J 2.1.1
      */
     long getId() throws TwitterException, IllegalStateException;
-
-    /**
-     * Registers a RateLimitStatusListener for account associated rate limits
-     *
-     * @param listener the listener to be added
-     * @see <a href="https://dev.twitter.com/docs/rate-limiting">Rate Limiting | Twitter Developers</a>
-     * @since Twitter4J 2.1.12
-     */
-    void addRateLimitStatusListener(RateLimitStatusListener listener);
-
-    /**
-     * Registers a lambda action for account associated rate limits
-     *
-     * @param action the action to be added
-     * @see <a href="https://dev.twitter.com/docs/rate-limiting">Rate Limiting | Twitter Developers</a>
-     * @since Twitter4J 4.0.4
-     */
-    void onRateLimitStatus(Consumer<RateLimitStatusEvent> action);
-
-    /**
-     * Registers a RateLimitStatusListener for account associated rate limits
-     *
-     * @param action the action to be added
-     * @see <a href="https://dev.twitter.com/docs/rate-limiting">Rate Limiting | Twitter Developers</a>
-     * @since Twitter4J 4.0.4
-     */
-    void onRateLimitReached(Consumer<RateLimitStatusEvent> action);
 
     /**
      * Returns the authorization scheme for this instance.<br>

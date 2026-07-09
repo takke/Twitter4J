@@ -13,16 +13,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import twitter4j.api.DirectMessagesResources;
 import twitter4j.api.FavoritesResources;
 import twitter4j.api.FriendsFollowersResources;
 import twitter4j.api.HelpResources;
 import twitter4j.api.ListsResources;
-import twitter4j.api.PlacesGeoResources;
 import twitter4j.api.SavedSearchesResources;
 import twitter4j.api.SearchResource;
 import twitter4j.api.SpamReportingResource;
-import twitter4j.api.SuggestedUsersResources;
 import twitter4j.api.TimelinesResources;
 import twitter4j.api.TrendsResources;
 import twitter4j.api.TweetsResources;
@@ -54,22 +51,12 @@ class V1ResourcesImpl implements V1Resources {
     }
 
     @Override
-    public DirectMessagesResources directMessages() {
-        return this;
-    }
-
-    @Override
     public FriendsFollowersResources friendsFollowers() {
         return this;
     }
 
     @Override
     public UsersResources users() {
-        return this;
-    }
-
-    @Override
-    public SuggestedUsersResources suggestedUsers() {
         return this;
     }
 
@@ -85,11 +72,6 @@ class V1ResourcesImpl implements V1Resources {
 
     @Override
     public SavedSearchesResources savedSearches() {
-        return this;
-    }
-
-    @Override
-    public PlacesGeoResources placesGeo() {
         return this;
     }
 
@@ -249,12 +231,6 @@ class V1ResourcesImpl implements V1Resources {
     }
 
     @Override
-    public OEmbed getOEmbed(OEmbedRequest req) throws TwitterException {
-        return twitter.factory.createOEmbed(twitter.get(twitter.conf.getRestBaseURL()
-                + "statuses/oembed.json", req.asHttpParameterArray()));
-    }
-
-    @Override
     public ResponseList<Status> lookup(long... ids) throws TwitterException {
         return twitter.factory.createStatusList(twitter.get(twitter.conf.getRestBaseURL() + "statuses/lookup.json?id=" + StringUtil.join(ids)));
     }
@@ -301,139 +277,6 @@ class V1ResourcesImpl implements V1Resources {
             return twitter.factory.createQueryResult(twitter.get(twitter.conf.getRestBaseURL()
                     + "search/tweets.json", query.asHttpParameterArray()), query);
         }
-    }
-
-    /* Direct Messages Resources */
-
-
-    @Override
-    public DirectMessageList getDirectMessages(int count) throws TwitterException {
-        return twitter.factory.createDirectMessageList(twitter.get(twitter.conf.getRestBaseURL() + "direct_messages/events/list.json"
-                , new HttpParameter("count", count) ));
-    }
-
-    @Override
-    public DirectMessageList getDirectMessages(int count, String cursor) throws TwitterException {
-        return twitter.factory.createDirectMessageList(twitter.get(twitter.conf.getRestBaseURL() + "direct_messages/events/list.json"
-                , new HttpParameter("count", count)
-                , new HttpParameter("cursor", cursor)));
-    }
-
-
-    @Override
-    public DirectMessage showDirectMessage(long id) throws TwitterException {
-        return twitter.factory.createDirectMessage(twitter.get(twitter.conf.getRestBaseURL() + "direct_messages/events/show.json?id=" + id));
-    }
-
-    @Override
-    public void destroyDirectMessage(long id) throws TwitterException {
-        twitter.ensureAuthorizationEnabled();
-        twitter.http.delete(twitter.conf.getRestBaseURL() + "direct_messages/events/destroy.json?id=" + id, null, twitter.auth, null);
-    }
-
-    @Override
-    public DirectMessage sendDirectMessage(long recipientId, String text, QuickReply... quickReplies)
-            throws TwitterException {
-        try {
-            return twitter.factory.createDirectMessage(twitter.post(twitter.conf.getRestBaseURL() + "direct_messages/events/new.json",
-                    createMessageCreateJsonObject(recipientId, text, -1L,  null, quickReplies)));
-        } catch (JSONException e) {
-            throw new TwitterException(e);
-        }
-    }
-    @Override
-    public DirectMessage sendDirectMessage(long recipientId, String text, String quickReplyResponse)
-            throws TwitterException {
-        try {
-            return twitter.factory.createDirectMessage(twitter.post(twitter.conf.getRestBaseURL() + "direct_messages/events/new.json",
-                    createMessageCreateJsonObject(recipientId, text, -1L,  quickReplyResponse)));
-        } catch (JSONException e) {
-            throw new TwitterException(e);
-        }
-    }
-
-    private static JSONObject createMessageCreateJsonObject(long recipientId, String text, long mediaId, String quickReplyResponse, QuickReply... quickReplies) throws JSONException {
-        String type = mediaId == -1 ? null : "media";
-
-        final JSONObject messageDataJSON = new JSONObject();
-
-        final JSONObject target = new JSONObject();
-        target.put("recipient_id", recipientId);
-        messageDataJSON.put("target", target);
-
-        final JSONObject messageData = new JSONObject();
-        messageData.put("text", text);
-        if (type != null && mediaId != -1) {
-            final JSONObject attachment = new JSONObject();
-            attachment.put("type", type);
-            if (type.equals("media")) {
-                final JSONObject media = new JSONObject();
-                media.put("id", mediaId);
-                attachment.put("media", media);
-            }
-            messageData.put("attachment", attachment);
-        }
-        // https://developer.twitter.com/en/docs/direct-messages/quick-replies/api-reference/options
-        if (quickReplies.length > 0) {
-            JSONObject quickReplyJSON = new JSONObject();
-            quickReplyJSON.put("type", "options");
-            JSONArray jsonArray = new JSONArray();
-            for (QuickReply quickReply : quickReplies) {
-                JSONObject option = new JSONObject();
-                option.put("label", quickReply.getLabel());
-                if (quickReply.getDescription() != null) {
-                    option.put("description", quickReply.getDescription());
-                }
-                if (quickReply.getMetadata() != null) {
-                    option.put("metadata", quickReply.getMetadata());
-                }
-                jsonArray.put(option);
-            }
-            quickReplyJSON.put("options",jsonArray);
-            messageData.put("quick_reply", quickReplyJSON);
-        }
-        if (quickReplyResponse != null) {
-            JSONObject quickReplyResponseJSON = new JSONObject();
-            quickReplyResponseJSON.put("type","options");
-            quickReplyResponseJSON.put("metadata", quickReplyResponse);
-            messageData.put("quick_reply_response", quickReplyResponseJSON);
-        }
-        messageDataJSON.put("message_data", messageData);
-
-        final JSONObject json = new JSONObject();
-        final JSONObject event = new JSONObject();
-        event.put("type", "message_create");
-        event.put("message_create", messageDataJSON);
-        json.put("event", event);
-
-        return json;
-    }
-
-    @Override
-    public DirectMessage sendDirectMessage(long recipientId, String text, long mediaId)
-            throws TwitterException {
-        try {
-            return twitter.factory.createDirectMessage(twitter.post(twitter.conf.getRestBaseURL() + "direct_messages/events/new.json",
-                    createMessageCreateJsonObject(recipientId, text, mediaId, null)));
-        } catch (JSONException e) {
-            throw new TwitterException(e);
-        }
-    }
-
-    @Override
-    public DirectMessage sendDirectMessage(long recipientId, String text)
-            throws TwitterException {
-        return this.sendDirectMessage(recipientId, text, -1L);
-    }
-
-    @Override
-    public DirectMessage sendDirectMessage(String screenName, String text) throws TwitterException {
-        return this.sendDirectMessage(showUser(screenName).getId(), text);
-    }
-
-    @Override
-    public InputStream getDMImageAsStream(String url) throws TwitterException {
-        return twitter.get(url).asStream();
     }
 
     /* Friends & Followers Resources */
@@ -505,17 +348,6 @@ class V1ResourcesImpl implements V1Resources {
                 new HttpParameter("screen_name", screenName),
                 new HttpParameter("cursor", cursor),
                 new HttpParameter("count", count)));
-    }
-
-    @Override
-    public ResponseList<Friendship> lookupFriendships(long... ids) throws TwitterException {
-        return twitter.factory.createFriendshipList(twitter.get(twitter.conf.getRestBaseURL() + "friendships/lookup.json?user_id=" + StringUtil.join(ids)));
-    }
-
-    @Override
-    public ResponseList<Friendship> lookupFriendships(String... screenNames) throws TwitterException {
-        return twitter.factory.createFriendshipList(twitter.get(twitter.conf.getRestBaseURL()
-                + "friendships/lookup.json?screen_name=" + StringUtil.join(screenNames)));
     }
 
     @Override
@@ -951,35 +783,6 @@ class V1ResourcesImpl implements V1Resources {
         twitter.post(twitter.conf.getRestBaseURL()
                         + "account/update_profile_banner.json"
                 , new HttpParameter("banner", "banner", image));
-    }
-
-    /* Suggested Users Resources */
-
-    @Override
-    public ResponseList<User> getUserSuggestions(String categorySlug) throws TwitterException {
-        HttpResponse res;
-        try {
-            res = twitter.get(twitter.conf.getRestBaseURL() + "users/suggestions/" + URLEncoder.encode(categorySlug, "UTF-8") + ".json");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-        return twitter.factory.createUserListFromJSONArray_Users(res);
-    }
-
-    @Override
-    public ResponseList<Category> getSuggestedUserCategories() throws TwitterException {
-        return twitter.factory.createCategoryList(twitter.get(twitter.conf.getRestBaseURL() + "users/suggestions.json"));
-    }
-
-    @Override
-    public ResponseList<User> getMemberSuggestions(String categorySlug) throws TwitterException {
-        HttpResponse res;
-        try {
-            res = twitter.get(twitter.conf.getRestBaseURL() + "users/suggestions/" + URLEncoder.encode(categorySlug, "UTF-8") + "/members.json");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-        return twitter.factory.createUserListFromJSONArray(res);
     }
 
     /* Favorites Resources */
@@ -1649,50 +1452,6 @@ class V1ResourcesImpl implements V1Resources {
     public SavedSearch destroySavedSearch(long id) throws TwitterException {
         return twitter.factory.createSavedSearch(twitter.post(twitter.conf.getRestBaseURL()
                 + "saved_searches/destroy/" + id + ".json"));
-    }
-
-    /* Places & Geo Resources */
-
-    @Override
-    public Place getGeoDetails(String placeId) throws TwitterException {
-        return twitter.factory.createPlace(twitter.get(twitter.conf.getRestBaseURL() + "geo/id/" + placeId
-                + ".json"));
-    }
-
-    @Override
-    public ResponseList<Place> reverseGeoCode(GeoQuery query) throws TwitterException {
-        try {
-            return twitter.factory.createPlaceList(twitter.get(twitter.conf.getRestBaseURL()
-                    + "geo/reverse_geocode.json", query.asHttpParameterArray()));
-        } catch (TwitterException te) {
-            if (te.getStatusCode() == 404) {
-                return twitter.factory.createEmptyResponseList();
-            } else {
-                throw te;
-            }
-        }
-    }
-
-    @Override
-    public ResponseList<Place> searchPlaces(GeoQuery query) throws TwitterException {
-        return twitter.factory.createPlaceList(twitter.get(twitter.conf.getRestBaseURL()
-                + "geo/search.json", query.asHttpParameterArray()));
-    }
-
-    @Override
-    public ResponseList<Place> getSimilarPlaces(GeoLocation location, String name, String containedWithin, String streetAddress) throws TwitterException {
-        List<HttpParameter> params = new ArrayList<HttpParameter>(3);
-        params.add(new HttpParameter("lat", location.getLatitude()));
-        params.add(new HttpParameter("long", location.getLongitude()));
-        params.add(new HttpParameter("name", name));
-        if (containedWithin != null) {
-            params.add(new HttpParameter("contained_within", containedWithin));
-        }
-        if (streetAddress != null) {
-            params.add(new HttpParameter("attribute:street_address", streetAddress));
-        }
-        return twitter.factory.createPlaceList(twitter.get(twitter.conf.getRestBaseURL()
-                + "geo/similar_places.json", params.toArray(new HttpParameter[params.size()])));
     }
 
     /* Trends Resources */

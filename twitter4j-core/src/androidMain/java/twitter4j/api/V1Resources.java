@@ -20,14 +20,11 @@ public interface V1Resources extends
         TimelinesResources,
         TweetsResources,
         SearchResource,
-        DirectMessagesResources,
         FriendsFollowersResources,
         UsersResources,
-        SuggestedUsersResources,
         FavoritesResources,
         ListsResources,
         SavedSearchesResources,
-        PlacesGeoResources,
         TrendsResources,
         SpamReportingResource,
         HelpResources {
@@ -51,12 +48,6 @@ public interface V1Resources extends
     SearchResource search();
 
     /**
-     * @return {@link twitter4j.api.DirectMessagesResources}
-     * @since Twitter4J 3.0.4
-     */
-    DirectMessagesResources directMessages();
-
-    /**
      * @return {@link twitter4j.api.FriendsFollowersResources}
      * @since Twitter4J 3.0.4
      */
@@ -67,12 +58,6 @@ public interface V1Resources extends
      * @since Twitter4J 3.0.4
      */
     UsersResources users();
-
-    /**
-     * @return {@link twitter4j.api.SuggestedUsersResources}
-     * @since Twitter4J 3.0.4
-     */
-    SuggestedUsersResources suggestedUsers();
 
     /**
      * @return {@link twitter4j.api.FavoritesResources}
@@ -91,12 +76,6 @@ public interface V1Resources extends
      * @since Twitter4J 3.0.4
      */
     SavedSearchesResources savedSearches();
-
-    /**
-     * @return {@link twitter4j.api.PlacesGeoResources}
-     * @since Twitter4J 3.0.4
-     */
-    PlacesGeoResources placesGeo();
 
     /**
      * @return {@link twitter4j.api.TrendsResources}

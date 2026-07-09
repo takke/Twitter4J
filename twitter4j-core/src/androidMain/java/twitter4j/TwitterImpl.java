@@ -117,92 +117,27 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
                 url = url + "?" + IMPLICIT_PARAMS_STR;
             }
         }
-        if (!conf.isMBeanEnabled()) {
-            return http.get(url, null, auth, this);
-        } else {
-            // intercept HTTP call for monitoring purposes
-            HttpResponse response = null;
-            long start = System.currentTimeMillis();
-            try {
-                response = http.get(url, null, auth, this);
-            } finally {
-                long elapsedTime = System.currentTimeMillis() - start;
-                TwitterAPIMonitor.getInstance().methodCalled(url, elapsedTime, isOk(response));
-            }
-            return response;
-        }
+        return http.get(url, null, auth, this);
     }
 
     /*package*/ HttpResponse get(String url, HttpParameter... params) throws TwitterException {
         ensureAuthorizationEnabled();
-        if (!conf.isMBeanEnabled()) {
-            return http.get(url, mergeImplicitParams(params), auth, this);
-        } else {
-            // intercept HTTP call for monitoring purposes
-            HttpResponse response = null;
-            long start = System.currentTimeMillis();
-            try {
-                response = http.get(url, mergeImplicitParams(params), auth, this);
-            } finally {
-                long elapsedTime = System.currentTimeMillis() - start;
-                TwitterAPIMonitor.getInstance().methodCalled(url, elapsedTime, isOk(response));
-            }
-            return response;
-        }
+        return http.get(url, mergeImplicitParams(params), auth, this);
     }
 
     /*package*/ HttpResponse post(String url) throws TwitterException {
         ensureAuthorizationEnabled();
-        if (!conf.isMBeanEnabled()) {
-            return http.post(url, IMPLICIT_PARAMS, auth, this);
-        } else {
-            // intercept HTTP call for monitoring purposes
-            HttpResponse response = null;
-            long start = System.currentTimeMillis();
-            try {
-                response = http.post(url, IMPLICIT_PARAMS, auth, this);
-            } finally {
-                long elapsedTime = System.currentTimeMillis() - start;
-                TwitterAPIMonitor.getInstance().methodCalled(url, elapsedTime, isOk(response));
-            }
-            return response;
-        }
+        return http.post(url, IMPLICIT_PARAMS, auth, this);
     }
 
     /*package*/ HttpResponse post(String url, HttpParameter... params) throws TwitterException {
         ensureAuthorizationEnabled();
-        if (!conf.isMBeanEnabled()) {
-            return http.post(url, mergeImplicitParams(params), auth, this);
-        } else {
-            // intercept HTTP call for monitoring purposes
-            HttpResponse response = null;
-            long start = System.currentTimeMillis();
-            try {
-                response = http.post(url, mergeImplicitParams(params), auth, this);
-            } finally {
-                long elapsedTime = System.currentTimeMillis() - start;
-                TwitterAPIMonitor.getInstance().methodCalled(url, elapsedTime, isOk(response));
-            }
-            return response;
-        }
+        return http.post(url, mergeImplicitParams(params), auth, this);
     }
 
     /*package*/ HttpResponse post(String url, JSONObject json) throws TwitterException {
         ensureAuthorizationEnabled();
-        if (!conf.isMBeanEnabled()) {
-            return http.post(url, new HttpParameter[]{new HttpParameter(json)}, auth, this);
-        } else {
-            // intercept HTTP call for monitoring purposes
-            HttpResponse response = null;
-            long start = System.currentTimeMillis();
-            try {
-                response = http.post(url, new HttpParameter[]{new HttpParameter(json)}, auth, this);
-            } finally {
-                long elapsedTime = System.currentTimeMillis() - start;
-                TwitterAPIMonitor.getInstance().methodCalled(url, elapsedTime, isOk(response));
-            }
-            return response;
-        }
+        return http.post(url, new HttpParameter[]{new HttpParameter(json)}, auth, this);
     }
 
     /*package*/ HttpParameter[] mergeParameters(HttpParameter[] params1, HttpParameter[] params2) {
@@ -241,10 +176,6 @@ class TwitterImpl extends TwitterBaseImpl implements Twitter {
 
     private HttpParameter[] mergeImplicitParams(HttpParameter... params) {
         return mergeParameters(params, IMPLICIT_PARAMS);
-    }
-
-    private boolean isOk(HttpResponse response) {
-        return response != null && response.getStatusCode() < 300;
     }
 
     @Override

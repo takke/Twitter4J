@@ -18,14 +18,9 @@ package twitter4j;
 
 import twitter4j.auth.*;
 import twitter4j.conf.Configuration;
-import twitter4j.util.function.Consumer;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import static twitter4j.HttpResponseCode.*;
 
 /**
  * Base class of Twitter / AsyncTwitter / TwitterStream supports OAuth.
@@ -41,7 +36,6 @@ abstract class TwitterBaseImpl implements TwitterBase, java.io.Serializable, OAu
     private transient long id = 0;
 
     transient HttpClient http;
-    private List<RateLimitStatusListener> rateLimitStatusListeners = new ArrayList<RateLimitStatusListener>(0);
 
     ObjectFactory factory;
 
@@ -137,71 +131,7 @@ abstract class TwitterBaseImpl implements TwitterBase, java.io.Serializable, OAu
     }
 
     @Override
-    public void addRateLimitStatusListener(RateLimitStatusListener listener) {
-        rateLimitStatusListeners.add(listener);
-    }
-
-    @Override
-    public void onRateLimitStatus(final Consumer<RateLimitStatusEvent> action) {
-        rateLimitStatusListeners.add(new RateLimitStatusListener() {
-            @Override
-            public void onRateLimitStatus(RateLimitStatusEvent event) {
-                action.accept(event);
-            }
-
-            @Override
-            public void onRateLimitReached(RateLimitStatusEvent event) {
-            }
-        });
-    }
-
-    @Override
-    public void onRateLimitReached(final Consumer<RateLimitStatusEvent> action) {
-        rateLimitStatusListeners.add(new RateLimitStatusListener() {
-            @Override
-            public void onRateLimitStatus(RateLimitStatusEvent event) {
-            }
-
-            @Override
-            public void onRateLimitReached(RateLimitStatusEvent event) {
-                action.accept(event);
-            }
-        });
-    }
-
-    @Override
     public void httpResponseReceived(HttpResponseEvent event) {
-        if (rateLimitStatusListeners.size() != 0) {
-            HttpResponse res = event.getResponse();
-            TwitterException te = event.getTwitterException();
-            RateLimitStatus rateLimitStatus;
-            int statusCode;
-            if (te != null) {
-                rateLimitStatus = te.getRateLimitStatus();
-                statusCode = te.getStatusCode();
-            } else {
-                rateLimitStatus = JSONImplFactory.createRateLimitStatusFromResponseHeader(res);
-                statusCode = res.getStatusCode();
-            }
-            if (rateLimitStatus != null) {
-                RateLimitStatusEvent statusEvent
-                        = new RateLimitStatusEvent(this, rateLimitStatus, event.isAuthenticated());
-                if (statusCode == ENHANCE_YOUR_CLAIM
-                        || statusCode == SERVICE_UNAVAILABLE
-                        || statusCode == TOO_MANY_REQUESTS) {
-                    // EXCEEDED_RATE_LIMIT_QUOTA is returned by Rest API
-                    // SERVICE_UNAVAILABLE is returned by Search API
-                    for (RateLimitStatusListener listener : rateLimitStatusListeners) {
-                        listener.onRateLimitStatus(statusEvent);
-                        listener.onRateLimitReached(statusEvent);
-                    }
-                } else {
-                    for (RateLimitStatusListener listener : rateLimitStatusListeners) {
-                        listener.onRateLimitStatus(statusEvent);
-                    }
-                }
-            }
-        }
     }
 
     @Override
@@ -235,13 +165,6 @@ abstract class TwitterBaseImpl implements TwitterBase, java.io.Serializable, OAu
 
         out.writeObject(conf);
         out.writeObject(auth);
-        List<RateLimitStatusListener> serializableRateLimitStatusListeners = new ArrayList<RateLimitStatusListener>(0);
-        for (RateLimitStatusListener listener : rateLimitStatusListeners) {
-            if (listener instanceof java.io.Serializable) {
-                serializableRateLimitStatusListeners.add(listener);
-            }
-        }
-        out.writeObject(serializableRateLimitStatusListeners);
     }
 
     private void readObject(ObjectInputStream stream)
@@ -251,7 +174,6 @@ abstract class TwitterBaseImpl implements TwitterBase, java.io.Serializable, OAu
 
         conf = (Configuration) stream.readObject();
         auth = (Authorization) stream.readObject();
-        rateLimitStatusListeners = (List<RateLimitStatusListener>) stream.readObject();
         http = HttpClientFactory.getInstance(conf.getHttpClientConfiguration());
         setFactory();
     }
@@ -420,8 +342,6 @@ abstract class TwitterBaseImpl implements TwitterBase, java.io.Serializable, OAu
         if (!conf.equals(that.conf)) return false;
         if (http != null ? !http.equals(that.http) : that.http != null)
             return false;
-        if (!rateLimitStatusListeners.equals(that.rateLimitStatusListeners))
-            return false;
 
         return true;
     }
@@ -430,7 +350,6 @@ abstract class TwitterBaseImpl implements TwitterBase, java.io.Serializable, OAu
     public int hashCode() {
         int result = conf.hashCode();
         result = 31 * result + (http != null ? http.hashCode() : 0);
-        result = 31 * result + rateLimitStatusListeners.hashCode();
         result = 31 * result + (auth != null ? auth.hashCode() : 0);
         return result;
     }
@@ -440,7 +359,6 @@ abstract class TwitterBaseImpl implements TwitterBase, java.io.Serializable, OAu
         return "TwitterBase{" +
             "conf=" + conf +
             ", http=" + http +
-            ", rateLimitStatusListeners=" + rateLimitStatusListeners +
             ", auth=" + auth +
             '}';
     }

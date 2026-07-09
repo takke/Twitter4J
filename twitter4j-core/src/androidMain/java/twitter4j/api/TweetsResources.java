@@ -143,19 +143,6 @@ public interface TweetsResources {
     Status unRetweetStatus(long statusId) throws TwitterException;
 
     /**
-     * Returns information allowing the creation of an embedded representation of a Tweet on third party sites. See the <a href="http://oembed.com/">oEmbed</a> specification for information about the response format.
-     * While this endpoint allows a bit of customization for the final appearance of the embedded Tweet, be aware that the appearance of the rendered Tweet may change over time to be consistent with Twitter's <a href="https://dev.twitter.com/terms/display-requirements">Display Requirements</a>. Do not rely on any class or id parameters to stay constant in the returned markup.
-     * <br>This method calls https://api.twitter.com/1.1/statuses/oembed.json
-     *
-     * @param req request
-     * @return information allowing the creation of an embedded representation of a Tweet on third party sites
-     * @throws TwitterException when Twitter service or network is unavailable
-     * @see <a href="https://dev.twitter.com/docs/api/1.1/get/statuses/oembed">GET statuses/oembed | Twitter Developers</a>
-     * @since Twitter4J 3.0.2
-     */
-    OEmbed getOEmbed(OEmbedRequest req) throws TwitterException;
-
-    /**
      * Returns fully-hydrated tweet objects for up to 100 tweets per request, as specified by comma-separated values passed to the id parameter.
      * This method is especially useful to get the details (hydrate) a collection of Tweet IDs.
      * <br>This method calls https://api.twitter.com/1.1/statuses/lookup.json

@@ -75,22 +75,6 @@ public final class TwitterObjectFactory {
     }
 
     /**
-     * Constructs an AccountTotals object from rawJSON string.
-     *
-     * @param rawJSON raw JSON form as String
-     * @return AccountTotals
-     * @throws TwitterException when provided string is not a valid JSON string.
-     * @since Twitter4J 2.1.9
-     */
-    public static AccountTotals createAccountTotals(String rawJSON) throws TwitterException {
-        try {
-            return new AccountTotalsJSONImpl(new JSONObject(rawJSON));
-        } catch (JSONException e) {
-            throw new TwitterException(e);
-        }
-    }
-
-    /**
      * Constructs a Relationship object from rawJSON string.
      *
      * @param rawJSON raw JSON form as String
@@ -195,22 +179,6 @@ public final class TwitterObjectFactory {
     }
 
     /**
-     * Constructs a Category object from rawJSON string.
-     *
-     * @param rawJSON raw JSON form as String
-     * @return Category
-     * @throws TwitterException when provided string is not a valid JSON string.
-     * @since Twitter4J 2.1.7
-     */
-    public static Category createCategory(String rawJSON) throws TwitterException {
-        try {
-            return new CategoryJSONImpl(new JSONObject(rawJSON));
-        } catch (JSONException e) {
-            throw new TwitterException(e);
-        }
-    }
-
-    /**
      * Constructs a DirectMessage object from rawJSON string.
      *
      * @param rawJSON raw JSON form as String
@@ -253,69 +221,6 @@ public final class TwitterObjectFactory {
     public static UserList createUserList(String rawJSON) throws TwitterException {
         try {
             return new UserListJSONImpl(new JSONObject(rawJSON));
-        } catch (JSONException e) {
-            throw new TwitterException(e);
-        }
-    }
-
-    /**
-     * Constructs an OEmbed object from rawJSON string.
-     *
-     * @param rawJSON raw JSON form as String
-     * @return OEmbed
-     * @throws TwitterException when provided string is not a valid JSON string.
-     * @since Twitter4J 3.0.2
-     */
-    public static OEmbed createOEmbed(String rawJSON) throws TwitterException {
-        try {
-            return new OEmbedJSONImpl(new JSONObject(rawJSON));
-        } catch (JSONException e) {
-            throw new TwitterException(e);
-        }
-    }
-
-    /**
-     * Construct an object from rawJSON string.  This method may be called
-     * when you do not know what a given raw JSON string contains.  It will
-     * do the work of determining what type of object the JSON represents,
-     * and constructing the respective object type.  For example, if the JSON
-     * contents represents a Status, then a Status will be returned.  If it
-     * represents a deletion notice, then a StatusDeletionNotice will be
-     * returned.  The caller can simply use instanceof to handle the returned
-     * object as applicable.
-     * NOTE: the raw JSONObject will be returned in cases where there isn't
-     * a discrete respective object type that can be constructed.  That way,
-     * the caller can at least have access to the JSON itself.
-     *
-     * @param rawJSON raw JSON form as String
-     * @return the respective constructed object, or the JSONObject in the
-     * case where we cannot determine the object type.
-     * @throws TwitterException when provided string is not a valid JSON string.
-     * @since Twitter4J 2.1.9
-     */
-    public static Object createObject(String rawJSON) throws TwitterException {
-        try {
-            JSONObject json = new JSONObject(rawJSON);
-            JSONObjectType.Type jsonObjectType = JSONObjectType.determine(json);
-            switch (jsonObjectType) {
-                case SENDER:
-                    return registerJSONObject(new DirectMessageJSONImpl(json.getJSONObject("direct_message")), json);
-                case STATUS:
-                    return registerJSONObject(new StatusJSONImpl(json), json);
-                case DIRECT_MESSAGE:
-                    return registerJSONObject(new DirectMessageJSONImpl(json.getJSONObject("direct_message")), json);
-                case DELETE:
-                    return registerJSONObject(new StatusDeletionNoticeImpl(json.getJSONObject("delete").getJSONObject("status")), json);
-                case LIMIT:
-                    // TODO: Perhaps there should be a TrackLimitationNotice object?
-                    // The onTrackLimitationNotice method could take that as an arg.
-                    return json;
-                case SCRUB_GEO:
-                    return json;
-                default:
-                    // The object type is unrecognized...just return the json
-                    return json;
-            }
         } catch (JSONException e) {
             throw new TwitterException(e);
         }

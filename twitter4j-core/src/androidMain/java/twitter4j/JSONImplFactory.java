@@ -178,11 +178,6 @@ class JSONImplFactory implements ObjectFactory {
     }
 
     @Override
-    public ResponseList<Category> createCategoryList(HttpResponse res) throws TwitterException {
-        return CategoryJSONImpl.createCategoriesList(res, conf);
-    }
-
-    @Override
     public DirectMessage createDirectMessage(HttpResponse res) throws TwitterException {
         return new DirectMessageJSONImpl(res, conf);
     }
@@ -195,16 +190,6 @@ class JSONImplFactory implements ObjectFactory {
     @Override
     public Relationship createRelationship(HttpResponse res) throws TwitterException {
         return new RelationshipJSONImpl(res, conf);
-    }
-
-    @Override
-    public ResponseList<Friendship> createFriendshipList(HttpResponse res) throws TwitterException {
-        return FriendshipJSONImpl.createFriendshipList(res, conf);
-    }
-
-    @Override
-    public AccountTotals createAccountTotals(HttpResponse res) throws TwitterException {
-        return new AccountTotalsJSONImpl(res, conf);
     }
 
     @Override
@@ -258,11 +243,6 @@ class JSONImplFactory implements ObjectFactory {
     @Override
     public <T> ResponseList<T> createEmptyResponseList() {
         return new ResponseListImpl<T>(0, null);
-    }
-
-    @Override
-    public OEmbed createOEmbed(HttpResponse res) throws TwitterException {
-        return new OEmbedJSONImpl(res, conf);
     }
 
     /**
