@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package twitter4j.api;
+package twitter4j.api
 
-import twitter4j.ResponseList;
-import twitter4j.SavedSearch;
-import twitter4j.TwitterException;
+import twitter4j.ResponseList
+import twitter4j.SavedSearch
+import twitter4j.TwitterException
 
 /**
  * @author Joern Huxhorn - jhuxhorn at googlemail.com
  */
-public interface SavedSearchesResources {
+interface SavedSearchesResources {
     /**
      * Returns the authenticated user's saved search queries.
      * <br>This method calls https://api.twitter.com/1.1/saved_searches.json
@@ -33,7 +33,8 @@ public interface SavedSearchesResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/saved_searches">GET saved_searches | Twitter Developers</a>
      * @since Twitter4J 2.0.8
      */
-    ResponseList<SavedSearch> getSavedSearches() throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getSavedSearches(): ResponseList<SavedSearch>
 
     /**
      * Retrieve the data for a saved search owned by the authenticating user specified by the given id.
@@ -45,7 +46,8 @@ public interface SavedSearchesResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/saved_searches/show/:id">GET saved_searches/show/:id | Twitter Developers</a>
      * @since Twitter4J 2.0.8
      */
-    SavedSearch showSavedSearch(long id) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun showSavedSearch(id: Long): SavedSearch
 
     /**
      * Creates a saved search for the authenticated user.
@@ -57,8 +59,8 @@ public interface SavedSearchesResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/saved_searches/create">POST saved_searches/create | Twitter Developers</a>
      * @since Twitter4J 2.0.8
      */
-    SavedSearch createSavedSearch(String query)
-            throws TwitterException;
+    @Throws(TwitterException::class)
+    fun createSavedSearch(query: String): SavedSearch
 
     /**
      * Destroys a saved search for the authenticated user. The search specified by id must be owned by the authenticating user.
@@ -70,6 +72,6 @@ public interface SavedSearchesResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/saved_searches/destroy/:id">POST saved_searches/destroy/:id | Twitter Developers</a>
      * @since Twitter4J 2.0.8
      */
-    SavedSearch destroySavedSearch(long id)
-            throws TwitterException;
+    @Throws(TwitterException::class)
+    fun destroySavedSearch(id: Long): SavedSearch
 }

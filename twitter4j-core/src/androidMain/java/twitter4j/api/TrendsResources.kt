@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-package twitter4j.api;
+package twitter4j.api
 
-import twitter4j.*;
+import twitter4j.*
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.1.3
  */
-public interface TrendsResources {
+interface TrendsResources {
     /**
      * Returns the top 10 trending topics for a specific WOEID, if trending information is available for it.<br>
      * The response is an array of "trend" objects that encode the name of the trending topic, the query parameter that can be used to search for the topic on <a href="http://search.twitter.com/">Twitter Search</a>, and the Twitter Search URL.<br>
@@ -36,7 +36,8 @@ public interface TrendsResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/trends/place">GET trends/place | Twitter Developers</a>
      * @since Twitter4J 3.0.2
      */
-    Trends getPlaceTrends(int woeid) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getPlaceTrends(woeid: Int): Trends
 
     /**
      * Returns the locations that Twitter has trending topic information for. The response is an array of &quot;locations&quot; that encode the location's WOEID (a <a href="http://developer.yahoo.com/geo/geoplanet/">Yahoo! Where On Earth ID</a>) and some other human-readable information such as a canonical name and country the location belongs in.
@@ -47,7 +48,8 @@ public interface TrendsResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/trends/available">GET trends/available | Twitter Developers</a>
      * @since Twitter4J 2.1.1
      */
-    ResponseList<Location> getAvailableTrends() throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getAvailableTrends(): ResponseList<Location>
 
     /**
      * Returns the locations that Twitter has trending topic information for, closest to a specified location.<br>
@@ -61,5 +63,6 @@ public interface TrendsResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/trends/closest">GET trends/closest | Twitter Developers</a>
      * @since Twitter4J 3.0.2
      */
-    ResponseList<Location> getClosestTrends(GeoLocation location) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getClosestTrends(location: GeoLocation): ResponseList<Location>
 }

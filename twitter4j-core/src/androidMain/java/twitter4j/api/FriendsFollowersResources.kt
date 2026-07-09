@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package twitter4j.api;
+package twitter4j.api
 
-import twitter4j.*;
+import twitter4j.*
 
 /**
  * @author Joern Huxhorn - jhuxhorn at googlemail.com
  * @author Mocel - docel77 at gmail.com
  */
-public interface FriendsFollowersResources {
+interface FriendsFollowersResources {
 
     /**
      * Returns a collection of user IDs that the currently authenticated user does not want to receive retweets from.
@@ -32,7 +32,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/friendships/no_retweets/ids">GET friendships/no_retweets/ids | Twitter Developers</a>
      * @since Twitter4J 4.0.2
      */
-    IDs getNoRetweetsFriendships() throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getNoRetweetsFriendships(): IDs
 
     /**
      * Returns an array of numeric IDs for every user the authenticating user is following.
@@ -45,7 +46,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/friends/ids">GET friends/ids | Twitter Developers</a>
      * @since Twitter4J 2.0.10
      */
-    IDs getFriendsIDs(long cursor) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFriendsIDs(cursor: Long): IDs
 
     /**
      * Returns an array of numeric IDs for every user the specified user is following.
@@ -59,7 +61,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/friends/ids">GET friends/ids | Twitter Developers</a>
      * @since Twitter4J 2.0.10
      */
-    IDs getFriendsIDs(long userId, long cursor) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFriendsIDs(userId: Long, cursor: Long): IDs
 
     /**
      * Returns an array of numeric IDs for every user the specified user is following.
@@ -76,7 +79,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/friends/ids">GET friends/ids | Twitter Developers</a>
      * @since Twitter4J 4.0.2
      */
-    IDs getFriendsIDs(long userId, long cursor,int count) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFriendsIDs(userId: Long, cursor: Long, count: Int): IDs
 
     /**
      * Returns an array of numeric IDs for every user the specified user is following.
@@ -90,7 +94,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/friends/ids">GET friends/ids | Twitter Developers</a>
      * @since Twitter4J 2.0.10
      */
-    IDs getFriendsIDs(String screenName, long cursor) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFriendsIDs(screenName: String, cursor: Long): IDs
 
     /**
      * Returns an array of numeric IDs for every user the specified user is following.
@@ -107,7 +112,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/friends/ids">GET friends/ids | Twitter Developers</a>
      * @since Twitter4J 4.0.2
      */
-    IDs getFriendsIDs(String screenName, long cursor,int count) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFriendsIDs(screenName: String, cursor: Long, count: Int): IDs
 
     /**
      * Returns an array of numeric IDs for every user the specified user is followed by.
@@ -120,7 +126,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/followers/ids">GET followers/ids | Twitter Developers</a>
      * @since Twitter4J 2.0.10
      */
-    IDs getFollowersIDs(long cursor) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFollowersIDs(cursor: Long): IDs
 
     /**
      * Returns an array of numeric IDs for every user the specified user is followed by.
@@ -134,7 +141,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/followers/ids">GET followers/ids | Twitter Developers</a>
      * @since Twitter4J 2.0.10
      */
-    IDs getFollowersIDs(long userId, long cursor) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFollowersIDs(userId: Long, cursor: Long): IDs
 
     /**
      * Returns an array of numeric IDs for every user the specified user is followed by.
@@ -151,7 +159,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/followers/ids">GET followers/ids | Twitter Developers</a>
      * @since Twitter4J 4.0.2
      */
-    IDs getFollowersIDs(long userId, long cursor, int count) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFollowersIDs(userId: Long, cursor: Long, count: Int): IDs
 
     /**
      * Returns an array of numeric IDs for every user the specified user is followed by.
@@ -165,7 +174,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/followers/ids">GET followers/ids | Twitter Developers</a>
      * @since Twitter4J 2.0.10
      */
-    IDs getFollowersIDs(String screenName, long cursor) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFollowersIDs(screenName: String, cursor: Long): IDs
 
     /**
      * Returns an array of numeric IDs for every user the specified user is followed by.
@@ -182,7 +192,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/followers/ids">GET followers/ids | Twitter Developers</a>
      * @since Twitter4J 4.0.2
      */
-    IDs getFollowersIDs(String screenName, long cursor,int count) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFollowersIDs(screenName: String, cursor: Long, count: Int): IDs
 
 
     /**
@@ -195,7 +206,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/friendships/incoming">GET friendships/incoming | Twitter Developers</a>
      * @since Twitter4J 2.1.2
      */
-    IDs getIncomingFriendships(long cursor) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getIncomingFriendships(cursor: Long): IDs
 
     /**
      * Returns an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request.
@@ -207,7 +219,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/friendships/outgoing">GET friendships/outgoing | Twitter Developers</a>
      * @since Twitter4J 2.1.2
      */
-    IDs getOutgoingFriendships(long cursor) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getOutgoingFriendships(cursor: Long): IDs
 
     /**
      * Allows the authenticating users to follow the user specified in the ID parameter.<br>
@@ -220,8 +233,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/friendships/create">POST friendships/create | Twitter Developers</a>
      * @since Twitter4J 2.1.0
      */
-    User createFriendship(long userId)
-            throws TwitterException;
+    @Throws(TwitterException::class)
+    fun createFriendship(userId: Long): User
 
     /**
      * Allows the authenticating users to follow the user specified in the ID parameter.<br>
@@ -234,8 +247,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/friendships/create">POST friendships/create | Twitter Developers</a>
      * @since Twitter4J 2.0.1
      */
-    User createFriendship(String screenName)
-            throws TwitterException;
+    @Throws(TwitterException::class)
+    fun createFriendship(screenName: String): User
 
     /**
      * Allows the authenticating users to follow the user specified in the ID parameter.<br>
@@ -249,8 +262,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/friendships/create">POST friendships/create | Twitter Developers</a>
      * @since Twitter4J 2.1.0
      */
-    User createFriendship(long userId, boolean follow)
-            throws TwitterException;
+    @Throws(TwitterException::class)
+    fun createFriendship(userId: Long, follow: Boolean): User
 
     /**
      * Allows the authenticating users to follow the user specified in the ID parameter.<br>
@@ -264,8 +277,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/friendships/create">POST friendships/create | Twitter Developers</a>
      * @since Twitter4J 2.0.2
      */
-    User createFriendship(String screenName, boolean follow)
-            throws TwitterException;
+    @Throws(TwitterException::class)
+    fun createFriendship(screenName: String, follow: Boolean): User
 
     /**
      * Allows the authenticating users to unfollow the user specified in the ID parameter.<br>
@@ -278,8 +291,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/friendships/destroy">POST friendships/destroy | Twitter Developers</a>
      * @since Twitter4J 2.1.0
      */
-    User destroyFriendship(long userId)
-            throws TwitterException;
+    @Throws(TwitterException::class)
+    fun destroyFriendship(userId: Long): User
 
     /**
      * Allows the authenticating users to unfollow the user specified in the ID parameter.<br>
@@ -292,8 +305,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/friendships/destroy">POST friendships/destroy | Twitter Developers</a>
      * @since Twitter4J 2.0.1
      */
-    User destroyFriendship(String screenName)
-            throws TwitterException;
+    @Throws(TwitterException::class)
+    fun destroyFriendship(screenName: String): User
 
     /**
      * Allows you to enable or disable retweets and device notifications from the specified user.
@@ -308,8 +321,8 @@ public interface FriendsFollowersResources {
      * @see <a href="http://groups.google.com/group/twitter-api-announce/msg/34909da7c399169e">#newtwitter and the API - Twitter API Announcements | Google Group</a>
      * @since Twitter4J 2.1.9
      */
-    Relationship updateFriendship(long userId, boolean enableDeviceNotification
-            , boolean retweets) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun updateFriendship(userId: Long, enableDeviceNotification: Boolean, retweets: Boolean): Relationship
 
     /**
      * Allows you to enable or disable retweets and device notifications from the specified user.
@@ -324,8 +337,8 @@ public interface FriendsFollowersResources {
      * @see <a href="http://groups.google.com/group/twitter-api-announce/msg/34909da7c399169e">#newtwitter and the API - Twitter API Announcements | Google Group</a>
      * @since Twitter4J 2.1.9
      */
-    Relationship updateFriendship(String screenName, boolean enableDeviceNotification
-            , boolean retweets) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun updateFriendship(screenName: String, enableDeviceNotification: Boolean, retweets: Boolean): Relationship
 
     /**
      * Returns detailed information about the relationship between two users.
@@ -338,8 +351,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/friendships/show">GET friendships/show | Twitter Developers</a>
      * @since Twitter4J 2.1.0
      */
-    Relationship showFriendship(long sourceId, long targetId)
-            throws TwitterException;
+    @Throws(TwitterException::class)
+    fun showFriendship(sourceId: Long, targetId: Long): Relationship
 
     /**
      * Returns detailed information about the relationship between two users.
@@ -352,8 +365,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/friendships/show">GET friendships/show | Twitter Developers</a>
      * @since Twitter4J 2.1.0
      */
-    Relationship showFriendship(String sourceScreenName, String targetScreenName)
-            throws TwitterException;
+    @Throws(TwitterException::class)
+    fun showFriendship(sourceScreenName: String, targetScreenName: String): Relationship
 
     /**
      * Returns a cursored collection of user objects for every user the specified user is following (otherwise known as their "friends").<br>
@@ -367,7 +380,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/friends/list">GET friends/list | Twitter Developers</a>
      * @since Twitter4J 3.0.2
      */
-    PagableResponseList<User> getFriendsList(long userId, long cursor) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFriendsList(userId: Long, cursor: Long): PagableResponseList<User>
 
     /**
      * Returns a cursored collection of user objects for every user the specified user is following (otherwise known as their "friends").<br>
@@ -381,7 +395,8 @@ public interface FriendsFollowersResources {
      * @throws TwitterException when Twitter service or network is unavailable
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/friends/list">GET friends/list | Twitter Developers</a>
      */
-    PagableResponseList<User> getFriendsList(long userId, long cursor, int count) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFriendsList(userId: Long, cursor: Long, count: Int): PagableResponseList<User>
 
     /**
      * Returns a cursored collection of user objects for every user the specified user is following (otherwise known as their "friends").<br>
@@ -395,7 +410,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/friends/list">GET friends/list | Twitter Developers</a>
      * @since Twitter4J 3.0.2
      */
-    PagableResponseList<User> getFriendsList(String screenName, long cursor) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFriendsList(screenName: String, cursor: Long): PagableResponseList<User>
 
     /**
      * Returns a cursored collection of user objects for every user the specified user is following (otherwise known as their "friends").<br>
@@ -410,7 +426,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/friends/list">GET friends/list | Twitter Developers</a>
      * @since Twitter4J 4.0.2
      */
-    PagableResponseList<User> getFriendsList(String screenName, long cursor, int count) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFriendsList(screenName: String, cursor: Long, count: Int): PagableResponseList<User>
 
     /**
      * Returns a cursored collection of user objects for every user the specified user is following (otherwise known as their "friends").<br>
@@ -427,8 +444,11 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/friends/list">GET friends/list | Twitter Developers</a>
      * @since Twitter4J 4.0.2
      */
-    PagableResponseList<User> getFriendsList(long userId, long cursor, int count,
-                                             boolean skipStatus, boolean includeUserEntities) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFriendsList(
+        userId: Long, cursor: Long, count: Int,
+        skipStatus: Boolean, includeUserEntities: Boolean
+    ): PagableResponseList<User>
 
     /**
      * Returns a cursored collection of user objects for every user the specified user is following (otherwise known as their "friends").<br>
@@ -445,8 +465,11 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/friends/list">GET friends/list | Twitter Developers</a>
      * @since Twitter4J 4.0.2
      */
-    PagableResponseList<User> getFriendsList(String screenName, long cursor, int count,
-                                             boolean skipStatus, boolean includeUserEntities) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFriendsList(
+        screenName: String, cursor: Long, count: Int,
+        skipStatus: Boolean, includeUserEntities: Boolean
+    ): PagableResponseList<User>
 
     /**
      * Returns a cursored collection of user objects for users following the specified user.<br>
@@ -460,7 +483,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/followers/list">GET followers/list | Twitter Developers</a>
      * @since Twitter4J 3.0.2
      */
-    PagableResponseList<User> getFollowersList(long userId, long cursor) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFollowersList(userId: Long, cursor: Long): PagableResponseList<User>
 
     /**
      * Returns a cursored collection of user objects for users following the specified user.<br>
@@ -474,7 +498,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/followers/list">GET followers/list | Twitter Developers</a>
      * @since Twitter4J 3.0.2
      */
-    PagableResponseList<User> getFollowersList(String screenName, long cursor) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFollowersList(screenName: String, cursor: Long): PagableResponseList<User>
 
     /**
      * Returns a cursored collection of user objects for users following the specified user.<br>
@@ -489,7 +514,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/followers/list">GET followers/list | Twitter Developers</a>
      * @since Twitter4J 3.0.6
      */
-    PagableResponseList<User> getFollowersList(long userId, long cursor, int count) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFollowersList(userId: Long, cursor: Long, count: Int): PagableResponseList<User>
 
     /**
      * Returns a cursored collection of user objects for users following the specified user.<br>
@@ -504,7 +530,8 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/followers/list">GET followers/list | Twitter Developers</a>
      * @since Twitter4J 3.0.6
      */
-    PagableResponseList<User> getFollowersList(String screenName, long cursor, int count) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFollowersList(screenName: String, cursor: Long, count: Int): PagableResponseList<User>
 
     /**
      * Returns a cursored collection of user objects for users following the specified user.<br>
@@ -521,8 +548,11 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/followers/list">GET followers/list | Twitter Developers</a>
      * @since Twitter4J 4.0.2
      */
-    PagableResponseList<User> getFollowersList(long userId, long cursor, int count,
-                                               boolean skipStatus, boolean includeUserEntities) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFollowersList(
+        userId: Long, cursor: Long, count: Int,
+        skipStatus: Boolean, includeUserEntities: Boolean
+    ): PagableResponseList<User>
 
     /**
      * Returns a cursored collection of user objects for users following the specified user.<br>
@@ -539,6 +569,9 @@ public interface FriendsFollowersResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/followers/list">GET followers/list | Twitter Developers</a>
      * @since Twitter4J 4.0.2
      */
-    PagableResponseList<User> getFollowersList(String screenName, long cursor, int count,
-                                               boolean skipStatus, boolean includeUserEntities) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getFollowersList(
+        screenName: String, cursor: Long, count: Int,
+        skipStatus: Boolean, includeUserEntities: Boolean
+    ): PagableResponseList<User>
 }

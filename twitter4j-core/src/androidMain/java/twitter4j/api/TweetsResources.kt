@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package twitter4j.api;
+package twitter4j.api
 
-import twitter4j.*;
-import twitter4j.conf.ChunkedUploadConfiguration;
-
-import java.io.File;
-import java.io.InputStream;
+import twitter4j.*
+import twitter4j.conf.ChunkedUploadConfiguration
+import java.io.File
+import java.io.InputStream
 
 /**
  * @author Joern Huxhorn - jhuxhorn at googlemail.com
  */
-public interface TweetsResources {
+interface TweetsResources {
     /**
      * Returns up to 100 of the first retweets of a given tweet.
      * <br>This method calls https://api.twitter.com/1.1/statuses/retweets
@@ -36,7 +35,8 @@ public interface TweetsResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/statuses/retweets/:id">Tweets Resources › statuses/retweets/:id</a>
      * @since Twitter4J 2.0.10
      */
-    ResponseList<Status> getRetweets(long statusId) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getRetweets(statusId: Long): ResponseList<Status>
 
     /**
      * Returns a collection of up to 100 user IDs belonging to users who have
@@ -50,7 +50,8 @@ public interface TweetsResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/statuses/retweeters/ids">Tweets Resources › statuses/retweeters/ids</a>
      * @since Twitter4J 3.0.5
      */
-    IDs getRetweeterIds(long statusId, long cursor) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getRetweeterIds(statusId: Long, cursor: Long): IDs
 
     /**
      * Returns a collection of up to {@code count} user IDs belonging to users
@@ -66,7 +67,8 @@ public interface TweetsResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/statuses/retweeters/ids">Tweets Resources › statuses/retweeters/ids</a>
      * @since Twitter4J 3.0.5
      */
-    IDs getRetweeterIds(long statusId, int count, long cursor) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getRetweeterIds(statusId: Long, count: Int, cursor: Long): IDs
 
     /**
      * Returns a single status, specified by the id parameter below. The status's author will be returned inline.
@@ -78,7 +80,8 @@ public interface TweetsResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/statuses/show/:id">GET statuses/show/:id | Twitter Developers</a>
      * @since Twitter4J 2.0.1
      */
-    Status showStatus(long id) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun showStatus(id: Long): Status
 
     /**
      * Destroys the status specified by the required ID parameter.<br>
@@ -91,7 +94,8 @@ public interface TweetsResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/statuses/destroy/:id">POST statuses/destroy/:id | Twitter Developers</a>
      * @since 1.0.5
      */
-    Status destroyStatus(long statusId) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun destroyStatus(statusId: Long): Status
 
     /**
      * Updates the authenticating user's status. A status update with text identical to the authenticating user's text identical to the authenticating user's current status will be ignored to prevent duplicates.
@@ -103,7 +107,8 @@ public interface TweetsResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/statuses/update">POST statuses/update | Twitter Developers</a>
      * @since Twitter4J 2.0.1
      */
-    Status updateStatus(String status) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun updateStatus(status: String): Status
 
     /**
      * Updates the authenticating user's status. A status update with text identical to the authenticating user's text identical to the authenticating user's current status will be ignored to prevent duplicates.
@@ -116,7 +121,8 @@ public interface TweetsResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/statuses/update">POST statuses/update | Twitter Developers</a>
      * @since Twitter4J 2.1.1
      */
-    Status updateStatus(StatusUpdate latestStatus) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun updateStatus(latestStatus: StatusUpdate): Status
 
     /**
      * Retweets a tweet. Returns the original tweet with retweet details embedded.
@@ -128,7 +134,8 @@ public interface TweetsResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/statuses/retweet/:id">POST statuses/retweet/:id | Twitter Developers</a>
      * @since Twitter4J 2.0.10
      */
-    Status retweetStatus(long statusId) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun retweetStatus(statusId: Long): Status
 
     /**
      * Untweets a retweeted status. Returns the original Tweet with retweet details embedded.
@@ -140,7 +147,8 @@ public interface TweetsResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/statuses/unretweet/:id">POST statuses/unretweet/:id | Twitter Developers</a>
      * @since Twitter4J 4.0.7
      */
-    Status unRetweetStatus(long statusId) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun unRetweetStatus(statusId: Long): Status
 
     /**
      * Returns fully-hydrated tweet objects for up to 100 tweets per request, as specified by comma-separated values passed to the id parameter.
@@ -153,7 +161,8 @@ public interface TweetsResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/statuses/lookup">GET statuses/lookup</a>
      * @since Twitter4J 4.0.2
      */
-    ResponseList<Status> lookup(long... ids) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun lookup(vararg ids: Long): ResponseList<Status>
 
     /**
      * Uploads media image to be attached via {@link #updateStatus(twitter4j.StatusUpdate)}
@@ -166,7 +175,8 @@ public interface TweetsResources {
      * @see <a href="https://dev.twitter.com/docs/api/multiple-media-extended-entities">Multiple Media Entities in Statuses</a>
      * @since Twitter4J 4.0.2
      */
-    UploadedMedia uploadMedia(File mediaFile) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun uploadMedia(mediaFile: File): UploadedMedia
 
     /**
      * Uploads media image to be attached via {@link #updateStatus(twitter4j.StatusUpdate)}
@@ -180,8 +190,9 @@ public interface TweetsResources {
      * @see <a href="https://dev.twitter.com/docs/api/multiple-media-extended-entities">Multiple Media Entities in Statuses</a>
      * @since Twitter4J 4.0.3
      */
-    UploadedMedia uploadMedia(String fileName, InputStream media) throws TwitterException;
-    
+    @Throws(TwitterException::class)
+    fun uploadMedia(fileName: String, media: InputStream): UploadedMedia
+
     /**
      * Uploads media using chunked approach to be attached via {@link #updateStatus(twitter4j.StatusUpdate)}.
      * This should be used for videos.
@@ -195,7 +206,8 @@ public interface TweetsResources {
      * @see <a href="https://dev.twitter.com/docs/api/multiple-media-extended-entities">Multiple Media Entities in Statuses</a>
      * @since Twitter4J 4.0.7
      */
-    UploadedMedia uploadMediaChunked(ChunkedUploadConfiguration chunkedUploadConfiguration) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun uploadMediaChunked(chunkedUploadConfiguration: ChunkedUploadConfiguration): UploadedMedia
 
     /**
      * Creates metadata to the uploaded media image
@@ -207,5 +219,6 @@ public interface TweetsResources {
      * @throws TwitterException when Twitter service or network is unavailable
      * @since Twitter4J 4.0.x
      */
-    int createMediaMetadata(long mediaId, String altText) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun createMediaMetadata(mediaId: Long, altText: String): Int
 }

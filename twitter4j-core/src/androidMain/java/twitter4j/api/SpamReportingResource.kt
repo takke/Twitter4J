@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package twitter4j.api;
+package twitter4j.api
 
-import twitter4j.TwitterException;
-import twitter4j.User;
+import twitter4j.TwitterException
+import twitter4j.User
 
 /**
  * @author Joern Huxhorn - jhuxhorn at googlemail.com
  */
-public interface SpamReportingResource {
+interface SpamReportingResource {
 
     /**
      * The user specified in the id is blocked by the authenticated user and reported as a spammer.
@@ -34,7 +34,8 @@ public interface SpamReportingResource {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/report_spam">POST report_spam | Twitter Developers</a>
      * @since Twitter4J 2.1.0
      */
-    User reportSpam(long userId) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun reportSpam(userId: Long): User
 
     /**
      * The user specified in the id is blocked by the authenticated user and reported as a spammer.
@@ -46,5 +47,6 @@ public interface SpamReportingResource {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/report_spam">POST report_spam | Twitter Developers</a>
      * @since Twitter4J 2.1.0
      */
-    User reportSpam(String screenName) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun reportSpam(screenName: String): User
 }

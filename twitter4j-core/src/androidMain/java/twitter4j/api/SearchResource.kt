@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package twitter4j.api;
+package twitter4j.api
 
-import twitter4j.Query;
-import twitter4j.QueryResult;
-import twitter4j.TwitterException;
+import twitter4j.Query
+import twitter4j.QueryResult
+import twitter4j.TwitterException
 
 /**
  * @author Joern Huxhorn - jhuxhorn at googlemail.com
  */
-public interface SearchResource {
+interface SearchResource {
     /**
      * Returns tweets that match a specified query.
      * <br>This method calls http://search.twitter.com/search.json
@@ -35,5 +35,6 @@ public interface SearchResource {
      * @see <a href="http://search.twitter.com/operators">Twitter API / Search Operators</a>
      * @since Twitter4J 1.1.7
      */
-    QueryResult search(Query query) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun search(query: Query): QueryResult
 }

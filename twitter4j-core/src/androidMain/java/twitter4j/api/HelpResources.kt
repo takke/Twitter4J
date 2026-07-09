@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-package twitter4j.api;
+package twitter4j.api
 
-import twitter4j.RateLimitStatus;
-import twitter4j.ResponseList;
-import twitter4j.TwitterAPIConfiguration;
-import twitter4j.TwitterException;
-
-import java.io.Serializable;
-import java.util.Map;
+import twitter4j.RateLimitStatus
+import twitter4j.ResponseList
+import twitter4j.TwitterAPIConfiguration
+import twitter4j.TwitterException
+import java.io.Serializable
 
 /**
  * @author Joern Huxhorn - jhuxhorn at googlemail.com
  */
-public interface HelpResources {
+interface HelpResources {
     /**
      * Returns the current configuration used by Twitter including twitter.com slugs which are not usernames, maximum photo resolutions, and t.co URL lengths.<br>
      * It is recommended applications request this endpoint when they are loaded, but no more than once a day.
@@ -37,7 +35,8 @@ public interface HelpResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/help/configuration">GET help/configuration | Twitter Developers</a>
      * @since Twitter4J 2.2.3
      */
-    TwitterAPIConfiguration getAPIConfiguration() throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getAPIConfiguration(): TwitterAPIConfiguration
 
     /**
      * Returns the list of languages supported by Twitter along with their ISO 639-1 code. The ISO 639-1 code is the two letter value to use if you include lang with any of your requests.
@@ -47,14 +46,15 @@ public interface HelpResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/help/languages">GET help/languages | Twitter Developers</a>
      * @since Twitter4J 2.2.3
      */
-    ResponseList<Language> getLanguages() throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getLanguages(): ResponseList<Language>
 
-    public interface Language extends Serializable {
-        String getName();
+    interface Language : Serializable {
+        fun getName(): String?
 
-        String getCode();
+        fun getCode(): String?
 
-        String getStatus();
+        fun getStatus(): String?
     }
 
     /**
@@ -66,7 +66,8 @@ public interface HelpResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/help/privacy">GET help/privacy | Twitter Developers</a>
      * @since Twitter4J 2.1.7
      */
-    String getPrivacyPolicy() throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getPrivacyPolicy(): String
 
     /**
      * Returns Twitter's' Terms of Service.
@@ -77,7 +78,8 @@ public interface HelpResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/help/tos">GET help/tos | Twitter Developers</a>
      * @since Twitter4J 2.1.7
      */
-    String getTermsOfService() throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getTermsOfService(): String
 
     /**
      * Returns the current rate limits for methods belonging to the specified resource families.<br>
@@ -92,7 +94,8 @@ public interface HelpResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/application/rate_limit_status">GET application/rate_limit_status</a>
      * @since Twitter4J 3.0.0
      */
-    Map<String, RateLimitStatus> getRateLimitStatus() throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getRateLimitStatus(): Map<String, RateLimitStatus>
 
     /**
      * Returns the current rate limits for methods belonging to the specified resource families.<br>
@@ -110,5 +113,6 @@ public interface HelpResources {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/get/application/rate_limit_status">GET application/rate_limit_status</a>
      * @since Twitter4J 3.0.0
      */
-    Map<String, RateLimitStatus> getRateLimitStatus(String... resources) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getRateLimitStatus(vararg resources: String): Map<String, RateLimitStatus>
 }

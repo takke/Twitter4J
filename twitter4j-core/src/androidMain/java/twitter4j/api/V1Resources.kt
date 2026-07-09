@@ -14,84 +14,84 @@
  * limitations under the License.
  */
 
-package twitter4j.api;
+package twitter4j.api
 
-public interface V1Resources extends
-        TimelinesResources,
-        TweetsResources,
-        SearchResource,
-        FriendsFollowersResources,
-        UsersResources,
-        FavoritesResources,
-        ListsResources,
-        SavedSearchesResources,
-        TrendsResources,
-        SpamReportingResource,
-        HelpResources {
+interface V1Resources :
+    TimelinesResources,
+    TweetsResources,
+    SearchResource,
+    FriendsFollowersResources,
+    UsersResources,
+    FavoritesResources,
+    ListsResources,
+    SavedSearchesResources,
+    TrendsResources,
+    SpamReportingResource,
+    HelpResources {
 
     /**
      * @return {@link twitter4j.api.TimelinesResources}
      * @since Twitter4J 3.0.4
      */
-    TimelinesResources timelines();
+    fun timelines(): TimelinesResources
 
     /**
      * @return {@link twitter4j.api.TweetsResources}
      * @since Twitter4J 3.0.4
      */
-    TweetsResources tweets();
+    fun tweets(): TweetsResources
 
     /**
      * @return {@link twitter4j.api.SearchResource}
      * @since Twitter4J 3.0.4
      */
-    SearchResource search();
+    fun search(): SearchResource
 
     /**
      * @return {@link twitter4j.api.FriendsFollowersResources}
      * @since Twitter4J 3.0.4
      */
-    FriendsFollowersResources friendsFollowers();
+    fun friendsFollowers(): FriendsFollowersResources
 
     /**
      * @return {@link twitter4j.api.UsersResources}
      * @since Twitter4J 3.0.4
      */
-    UsersResources users();
+    fun users(): UsersResources
 
     /**
      * @return {@link twitter4j.api.FavoritesResources}
      * @since Twitter4J 3.0.4
      */
-    FavoritesResources favorites();
+    fun favorites(): FavoritesResources
 
     /**
      * @return {@link twitter4j.api.ListsResources}
      * @since Twitter4J 3.0.4
      */
-    ListsResources list();
+    fun list(): ListsResources
 
     /**
      * @return {@link twitter4j.api.SavedSearchesResources}
      * @since Twitter4J 3.0.4
      */
-    SavedSearchesResources savedSearches();
+    fun savedSearches(): SavedSearchesResources
 
     /**
      * @return {@link twitter4j.api.TrendsResources}
      * @since Twitter4J 3.0.4
      */
-    TrendsResources trends();
+    fun trends(): TrendsResources
 
     /**
      * @return {@link twitter4j.api.SpamReportingResource}
      * @since Twitter4J 3.0.4
      */
-    SpamReportingResource spamReporting();
+    fun spamReporting(): SpamReportingResource
 
     /**
      * @return {@link twitter4j.api.HelpResources}
      * @since Twitter4J 3.0.4
      */
-    HelpResources help();
+    fun help(): HelpResources
 }
