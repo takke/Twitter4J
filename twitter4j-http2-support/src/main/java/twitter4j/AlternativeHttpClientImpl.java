@@ -80,7 +80,7 @@ public class AlternativeHttpClientImpl extends HttpClientBase implements HttpRes
     }
 
     @Override
-    HttpResponse handleRequest(HttpRequest req) throws TwitterException {
+    protected HttpResponse handleRequest(HttpRequest req) throws TwitterException {
         prepareOkHttpClient();
 
         OkHttpResponse res = null;

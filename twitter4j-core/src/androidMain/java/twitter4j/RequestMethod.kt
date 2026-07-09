@@ -14,32 +14,11 @@
  * limitations under the License.
  */
 
-package twitter4j;
+package twitter4j
 
 /**
- * @author Yusuke Yamamoto - yusuke at mac.com
+ * @author Dan Checkoway - dcheckoway at gmail.com
  */
-public interface HttpClientConfiguration {
-
-    String getHttpProxyHost();
-
-    int getHttpProxyPort();
-
-    String getHttpProxyUser();
-
-    String getHttpProxyPassword();
-
-    boolean isHttpProxySocks();
-
-    int getHttpConnectionTimeout();
-
-    int getHttpReadTimeout();
-
-    int getHttpRetryCount();
-
-    int getHttpRetryIntervalSeconds();
-
-    boolean isPrettyDebugEnabled();
-
-    boolean isGZIPEnabled();
+enum class RequestMethod {
+    GET, POST, DELETE, HEAD, PUT
 }

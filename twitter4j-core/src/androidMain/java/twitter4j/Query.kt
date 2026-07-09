@@ -363,7 +363,7 @@ class Query : Serializable {
                 for (param in HttpParameter.decodeParameters(nextPageParameters)) {
                     // Yes, we'll overwrite duplicate parameters, but we should not
                     // get duplicate parameters from this endpoint.
-                    params[param.name] = param.value
+                    params[param.name!!] = param.value!!
                 }
                 if (params.containsKey("q")) query.query = params["q"]
                 if (params.containsKey("lang")) query.lang = params["lang"]

@@ -14,11 +14,32 @@
  * limitations under the License.
  */
 
-package twitter4j;
+package twitter4j
 
 /**
- * @author Dan Checkoway - dcheckoway at gmail.com
+ * @author Yusuke Yamamoto - yusuke at mac.com
  */
-public enum RequestMethod {
-    GET, POST, DELETE, HEAD, PUT
+interface HttpClientConfiguration {
+
+    fun getHttpProxyHost(): String?
+
+    fun getHttpProxyPort(): Int
+
+    fun getHttpProxyUser(): String?
+
+    fun getHttpProxyPassword(): String?
+
+    fun isHttpProxySocks(): Boolean
+
+    fun getHttpConnectionTimeout(): Int
+
+    fun getHttpReadTimeout(): Int
+
+    fun getHttpRetryCount(): Int
+
+    fun getHttpRetryIntervalSeconds(): Int
+
+    fun isPrettyDebugEnabled(): Boolean
+
+    fun isGZIPEnabled(): Boolean
 }
