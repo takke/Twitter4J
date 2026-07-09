@@ -14,26 +14,24 @@
  * limitations under the License.
  */
 
-package twitter4j.auth;
+package twitter4j.auth
 
-import java.util.Map;
-
-import twitter4j.HttpRequest;
+import twitter4j.HttpRequest
 
 /**
  * An interface represents credentials.
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-public interface Authorization extends java.io.Serializable {
-    String getAuthorizationHeader(HttpRequest req);
+interface Authorization : java.io.Serializable {
+    fun getAuthorizationHeader(req: HttpRequest): String?
 
     /**
      * Returns true if authorization credentials are set.
      *
      * @return true if authorization credentials are set
      */
-    boolean isEnabled();
+    fun isEnabled(): Boolean
 
-    Map<String, String> getAdditionalHeaders();
+    fun getAdditionalHeaders(): Map<String, String>?
 }

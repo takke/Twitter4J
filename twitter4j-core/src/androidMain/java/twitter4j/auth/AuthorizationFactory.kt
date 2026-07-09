@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package twitter4j.auth;
+package twitter4j.auth
 
-import twitter4j.conf.Configuration;
+import twitter4j.conf.Configuration
 
 /**
  * A static factory class for Authorization.
@@ -24,53 +24,54 @@ import twitter4j.conf.Configuration;
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.1.1
  */
-public final class AuthorizationFactory {
+object AuthorizationFactory {
     /**
      * @param conf configuration
      * @return authorization instance
      * @since Twitter4J 2.1.11
      */
-    public static Authorization getInstance(Configuration conf) {
-        Authorization auth = null;
-        String consumerKey = conf.getOAuthConsumerKey();
-        String consumerSecret = conf.getOAuthConsumerSecret();
+    @JvmStatic
+    fun getInstance(conf: Configuration): Authorization {
+        var auth: Authorization? = null
+        val consumerKey = conf.oAuthConsumerKey
+        val consumerSecret = conf.oAuthConsumerSecret
 
         if (consumerKey != null && consumerSecret != null) {
             if (conf.isApplicationOnlyAuthEnabled()) {
-                OAuth2Authorization oauth2 = new OAuth2Authorization(conf);
-                String tokenType = conf.getOAuth2TokenType();
-                String accessToken = conf.getOAuth2AccessToken();
+                val oauth2 = OAuth2Authorization(conf)
+                val tokenType = conf.oAuth2TokenType
+                val accessToken = conf.oAuth2AccessToken
                 if (tokenType != null && accessToken != null) {
-                    oauth2.setOAuth2Token(new OAuth2Token(tokenType, accessToken));
+                    oauth2.setOAuth2Token(OAuth2Token(tokenType, accessToken))
                 }
-                auth = oauth2;
+                auth = oauth2
 
             } else {
-                OAuthAuthorization oauth;
-                oauth = new OAuthAuthorization(conf);
-                String accessToken = conf.getOAuthAccessToken();
-                String accessTokenSecret = conf.getOAuthAccessTokenSecret();
+                val oauth: OAuthAuthorization
+                oauth = OAuthAuthorization(conf)
+                val accessToken = conf.oAuthAccessToken
+                val accessTokenSecret = conf.oAuthAccessTokenSecret
                 if (accessToken != null && accessTokenSecret != null) {
-                    oauth.setOAuthAccessToken(new AccessToken(accessToken, accessTokenSecret));
+                    oauth.setOAuthAccessToken(AccessToken(accessToken, accessTokenSecret))
                 }
-                auth = oauth;
+                auth = oauth
             }
         } else {
-            String screenName = conf.getUser();
-            String password = conf.getPassword();
+            val screenName = conf.user
+            val password = conf.password
             if (screenName != null && password != null) {
-                auth = new BasicAuthorization(screenName, password);
+                auth = BasicAuthorization(screenName, password)
             }
 
-            String cookie = conf.getCookie();
+            val cookie = conf.cookie
             if (cookie != null) {
-                auth = new CookieAuthorization(conf);
+                auth = CookieAuthorization(conf)
             }
 
         }
         if (null == auth) {
-            auth = NullAuthorization.getInstance();
+            auth = NullAuthorization.getInstance()
         }
-        return auth;
+        return auth!!
     }
 }

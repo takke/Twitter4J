@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package twitter4j.auth;
+package twitter4j.auth
 
 /**
  * A static factory class for Authorization.
@@ -22,25 +22,25 @@ package twitter4j.auth;
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.1.1
  */
-public interface AuthorizationConfiguration {
+interface AuthorizationConfiguration {
 
-    String getUser();
+    val user: String?
 
-    String getPassword();
+    val password: String?
 
-    String getCookie();
+    val cookie: String?
 
-    String getBearerToken();
+    val bearerToken: String?
 
-    String getOAuthConsumerKey();
+    val oAuthConsumerKey: String?
 
-    String getOAuthConsumerSecret();
+    val oAuthConsumerSecret: String?
 
-    String getOAuthAccessToken();
+    val oAuthAccessToken: String?
 
-    String getOAuthAccessTokenSecret();
+    val oAuthAccessTokenSecret: String?
 
-    String getOAuth2TokenType();
+    val oAuth2TokenType: String?
 
-    String getOAuth2AccessToken();
+    val oAuth2AccessToken: String?
 }

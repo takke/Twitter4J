@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package twitter4j.auth;
+package twitter4j.auth
 
-import twitter4j.TwitterException;
+import twitter4j.TwitterException
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.1.0
  */
-public interface OAuthSupport {
+interface OAuthSupport {
     /**
      * sets the OAuth consumer key and consumer secret
      *
@@ -30,7 +30,7 @@ public interface OAuthSupport {
      * @throws IllegalStateException when OAuth consumer has already been set, or the instance is using basic authorization
      * @since Twitter 2.0.0
      */
-    void setOAuthConsumer(String consumerKey, String consumerSecret);
+    fun setOAuthConsumer(consumerKey: String?, consumerSecret: String?)
 
     /**
      * Retrieves a request token
@@ -43,7 +43,8 @@ public interface OAuthSupport {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/oauth/request_token">POST oauth/request_token | Twitter Developers</a>
      * @since Twitter4J 2.0.0
      */
-    RequestToken getOAuthRequestToken() throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getOAuthRequestToken(): RequestToken
 
     /**
      * Retrieves a request token
@@ -57,7 +58,8 @@ public interface OAuthSupport {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/oauth/request_token">POST oauth/request_token | Twitter Developers</a>
      * @since Twitter4J 2.0.0
      */
-    RequestToken getOAuthRequestToken(String callbackURL) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getOAuthRequestToken(callbackURL: String?): RequestToken
 
     /**
      * Retrieves a request token
@@ -72,7 +74,8 @@ public interface OAuthSupport {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/oauth/request_token">POST oauth/request_token | Twitter Developers</a>
      * @since Twitter4J 2.2.3
      */
-    RequestToken getOAuthRequestToken(String callbackURL, String xAuthAccessType) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getOAuthRequestToken(callbackURL: String?, xAuthAccessType: String?): RequestToken
 
     /**
      * Retrieves a request token
@@ -88,7 +91,8 @@ public interface OAuthSupport {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/oauth/request_token">POST oauth/request_token | Twitter Developers</a>
      * @since Twitter4J 2.2.3
      */
-    RequestToken getOAuthRequestToken(String callbackURL, String xAuthAccessType, String xAuthMode) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getOAuthRequestToken(callbackURL: String?, xAuthAccessType: String?, xAuthMode: String?): RequestToken
 
     /**
      * Returns an access token associated with this instance.<br>
@@ -102,7 +106,8 @@ public interface OAuthSupport {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/oauth/access_token">POST oauth/access_token | Twitter Developers</a>
      * @since Twitter4J 2.0.0
      */
-    AccessToken getOAuthAccessToken() throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getOAuthAccessToken(): AccessToken
 
     /**
      * Retrieves an access token.
@@ -115,7 +120,8 @@ public interface OAuthSupport {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/oauth/access_token">POST oauth/access_token | Twitter Developers</a>
      * @since Twitter4J 2.0.0
      */
-    AccessToken getOAuthAccessToken(String oauthVerifier) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getOAuthAccessToken(oauthVerifier: String?): AccessToken
 
     /**
      * Retrieves an access token associated with the supplied request token and sets userId.
@@ -128,7 +134,8 @@ public interface OAuthSupport {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/oauth/access_token">POST oauth/access_token | Twitter Developers</a>
      * @since Twitter4J 2.0.0
      */
-    AccessToken getOAuthAccessToken(RequestToken requestToken) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getOAuthAccessToken(requestToken: RequestToken?): AccessToken
 
     /**
      * Retrieves an access token associated with the supplied request token and sets userId.
@@ -141,7 +148,8 @@ public interface OAuthSupport {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/oauth/access_token">POST oauth/access_token | Twitter Developers</a>
      * @since Twitter 2.1.1
      */
-    AccessToken getOAuthAccessToken(RequestToken requestToken, String oauthVerifier) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getOAuthAccessToken(requestToken: RequestToken?, oauthVerifier: String?): AccessToken
 
     /**
      * Retrieves an access token associated with the supplied screen name and password using xAuth.<br>
@@ -157,7 +165,8 @@ public interface OAuthSupport {
      * @see <a href="https://dev.twitter.com/docs/api/1.1/post/oauth/access_token">POST oauth/access_token | Twitter Developers</a>
      * @since Twitter 2.1.1
      */
-    AccessToken getOAuthAccessToken(String screenName, String password) throws TwitterException;
+    @Throws(TwitterException::class)
+    fun getOAuthAccessToken(screenName: String?, password: String?): AccessToken
 
     /**
      * Sets the access token
@@ -165,5 +174,5 @@ public interface OAuthSupport {
      * @param accessToken accessToken
      * @since Twitter4J 2.0.0
      */
-    void setOAuthAccessToken(AccessToken accessToken);
+    fun setOAuthAccessToken(accessToken: AccessToken?)
 }
