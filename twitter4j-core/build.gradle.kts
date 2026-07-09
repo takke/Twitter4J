@@ -14,6 +14,11 @@ kotlin {
         }
     }
 
+    // KMP移行 Phase 3: iOS ターゲットを追加（TwitPane 本体の慣例に合わせ iosX64 は含めない）
+    // これにより commonMain / iosMain ソースセットが利用可能になる。
+    iosArm64()
+    iosSimulatorArm64()
+
     sourceSets {
         // JVM(android)メインソースセット
         // 既存の compileOnly 依存（slf4j等4つ）を維持

@@ -16,6 +16,10 @@
 
 package twitter4j
 
+// KMP対応: commonMain では kotlin.jvm.* が自動 import されないため個別 import が必要。
+// @JvmStatic は OptionalExpectation として宣言されており、非 JVM ターゲットでは no-op になる。
+import kotlin.jvm.JvmStatic
+
 // Note: this class was written without inspecting the non-free org.json sourcecode.
 
 /**
