@@ -14,29 +14,27 @@
  * limitations under the License.
  */
 
-package twitter4j;
-
-import java.util.List;
+package twitter4j
 
 /**
  * A data interface representing search API response
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-public interface QueryResult extends TwitterResponse, java.io.Serializable {
-    long getSinceId();
+interface QueryResult : TwitterResponse, java.io.Serializable {
+    val sinceId: Long
 
-    long getMaxId();
+    val maxId: Long
 
-    String getRefreshURL();
+    val refreshURL: String
 
-    int getCount();
+    val count: Int
 
-    double getCompletedIn();
+    val completedIn: Double
 
-    String getQuery();
+    val query: String
 
-    List<Status> getTweets();
+    val tweets: List<Status>
 
     /**
      * Returns a Query instance to fetch next page or null if there is no next page.
@@ -44,7 +42,7 @@ public interface QueryResult extends TwitterResponse, java.io.Serializable {
      * @return Query instance to fetch next page
      * @since Twitter4J 3.0.0
      */
-    Query nextQuery();
+    fun nextQuery(): Query?
 
     /**
      * test if there is next page
@@ -52,5 +50,5 @@ public interface QueryResult extends TwitterResponse, java.io.Serializable {
      * @return if there is next page
      * @since Twitter4J 3.0.0
      */
-    boolean hasNext();
+    fun hasNext(): Boolean
 }

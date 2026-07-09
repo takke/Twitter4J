@@ -13,29 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package twitter4j;
 
-import java.io.Serializable;
-import java.util.Map;
+package twitter4j
+
+import java.util.Date
 
 /**
+ * A data class representing Trends.
+ *
  * @author Yusuke Yamamoto - yusuke at mac.com
- * @since Twitter4J 2.2.3
+ * @since Twitter4J 2.0.2
  */
-public interface TwitterAPIConfiguration extends TwitterResponse, Serializable {
-    int getPhotoSizeLimit();
+interface Trends : TwitterResponse, Comparable<Trends>, java.io.Serializable {
+    val trends: Array<Trend>
 
-    int getShortURLLength();
+    /**
+     * Returns the location associated with the trends.<br>
+     * This method is effective only with getLocalTrends() method.<br>
+     * i.e. The return value of this method will be null with Search API Methods (getTrends(), getCurrentTrends(), getDailyTrends(), and getWeeklyTrends()).<br>
+     *
+     * @return location
+     * @since Twitter4J 2.1.1
+     */
+    val location: Location
 
-    int getShortURLLengthHttps();
+    val asOf: Date
 
-    int getCharactersReservedPerMedia();
-    
-    int getDmTextCharacterLimit();
-
-    Map<Integer, MediaEntity.Size> getPhotoSizes();
-
-    String[] getNonUsernamePaths();
-
-    int getMaxMediaPerUpload();
+    val trendAt: Date
 }

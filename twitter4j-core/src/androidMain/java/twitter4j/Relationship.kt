@@ -14,66 +14,64 @@
  * limitations under the License.
  */
 
-package twitter4j;
-
+package twitter4j
 
 /**
  * A data interface that has detailed information about a relationship between two users
  *
  * @author Perry Sakkaris - psakkaris at gmail.com
- * @see <a href="https://dev.twitter.com/docs/api/1.1/get/friendships/show">GET friendships/show | Twitter Developers</a>
+ * @see [GET friendships/show | Twitter Developers](https://dev.twitter.com/docs/api/1.1/get/friendships/show)
  * @since Twitter4J 2.1.0
  */
-public interface Relationship extends TwitterResponse, java.io.Serializable {
+interface Relationship : TwitterResponse, java.io.Serializable {
     /**
      * Returns the source user id
      *
      * @return the source user id
      */
-    long getSourceUserId();
+    val sourceUserId: Long
 
     /**
      * Returns the target user id
      *
      * @return target user id
      */
-    long getTargetUserId();
+    val targetUserId: Long
 
     /**
      * Returns if the source user is blocking the target user
      *
      * @return if the source is blocking the target
      */
-    boolean isSourceBlockingTarget();
+    val isSourceBlockingTarget: Boolean
 
     /**
      * Returns id the source user is muting the target user
      *
      * @return if the source is muting the target
      */
-    boolean isSourceMutingTarget();
+    val isSourceMutingTarget: Boolean
 
     /**
      * Returns the source user screen name
      *
      * @return returns the source user screen name
      */
-
-    String getSourceUserScreenName();
+    val sourceUserScreenName: String
 
     /**
      * Returns the target user screen name
      *
      * @return the target user screen name
      */
-    String getTargetUserScreenName();
+    val targetUserScreenName: String
 
     /**
      * Checks if source user is following target user
      *
      * @return true if source user is following target user
      */
-    boolean isSourceFollowingTarget();
+    val isSourceFollowingTarget: Boolean
 
     /**
      * Checks if target user is following source user.<br>
@@ -81,14 +79,14 @@ public interface Relationship extends TwitterResponse, java.io.Serializable {
      *
      * @return true if target user is following source user
      */
-    boolean isTargetFollowingSource();
+    val isTargetFollowingSource: Boolean
 
     /**
      * Checks if source user is being followed by target user
      *
      * @return true if source user is being followed by target user
      */
-    boolean isSourceFollowedByTarget();
+    val isSourceFollowedByTarget: Boolean
 
     /**
      * Checks if target user is being followed by source user.<br>
@@ -96,7 +94,7 @@ public interface Relationship extends TwitterResponse, java.io.Serializable {
      *
      * @return true if target user is being followed by source user
      */
-    boolean isTargetFollowedBySource();
+    val isTargetFollowedBySource: Boolean
 
     /**
      * Checks if source user can send dm to target user
@@ -104,14 +102,14 @@ public interface Relationship extends TwitterResponse, java.io.Serializable {
      * @return true if source user can send dm to target user
      * @since Twitter4J 3.0.5
      */
-    boolean canSourceDm();
+    fun canSourceDm(): Boolean
 
     /**
      * Checks if the source user has enabled notifications for updates of the target user
      *
      * @return true if source user enabled notifications for target user
      */
-    boolean isSourceNotificationsEnabled();
+    val isSourceNotificationsEnabled: Boolean
 
     /**
      * Checks if the retweets from the target user enabled
@@ -119,6 +117,6 @@ public interface Relationship extends TwitterResponse, java.io.Serializable {
      * @return true if the retweets from the target user enabled
      * @since Twitter4J 3.0.3
      */
-    boolean isSourceWantRetweets();
+    val isSourceWantRetweets: Boolean
 
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package twitter4j;
+package twitter4j
 
 /**
  * A data interface representing one single URL entity.
@@ -22,51 +22,49 @@ package twitter4j;
  * @author Mocel - mocel at guma.jp
  * @since Twitter4J 2.1.9
  */
-public interface URLEntity extends TweetEntity, java.io.Serializable {
+interface URLEntity : TweetEntity, java.io.Serializable {
 
     /**
      * Returns the URL mentioned in the tweet.<br>
-     * This method implementation is to meet TweetEntity interface and the behavior is equivalent to {@link #getURL()}
+     * This method implementation is to meet TweetEntity interface and the behavior is equivalent to [URL]
      *
      * @return the mentioned URL
      */
-    @Override
-    String getText();
+    override val text: String
 
     /**
      * Returns the URL mentioned in the tweet.
      *
      * @return the mentioned URL
      */
-    String getURL();
+    @Suppress("PropertyName")
+    val URL: String
 
     /**
      * Returns the expanded URL if mentioned URL is shorten.
      *
      * @return the expanded URL if mentioned URL is shorten, or null if no shorten URL was mentioned.
      */
-    String getExpandedURL();
+    val expandedURL: String
 
     /**
      * Returns the display URL if mentioned URL is shorten.
      *
      * @return the display URL if mentioned URL is shorten, or null if no shorten URL was mentioned.
      */
-    String getDisplayURL();
+    val displayURL: String
 
     /**
      * Returns the index of the start character of the URL mentioned in the tweet.
      *
      * @return the index of the start character of the URL mentioned in the tweet
      */
-    @Override
-    int getStart();
+    override val start: Int
 
     /**
      * Returns the index of the end character of the URL mentioned in the tweet.
      *
      * @return the index of the end character of the URL mentioned in the tweet
      */
-    @Override
-    int getEnd();
+    override val end: Int
 }

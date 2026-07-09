@@ -25,3 +25,4 @@ build
 local.properties
 /fix_mv.sh
 /auto_fix_mv.sh
+kmp_migration/

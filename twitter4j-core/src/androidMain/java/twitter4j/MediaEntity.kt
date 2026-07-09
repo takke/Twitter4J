@@ -13,56 +13,56 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package twitter4j;
-
-import java.util.Map;
+package twitter4j
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.2.3
  */
-public interface MediaEntity extends URLEntity {
+interface MediaEntity : URLEntity {
     /**
      * Returns the id of the media.
      *
      * @return the id of the media
      */
-    long getId();
+    val id: Long
 
     /**
      * Returns the media URL.
      *
      * @return the media URL
      */
-    String getMediaURL();
+    val mediaURL: String
 
     /**
      * Returns the media secure URL.
      *
      * @return the media secure URL
      */
-    String getMediaURLHttps();
+    val mediaURLHttps: String
 
     /**
      * Returns size variations of the media.
      *
      * @return size variations of the media
      */
-    Map<Integer, Size> getSizes();
+    val sizes: Map<Int, Size>
 
-    interface Size extends java.io.Serializable {
-        Integer THUMB = 0;
-        Integer SMALL = 1;
-        Integer MEDIUM = 2;
-        Integer LARGE = 3;
-        int FIT = 100;
-        int CROP = 101;
+    interface Size : java.io.Serializable {
+        val width: Int
 
-        int getWidth();
+        val height: Int
 
-        int getHeight();
+        val resize: Int
 
-        int getResize();
+        companion object {
+            const val THUMB = 0
+            const val SMALL = 1
+            const val MEDIUM = 2
+            const val LARGE = 3
+            const val FIT = 100
+            const val CROP = 101
+        }
     }
 
     /**
@@ -70,35 +70,35 @@ public interface MediaEntity extends URLEntity {
      *
      * @return the media type ("photo", "video", "animated_gif").
      */
-    String getType();
+    val type: String
 
-    int getVideoAspectRatioWidth();
+    val videoAspectRatioWidth: Int
 
-    int getVideoAspectRatioHeight();
+    val videoAspectRatioHeight: Int
 
-    long getVideoDurationMillis();
+    val videoDurationMillis: Long
 
-    interface Variant extends java.io.Serializable {
+    interface Variant : java.io.Serializable {
 
-        int getBitrate();
+        val bitrate: Int
 
-        String getContentType();
+        val contentType: String
 
-        String getUrl();
+        val url: String
     }
 
-    Variant[] getVideoVariants();
+    val videoVariants: Array<Variant>
 
-    String getExtAltText();
+    val extAltText: String
 
-    String getAdditionalMediaTitle();
+    val additionalMediaTitle: String?
 
-    String getAdditionalMediaDescription();
+    val additionalMediaDescription: String?
 
-    Boolean getAdditionalMediaEmbeddable();
+    val additionalMediaEmbeddable: Boolean?
 
-    Boolean getAdditionalMediaMonetizable();
+    val additionalMediaMonetizable: Boolean?
 
-    User getAdditionalMediaSourceUser();
+    val additionalMediaSourceUser: User?
 
 }

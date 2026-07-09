@@ -13,24 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package twitter4j;
+package twitter4j
 
 /**
+ * super interface of UserMentionEntity, URLEntity and HashtagEntity
+ *
  * @author Yusuke Yamamoto - yusuke at mac.com
+ * @since Twitter4J 3.0.4
  */
-public interface Location extends java.io.Serializable {
-    int getWoeid();
+interface TweetEntity {
+    /**
+     * Returns the text of the entity
+     *
+     * @return the text of the entity
+     */
+    val text: String
 
-    String getCountryName();
+    /**
+     * Returns the index of the start character of the entity in the tweet.
+     *
+     * @return the index of the start character of the entity in the tweet
+     */
+    val start: Int
 
-    String getCountryCode();
-
-    String getPlaceName();
-
-    int getPlaceCode();
-
-    String getName();
-
-    String getURL();
+    /**
+     * Returns the index of the end character of the entity in the tweet.
+     *
+     * @return the index of the end character of the entity in the tweet
+     */
+    val end: Int
 }

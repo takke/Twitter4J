@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package twitter4j;
-
+package twitter4j
 
 /**
  * A data interface representing Trend.
@@ -23,16 +22,16 @@ package twitter4j;
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.0.2
  */
-public interface Trend extends java.io.Serializable {
-    String getName();
+interface Trend : java.io.Serializable {
+    val name: String
 
-    String getURL();
+    val URL: String
 
-    String getQuery();
+    val query: String
 
     /**
      * The tweet volume for the last 24 hours if available, -1 otherwise.
      * @return The tweet volume for the last 24 hours if available, -1 otherwise.
      */
-    int getTweetVolume();
+    val tweetVolume: Int
 }

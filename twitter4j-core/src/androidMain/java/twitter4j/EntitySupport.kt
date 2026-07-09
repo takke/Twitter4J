@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package twitter4j;
+package twitter4j
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.2.5
  */
-public interface EntitySupport {
+interface EntitySupport {
     /**
      * Returns an array of user mentions in the tweet. This method will return an empty array if no users were mentioned in the tweet.
      *
      * @return An array of user mention entities in the tweet.
      * @since Twitter4J 2.1.9
      */
-    UserMentionEntity[] getUserMentionEntities();
+    val userMentionEntities: Array<UserMentionEntity>
 
     /**
      * Returns an array if URLEntity mentioned in the tweet. This method will return an empty array if no url were mentioned in the tweet.
@@ -34,7 +34,7 @@ public interface EntitySupport {
      * @return An array of URLEntity mentioned in the tweet.
      * @since Twitter4J 2.1.9
      */
-    URLEntity[] getURLEntities();
+    val uRLEntities: Array<URLEntity>
 
     /**
      * Returns an array if hashtag mentioned in the tweet.  This method will return an empty array if no hashtags were mentioned in the tweet.
@@ -42,14 +42,14 @@ public interface EntitySupport {
      * @return An array of Hashtag mentioned in the tweet.
      * @since Twitter4J 2.1.9
      */
-    HashtagEntity[] getHashtagEntities();
+    val hashtagEntities: Array<HashtagEntity>
 
     /**
      * Returns an array of MediaEntities if medias are available in the tweet. This method will return an empty array if no medias were mentioned.
      * @return an array of MediaEntities.
      * @since Twitter4J 2.2.3
      */
-    MediaEntity[] getMediaEntities();
+    val mediaEntities: Array<MediaEntity>
 
     /**
      * Returns an array of SymbolEntities if medias are available in the tweet. This method will return an empty array if no symbols were mentioned.
@@ -57,5 +57,5 @@ public interface EntitySupport {
      * @return an array of SymbolEntities.
      * @since Twitter4J 3.0.4
      */
-    SymbolEntity[] getSymbolEntities();
+    val symbolEntities: Array<SymbolEntity>
 }

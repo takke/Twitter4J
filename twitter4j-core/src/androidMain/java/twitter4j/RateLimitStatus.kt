@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package twitter4j;
+package twitter4j
 
 /**
  * A data interface representing Twitter REST API's rate limit status
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
- * @see <a href="https://dev.twitter.com/docs/rate-limiting">Rate Limiting | Twitter Developers</a>
+ * @see [Rate Limiting | Twitter Developers](https://dev.twitter.com/docs/rate-limiting)
  */
-public interface RateLimitStatus extends java.io.Serializable {
+interface RateLimitStatus : java.io.Serializable {
     /**
      * Returns the remaining number of API requests available.<br>
      * This value is identical to the &quot;X-Rate-Limit-Remaining&quot; response header.
@@ -30,7 +30,7 @@ public interface RateLimitStatus extends java.io.Serializable {
      * @return the remaining number of API requests available
      * @since Twitter4J 3.0.0
      */
-    int getRemaining();
+    val remaining: Int
 
     /**
      * Returns the current limit in effect<br>
@@ -38,7 +38,7 @@ public interface RateLimitStatus extends java.io.Serializable {
      *
      * @return the current limit in effect
      */
-    int getLimit();
+    val limit: Int
 
     /**
      * Returns the seconds the current rate limiting period ends.<br>
@@ -47,7 +47,7 @@ public interface RateLimitStatus extends java.io.Serializable {
      * @return the seconds the current rate limiting period ends
      * @since Twitter4J 2.0.9
      */
-    int getResetTimeInSeconds();
+    val resetTimeInSeconds: Int
 
     /**
      * Returns the amount of seconds until the current rate limiting period ends.<br>
@@ -56,6 +56,6 @@ public interface RateLimitStatus extends java.io.Serializable {
      * @return the amount of seconds until next rate limiting period
      * @since Twitter4J 2.1.0
      */
-    int getSecondsUntilReset();
+    val secondsUntilReset: Int
 
 }

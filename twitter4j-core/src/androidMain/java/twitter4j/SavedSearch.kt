@@ -14,38 +14,24 @@
  * limitations under the License.
  */
 
-package twitter4j;
+package twitter4j
+
+import java.util.Date
 
 /**
+ * A data interface representing a Saved Search
+ *
  * @author Yusuke Yamamoto - yusuke at mac.com
+ * @since Twitter4J 2.0.8
  */
-public interface CursorSupport {
-    /**
-     * @since Twitter4J 2.2.3
-     */
-    long START = -1L;
+interface SavedSearch : Comparable<SavedSearch>, TwitterResponse, java.io.Serializable {
+    val createdAt: Date
 
-    /**
-     * @since Twitter4J 2.0.10
-     * @return has previous page
-     */
-    boolean hasPrevious();
+    val query: String
 
-    /**
-     * @since Twitter4J 2.0.10
-     * @return previous cursor
-     */
-    long getPreviousCursor();
+    val position: Int
 
-    /**
-     * @since Twitter4J 2.0.10
-     * @return has next
-     */
-    boolean hasNext();
+    val name: String
 
-    /**
-     * @since Twitter4J 2.0.10
-     * @return next cursor
-     */
-    long getNextCursor();
+    val id: Long
 }

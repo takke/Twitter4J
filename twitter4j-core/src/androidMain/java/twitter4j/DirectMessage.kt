@@ -14,44 +14,44 @@
  * limitations under the License.
  */
 
-package twitter4j;
+package twitter4j
 
-import java.util.Date;
+import java.util.Date
 
 /**
  * A data interface representing sent/received direct message.
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-public interface DirectMessage extends TwitterResponse, EntitySupport, java.io.Serializable {
+interface DirectMessage : TwitterResponse, EntitySupport, java.io.Serializable {
 
-    long getId();
+    val id: Long
 
-    String getText();
+    val text: String
 
-    long getSenderId();
+    val senderId: Long
 
-    long getRecipientId();
+    val recipientId: Long
 
     /**
      * @return created_at
      * @since Twitter4J 1.1.0
      */
-    Date getCreatedAt();
+    val createdAt: Date
 
     /**
      *
      * @return quick reply options
      * @since Twitter4J 4.0.7
      */
-    QuickReply[] getQuickReplies();
+    val quickReplies: Array<QuickReply>
 
     /**
      *
      * @return quick reply response metadata
      * @since Twitter4J 4.0.7
      */
-    String getQuickReplyResponse();
+    val quickReplyResponse: String
 
     // currently type is always "message_create". So we're not providing a getter for that.
 }

@@ -14,18 +14,33 @@
  * limitations under the License.
  */
 
-package twitter4j;
-
-import java.util.List;
-
+package twitter4j
 
 /**
- * List of TwitterResponse.
+ * A data interface representing one single Hashtag entity.
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
+ * @since Twitter4J 2.1.9
  */
-public interface ResponseList<T> extends TwitterResponse, List<T> {
+interface HashtagEntity : TweetEntity, java.io.Serializable {
+    /**
+     * Returns the text of the hashtag without #.
+     *
+     * @return the text of the hashtag
+     */
+    override val text: String
 
-    @Override
-    public RateLimitStatus getRateLimitStatus();
+    /**
+     * Returns the index of the start character of the hashtag.
+     *
+     * @return the index of the start character of the hashtag
+     */
+    override val start: Int
+
+    /**
+     * Returns the index of the end character of the hashtag.
+     *
+     * @return the index of the end character of the hashtag
+     */
+    override val end: Int
 }

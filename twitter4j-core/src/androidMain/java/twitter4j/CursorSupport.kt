@@ -14,32 +14,40 @@
  * limitations under the License.
  */
 
-package twitter4j;
-
-import java.util.Date;
+package twitter4j
 
 /**
- * A data class representing Trends.
- *
  * @author Yusuke Yamamoto - yusuke at mac.com
- * @since Twitter4J 2.0.2
  */
-
-public interface Trends extends TwitterResponse, Comparable<Trends>, java.io.Serializable {
-    Trend[] getTrends();
+interface CursorSupport {
+    /**
+     * @since Twitter4J 2.0.10
+     * @return has previous page
+     */
+    fun hasPrevious(): Boolean
 
     /**
-     * Returns the location associated with the trends.<br>
-     * This method is effective only with getLocalTrends() method.<br>
-     * i.e. The return value of this method will be null with Search API Methods (getTrends(), getCurrentTrends(), getDailyTrends(), and getWeeklyTrends()).<br>
-     *
-     * @return location
-     * @since Twitter4J 2.1.1
+     * @since Twitter4J 2.0.10
+     * @return previous cursor
      */
-    Location getLocation();
+    val previousCursor: Long
 
-    Date getAsOf();
+    /**
+     * @since Twitter4J 2.0.10
+     * @return has next
+     */
+    fun hasNext(): Boolean
 
-    Date getTrendAt();
+    /**
+     * @since Twitter4J 2.0.10
+     * @return next cursor
+     */
+    val nextCursor: Long
 
+    companion object {
+        /**
+         * @since Twitter4J 2.2.3
+         */
+        const val START = -1L
+    }
 }

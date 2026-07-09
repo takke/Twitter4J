@@ -13,27 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package twitter4j
 
-package twitter4j;
-
+import java.io.Serializable
 
 /**
- * A data interface representing array of numeric IDs.
- *
  * @author Yusuke Yamamoto - yusuke at mac.com
+ * @since Twitter4J 3.0.4
  */
-public interface IDs extends TwitterResponse, CursorSupport, java.io.Serializable {
-    long[] getIDs();
+interface SymbolEntity : TweetEntity, Serializable {
+    /**
+     * Returns the index of the start character of the symbol.
+     *
+     * @return the index of the start character of the symbol
+     */
+    override val start: Int
 
-    @Override
-    boolean hasPrevious();
-
-    @Override
-    long getPreviousCursor();
-
-    @Override
-    boolean hasNext();
-
-    @Override
-    long getNextCursor();
+    /**
+     * Returns the index of the end character of the symbol.
+     *
+     * @return the index of the end character of the symbol
+     */
+    override val end: Int
 }

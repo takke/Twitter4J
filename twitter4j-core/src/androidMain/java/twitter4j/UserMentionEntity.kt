@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package twitter4j;
+package twitter4j
 
-import java.io.Serializable;
+import java.io.Serializable
 
 /**
  * A data interface representing one single user mention entity.
@@ -24,49 +24,46 @@ import java.io.Serializable;
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.1.9
  */
-public interface UserMentionEntity extends TweetEntity, Serializable {
+interface UserMentionEntity : TweetEntity, Serializable {
     /**
-     * Returns the screen name mentioned in the status. This method implementation is to meet TweetEntity interface and the behavior is equivalent to {@link #getScreenName()}
+     * Returns the screen name mentioned in the status. This method implementation is to meet TweetEntity interface and the behavior is equivalent to [screenName]
      *
      * @return the screen name mentioned in the status
      */
-    @Override
-    String getText();
+    override val text: String
 
     /**
      * Returns the name mentioned in the status.
      *
      * @return the name mentioned in the status
      */
-    String getName();
+    val name: String
 
     /**
      * Returns the screen name mentioned in the status.
      *
      * @return the screen name mentioned in the status
      */
-    String getScreenName();
+    val screenName: String
 
     /**
      * Returns the user id mentioned in the status.
      *
      * @return the user id mentioned in the status
      */
-    long getId();
+    val id: Long
 
     /**
      * Returns the index of the start character of the user mention.
      *
      * @return the index of the start character of the user mention
      */
-    @Override
-    int getStart();
+    override val start: Int
 
     /**
      * Returns the index of the end character of the user mention.
      *
      * @return the index of the end character of the user mention
      */
-    @Override
-    int getEnd();
+    override val end: Int
 }

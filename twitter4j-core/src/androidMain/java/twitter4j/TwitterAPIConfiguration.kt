@@ -13,26 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package twitter4j;
-
-import java.util.Date;
+package twitter4j
 
 /**
- * A data interface representing a Saved Search
- *
  * @author Yusuke Yamamoto - yusuke at mac.com
- * @since Twitter4J 2.0.8
+ * @since Twitter4J 2.2.3
  */
-public interface SavedSearch extends Comparable<SavedSearch>, TwitterResponse, java.io.Serializable {
-    Date getCreatedAt();
+interface TwitterAPIConfiguration : TwitterResponse, java.io.Serializable {
+    val photoSizeLimit: Int
 
-    String getQuery();
+    val shortURLLength: Int
 
-    int getPosition();
+    val shortURLLengthHttps: Int
 
-    String getName();
+    val charactersReservedPerMedia: Int
 
-    long getId();
+    val dmTextCharacterLimit: Int
 
+    val photoSizes: Map<Int, MediaEntity.Size>
+
+    val nonUsernamePaths: Array<String>
+
+    val maxMediaPerUpload: Int
 }

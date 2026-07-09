@@ -14,24 +14,23 @@
  * limitations under the License.
  */
 
-package twitter4j;
+package twitter4j
+
+import java.io.Serializable
 
 /**
- * ResponseList with cursor support.
+ * A data interface representing targeting scopes applied to a status.
  *
- * @author Yusuke Yamamoto - yusuke at mac.com
+ * @author Aaron Rankin - aaron at sproutsocial.com
+ * @since Twitter4J 3.0.6
  */
-public interface PagableResponseList<T extends TwitterResponse> extends ResponseList<T>, CursorSupport {
-    @Override
-    boolean hasPrevious();
+fun interface Scopes : Serializable {
 
-    @Override
-    long getPreviousCursor();
-
-    @Override
-    boolean hasNext();
-
-    @Override
-    long getNextCursor();
+    /**
+     * Returns the place_ids that identify the scope of the status.
+     *
+     * @return the place_ids that identify the scope of the status.
+     */
+    fun getPlaceIds(): Array<String>
 
 }

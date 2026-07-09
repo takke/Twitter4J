@@ -14,23 +14,15 @@
  * limitations under the License.
  */
 
-package twitter4j;
-
-import java.io.Serializable;
+package twitter4j
 
 /**
- * A data interface representing targeting scopes applied to a status.
- *
- * @author Aaron Rankin - aaron at sproutsocial.com
- * @since Twitter4J 3.0.6
+ * @author Alessandro Bahgat - ale.bahgat at gmail.com
  */
-public interface Scopes extends Serializable {
+interface TimeZone : java.io.Serializable {
+    val name: String
 
-	/**
-     * Returns the place_ids that identify the scope of the status.
-     *
-     * @return the place_ids that identify the scope of the status.
-     */
-	String[] getPlaceIds();
-	
+    fun tzinfoName(): String
+
+    fun utcOffset(): Int
 }

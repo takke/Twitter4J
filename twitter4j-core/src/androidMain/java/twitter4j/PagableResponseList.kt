@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
-package twitter4j;
+package twitter4j
 
 /**
- * @author Alessandro Bahgat - ale.bahgat at gmail.com
+ * ResponseList with cursor support.
+ *
+ * @author Yusuke Yamamoto - yusuke at mac.com
  */
-public interface TimeZone extends java.io.Serializable {
-    String getName();
-
-    String tzinfoName();
-
-    int utcOffset();
-}
+interface PagableResponseList<T : TwitterResponse> : ResponseList<T>, CursorSupport
