@@ -17,7 +17,6 @@
 package twitter4j
 
 import twitter4j.conf.Configuration
-import java.util.Date
 
 /**
  * A data class representing sent/received direct message.

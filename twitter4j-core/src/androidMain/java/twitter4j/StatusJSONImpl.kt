@@ -16,7 +16,6 @@
 package twitter4j
 
 import twitter4j.conf.Configuration
-import java.util.Date
 
 /**
  * A data class representing one single status of a user.

@@ -19,7 +19,6 @@ package twitter4j
 import twitter4j.conf.Configuration
 import java.net.URI as JavaNetURI
 import java.net.URISyntaxException
-import java.util.Date
 
 /**
  * A data class representing Basic list information element

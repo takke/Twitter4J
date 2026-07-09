@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalTime::class)
+
 package twitter4j
 
+import kotlin.time.ExperimentalTime
 import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import java.util.concurrent.LinkedBlockingQueue
 
 /**
  * A tiny parse utility class.
@@ -92,32 +90,16 @@ object ParseUtil {
         }
     }
 
-    private val formatMapQueue: MutableMap<String, LinkedBlockingQueue<SimpleDateFormat>> = HashMap()
-
     @JvmStatic
     @Throws(TwitterException::class)
     fun getDate(dateString: String, format: String): Date {
-        var simpleDateFormats = formatMapQueue[format]
-        if (simpleDateFormats == null) {
-            simpleDateFormats = LinkedBlockingQueue()
-            formatMapQueue[format] = simpleDateFormats
-        }
-        var sdf = simpleDateFormats.poll()
-        if (null == sdf) {
-            sdf = SimpleDateFormat(format, Locale.US)
-            sdf.timeZone = java.util.TimeZone.getTimeZone("UTC")
-        }
-        try {
-            return sdf.parse(dateString)
-        } catch (pe: ParseException) {
-            throw TwitterException("Unexpected date format($dateString) returned from twitter.com", pe)
-        } finally {
-            try {
-                simpleDateFormats.put(sdf)
-            } catch (ignore: InterruptedException) {
-                // the size of LinkedBlockingQueue is Integer.MAX by default.
-                // there is no need to concern about this situation
-            }
+        return try {
+            val instant = TwitterDateParser.parse(dateString, format)
+            Date(instant.toEpochMilliseconds())
+        } catch (e: TwitterException) {
+            throw e
+        } catch (e: Exception) {
+            throw TwitterException("Unexpected date format($dateString) returned from twitter.com", e)
         }
     }
 

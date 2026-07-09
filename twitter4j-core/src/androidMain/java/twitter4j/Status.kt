@@ -15,8 +15,6 @@
  */
 package twitter4j
 
-import java.util.Date
-
 /**
  * A data interface representing one single status of a user.
  * (e.g. https://dev.twitter.com/rest/reference/get/statuses/show/%3Aid)

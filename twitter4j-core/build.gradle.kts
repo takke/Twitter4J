@@ -20,6 +20,15 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
+        // 共通ソースセット
+        // KMP移行 Phase 3-4 で日付処理を kotlinx-datetime ベースに移行するため依存を追加。
+        // バージョンは TwitPane 本体と同一の 0.8.0（kotlin.time.Instant を使う世代）。
+        // 過去にバージョン不一致で起動クラッシュ / iOS リンク衝突の実績があるため、必ず 0.8.0 とする。
+        val commonMain by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.8.0")
+            }
+        }
         // JVM(android)メインソースセット
         // KMP移行 Phase 3-2 でロギングを再設計し、Class.forName による動的検出（SLF4J / Log4J /
         // Commons Logging）を廃止したため、それらの compileOnly 依存を削除した。

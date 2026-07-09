@@ -16,8 +16,6 @@
 
 package twitter4j
 
-import java.util.Date
-
 /**
  * A data interface representing Basic list information element
  *
