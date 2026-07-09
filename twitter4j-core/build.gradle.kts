@@ -7,7 +7,12 @@ kotlin {
     jvmToolchain(11)
 
     // mastodon4j と同方式: AGP は使わず jvm ターゲットを "android" という名前で構成する
-    jvm("android")
+    jvm("android") {
+        // JUnit 5 (Jupiter) を使うため JUnit Platform を有効化する
+        testRuns["test"].executionTask.configure {
+            useJUnitPlatform()
+        }
+    }
 
     sourceSets {
         // JVM(android)メインソースセット
@@ -21,11 +26,11 @@ kotlin {
             }
         }
         // JVM(android)ユニットテストソースセット
+        // ネットワーク不要のユニットテスト用に JUnit Jupiter（API + 実行エンジン）を追加
         val androidTest by getting {
             dependencies {
-                implementation("org.junit.jupiter:junit-jupiter-api:5.2.0")
-                implementation("com.googlecode:kryo:1.04")
-                implementation("org.seleniumhq.selenium:selenium-htmlunit-driver:2.0.0")
+                implementation("org.junit.jupiter:junit-jupiter-api:5.9.3")
+                runtimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.3")
             }
         }
     }

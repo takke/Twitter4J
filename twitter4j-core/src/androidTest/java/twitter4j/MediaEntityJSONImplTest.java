@@ -22,7 +22,8 @@ class MediaEntityJSONImplTest {
 
         //then
         assertEquals(560070131976392705L, mediaEntity.getId());
-        assertEquals("http://pbs.twimg.com/ext_tw_video_thumb/560070131976392705/pu/img/TcG_ep5t-iqdLV5R.jpg",
+        // getMediaURL() は本家フォーク版で media_url_https を返す仕様（MediaEntityJSONImpl.java 参照）
+        assertEquals("https://pbs.twimg.com/ext_tw_video_thumb/560070131976392705/pu/img/TcG_ep5t-iqdLV5R.jpg",
                 mediaEntity.getMediaURL());
         assertEquals("video", mediaEntity.getType());
 
@@ -60,7 +61,8 @@ class MediaEntityJSONImplTest {
 
         //then
         assertEquals(100, mediaEntity.getId());
-        assertEquals("http://media.url.here",
+        // getMediaURL() は media_url_https を返す仕様のため、このJSONでは media_url_https の値になる
+        assertEquals("media.url.here",
                 mediaEntity.getMediaURL());
         assertEquals("animated_gif", mediaEntity.getType());
 
@@ -93,8 +95,10 @@ class MediaEntityJSONImplTest {
         MediaEntityJSONImpl mediaEntity = new MediaEntityJSONImpl(json.getJSONObject("extended_entities").getJSONArray("media").getJSONObject(0));
 
         //then
-        assertEquals(715085245385740300L, mediaEntity.getId());
-        assertEquals("http://pbs.twimg.com/media/Cex-PfNXEAA5X9y.jpg",
+        // getId() は id_str（フル精度の値）を返す仕様。JSON の数値 id はJS精度落ちの値なので id_str を期待値にする
+        assertEquals(715085245385740288L, mediaEntity.getId());
+        // getMediaURL() は media_url_https を返す仕様
+        assertEquals("https://pbs.twimg.com/media/Cex-PfNXEAA5X9y.jpg",
                 mediaEntity.getMediaURL());
 
         assertEquals("カレーパンマンのパズル的なやつ", mediaEntity.getExtAltText());
@@ -118,7 +122,8 @@ class MediaEntityJSONImplTest {
         MediaEntityJSONImpl mediaEntity = new MediaEntityJSONImpl(json.getJSONObject("extended_entities").getJSONArray("media").getJSONObject(0));
 
         //then
-        assertEquals(1236671586075316200L, mediaEntity.getId());
+        // getId() は id_str（フル精度の値）を返す仕様
+        assertEquals(1236671586075316225L, mediaEntity.getId());
         assertNull(mediaEntity.getAdditionalMediaTitle());
         assertNull(mediaEntity.getAdditionalMediaDescription());
         assertEquals(false, mediaEntity.getAdditionalMediaEmbeddable());
@@ -138,7 +143,8 @@ class MediaEntityJSONImplTest {
         MediaEntityJSONImpl mediaEntity = new MediaEntityJSONImpl(json.getJSONObject("extended_entities").getJSONArray("media").getJSONObject(0));
 
         //then
-        assertEquals(924685332347469800L, mediaEntity.getId());
+        // getId() は id_str（フル精度の値）を返す仕様
+        assertEquals(924685332347469824L, mediaEntity.getId());
         assertEquals("#ATLvsNYJ: Tomlinson TD from McCown", mediaEntity.getAdditionalMediaTitle());
         assertEquals("NFL", mediaEntity.getAdditionalMediaDescription());
         assertEquals(false, mediaEntity.getAdditionalMediaEmbeddable());
