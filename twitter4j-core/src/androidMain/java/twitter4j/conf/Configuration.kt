@@ -83,8 +83,6 @@ interface Configuration : AuthorizationConfiguration, java.io.Serializable {
 
     fun getContributingTo(): Long
 
-    fun getLoggerFactory(): String?
-
     fun isIncludeEntitiesEnabled(): Boolean
 
     fun isTrimUserEnabled(): Boolean

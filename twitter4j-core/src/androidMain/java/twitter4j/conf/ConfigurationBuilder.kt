@@ -28,7 +28,9 @@ import java.util.Properties
  */
 class ConfigurationBuilder {
 
-    private var configurationBean: ConfigurationBase? = PropertyConfiguration()
+    // KMP移行 Phase 3-2 で PropertyConfiguration を削除したため、
+    // twitter4j.properties / System property の読み込みは行わず、デフォルト値の ConfigurationBase を使用する。
+    private var configurationBean: ConfigurationBase? = ConfigurationBase()
 
     fun setPrettyDebugEnabled(prettyDebugEnabled: Boolean): ConfigurationBuilder {
         checkNotBuilt()

@@ -29,7 +29,7 @@ import twitter4j.Logger
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-internal open class ConfigurationBase protected constructor() : Configuration, java.io.Serializable {
+internal open class ConfigurationBase constructor() : Configuration, java.io.Serializable {
     private var debug = false
     override var user: String? = null
     override var password: String? = null
@@ -73,8 +73,6 @@ internal open class ConfigurationBase protected constructor() : Configuration, j
     private var uploadBaseURL = "https://upload.twitter.com/1.1/"
 
     private var asyncNumThreads = 1
-
-    private var loggerFactory: String? = null
 
     private var contributingTo = -1L
 
@@ -487,20 +485,12 @@ internal open class ConfigurationBase protected constructor() : Configuration, j
         this.oAuth2InvalidateTokenURL = oAuth2InvalidateTokenURL
     }
 
-    override fun getLoggerFactory(): String? {
-        return loggerFactory
-    }
-
     override fun isIncludeEntitiesEnabled(): Boolean {
         return includeEntitiesEnabled
     }
 
     fun setIncludeEntitiesEnabled(includeEntitiesEnabled: Boolean) {
         this.includeEntitiesEnabled = includeEntitiesEnabled
-    }
-
-    fun setLoggerFactory(loggerImpl: String?) {
-        this.loggerFactory = loggerImpl
     }
 
     override fun isIncludeMyRetweetEnabled(): Boolean {
@@ -685,7 +675,6 @@ internal open class ConfigurationBase protected constructor() : Configuration, j
         if (userStreamBaseURL != that.userStreamBaseURL) return false
         if (siteStreamBaseURL != that.siteStreamBaseURL) return false
         if (uploadBaseURL != that.uploadBaseURL) return false
-        if (loggerFactory != that.loggerFactory) return false
         if (mediaProvider != that.mediaProvider) return false
         if (mediaProviderAPIKey != that.mediaProviderAPIKey) return false
         if (mediaProviderParameters != that.mediaProviderParameters) return false
@@ -719,7 +708,6 @@ internal open class ConfigurationBase protected constructor() : Configuration, j
         result = 31 * result + (siteStreamBaseURL?.hashCode() ?: 0)
         result = 31 * result + (uploadBaseURL?.hashCode() ?: 0)
         result = 31 * result + asyncNumThreads
-        result = 31 * result + (loggerFactory?.hashCode() ?: 0)
         result = 31 * result + (contributingTo xor (contributingTo ushr 32)).toInt()
         result = 31 * result + (if (includeMyRetweetEnabled) 1 else 0)
         result = 31 * result + (if (includeEntitiesEnabled) 1 else 0)
@@ -770,7 +758,6 @@ internal open class ConfigurationBase protected constructor() : Configuration, j
                 ", siteStreamBaseURL='" + siteStreamBaseURL + '\'' +
                 ", uploadBaseURL='" + uploadBaseURL + '\'' +
                 ", asyncNumThreads=" + asyncNumThreads +
-                ", loggerFactory='" + loggerFactory + '\'' +
                 ", contributingTo=" + contributingTo +
                 ", includeMyRetweetEnabled=" + includeMyRetweetEnabled +
                 ", includeEntitiesEnabled=" + includeEntitiesEnabled +

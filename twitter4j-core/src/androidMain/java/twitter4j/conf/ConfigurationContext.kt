@@ -17,42 +17,28 @@
 package twitter4j.conf
 
 /**
- * Static factory of Configuration. This class wraps ConfigurationFactory implementations.<br></br>
- * By default, twitter4j.conf.PropertyConfigurationFactory will be used and can be changed with -Dtwitter4j.configurationFactory system property.
+ * Static factory of Configuration.
+ *
+ * KMP移行 Phase 3-2 で PropertyConfiguration / PropertyConfigurationFactory を削除したため、
+ * 従来の Class.forName による ConfigurationFactory 動的生成をやめ、
+ * デフォルト設定を持つ [ConfigurationBase] のインスタンスを直接返すシンプルな実装へ変更した。
+ * ルート設定は従来同様シングルトンとして共有する。
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
 object ConfigurationContext {
-    private const val DEFAULT_CONFIGURATION_FACTORY = "twitter4j.conf.PropertyConfigurationFactory"
-    private const val CONFIGURATION_IMPL = "twitter4j.configurationFactory"
-    private val factory: ConfigurationFactory
-
-    init {
-        val configImpl: String = try {
-            System.getProperty(CONFIGURATION_IMPL, DEFAULT_CONFIGURATION_FACTORY)
-        } catch (ignore: SecurityException) {
-            // Unsigned applets are not allowed to access System properties
-            DEFAULT_CONFIGURATION_FACTORY
-        }
-
-        factory = try {
-            Class.forName(configImpl).newInstance() as ConfigurationFactory
-        } catch (cnfe: ClassNotFoundException) {
-            throw AssertionError(cnfe)
-        } catch (ie: InstantiationException) {
-            throw AssertionError(ie)
-        } catch (iae: IllegalAccessException) {
-            throw AssertionError(iae)
-        }
-    }
+    // ルート設定（デフォルト値のみ）。従来の PropertyConfigurationFactory.ROOT_CONFIGURATION 相当。
+    private val rootConfiguration: Configuration = ConfigurationBase()
 
     @JvmStatic
     fun getInstance(): Configuration {
-        return factory.getInstance()
+        return rootConfiguration
     }
 
     @JvmStatic
     fun getInstance(configTreePath: String): Configuration {
-        return factory.getInstance(configTreePath)
+        // twitter4j.properties によるツリー設定の読み込みは廃止したため、
+        // configTreePath は無視してデフォルト設定を返す。
+        return ConfigurationBase()
     }
 }

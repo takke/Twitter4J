@@ -21,14 +21,10 @@ kotlin {
 
     sourceSets {
         // JVM(android)メインソースセット
-        // 既存の compileOnly 依存（slf4j等4つ）を維持
+        // KMP移行 Phase 3-2 でロギングを再設計し、Class.forName による動的検出（SLF4J / Log4J /
+        // Commons Logging）を廃止したため、それらの compileOnly 依存を削除した。
+        // jetbrains annotations も core 内で未使用のため削除済み。
         val androidMain by getting {
-            dependencies {
-                compileOnly("org.slf4j:slf4j-api:1.7.12")
-                compileOnly("commons-logging:commons-logging-api:1.1")
-                compileOnly("org.jetbrains:annotations:16.0.2")
-                compileOnly("log4j:log4j:1.2.17")
-            }
         }
         // JVM(android)ユニットテストソースセット
         // ネットワーク不要のユニットテスト用に JUnit Jupiter（API + 実行エンジン）を追加
