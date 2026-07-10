@@ -18,9 +18,8 @@
 
 package twitter4j
 
+import kotlin.jvm.JvmStatic
 import kotlin.time.ExperimentalTime
-import java.io.UnsupportedEncodingException
-import java.net.URLDecoder
 
 /**
  * A tiny parse utility class.
@@ -55,12 +54,75 @@ object ParseUtil {
     fun getURLDecodedString(name: String, json: JSONObject?): String? {
         var returnValue = getRawString(name, json)
         if (returnValue != null) {
-            try {
-                returnValue = URLDecoder.decode(returnValue, "UTF-8")
-            } catch (ignore: UnsupportedEncodingException) {
-            }
+            returnValue = urlDecode(returnValue)
         }
         return returnValue
+    }
+
+    /**
+     * `java.net.URLDecoder.decode(value, "UTF-8")` 相当の純 Kotlin 実装（commonMain 用）。
+     *
+     * - `'+'` はスペースに変換する
+     * - `%XX`（16進2桁）はバイト値としてデコードし、連続する `%XX` をまとめて UTF-8 バイト列として復元する
+     * - それ以外の文字はそのまま出力する
+     *
+     * 元実装は `UnsupportedEncodingException`（UTF-8 では発生しない）のみ catch していたため、
+     * 挙動を維持するために正常系のみを扱う（Twitter API から渡される値は整形済みの前提）。
+     */
+    internal fun urlDecode(value: String): String {
+        // '%' も '+' も含まれない場合はそのまま返す（高速化 & 挙動維持）
+        if (value.indexOf('%') < 0 && value.indexOf('+') < 0) {
+            return value
+        }
+        val sb = StringBuilder(value.length)
+        val bytes = ArrayList<Byte>()
+        var i = 0
+        val length = value.length
+        while (i < length) {
+            val c = value[i]
+            when (c) {
+                '+' -> {
+                    // 蓄積済みバイト列があれば UTF-8 として確定させる
+                    if (bytes.isNotEmpty()) {
+                        sb.append(bytes.toByteArray().decodeToString())
+                        bytes.clear()
+                    }
+                    sb.append(' ')
+                    i++
+                }
+
+                '%' -> {
+                    // `%XX` を 1 バイトとして蓄積（連続分をまとめて後で UTF-8 デコード）
+                    val hi = hexValue(value[i + 1])
+                    val lo = hexValue(value[i + 2])
+                    bytes.add(((hi shl 4) or lo).toByte())
+                    i += 3
+                }
+
+                else -> {
+                    if (bytes.isNotEmpty()) {
+                        sb.append(bytes.toByteArray().decodeToString())
+                        bytes.clear()
+                    }
+                    sb.append(c)
+                    i++
+                }
+            }
+        }
+        if (bytes.isNotEmpty()) {
+            sb.append(bytes.toByteArray().decodeToString())
+        }
+        return sb.toString()
+    }
+
+    /**
+     * 16進文字（0-9, a-f, A-F）を数値に変換する。
+     */
+    private fun hexValue(c: Char): Int = when (c) {
+        in '0'..'9' -> c - '0'
+        in 'a'..'f' -> c - 'a' + 10
+        in 'A'..'F' -> c - 'A' + 10
+        else -> throw IllegalArgumentException("URLDecoder: Illegal hex characters in escape (%) pattern - $c")
     }
 
     @JvmStatic

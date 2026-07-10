@@ -16,6 +16,8 @@
 
 package twitter4j
 
+import kotlin.jvm.JvmStatic
+
 internal object HTMLEntity {
 
     @JvmStatic
@@ -32,7 +34,7 @@ internal object HTMLEntity {
         while (index < original.length) {
             escaped = entityEscapeMap[original.substring(index, index + 1)]
             if (escaped != null) {
-                original.replace(index, index + 1, escaped)
+                replaceRangeCompat(original, index, index + 1, escaped)
                 index += escaped.length
             } else {
                 index++
@@ -67,7 +69,7 @@ internal object HTMLEntity {
                 escaped = original.substring(index, semicolonIndex + 1)
                 entity = escapeEntityMap[escaped]
                 if (entity != null) {
-                    original.replace(index, semicolonIndex + 1, entity)
+                    replaceRangeCompat(original, index, semicolonIndex + 1, entity)
                 }
                 index++
             } else {
@@ -111,12 +113,12 @@ internal object HTMLEntity {
          * indexes with Java standard character indexes. See: HTMLEntityTest.
          * testUnescapeAndSlideEntityIncdicesWithSurrogateCodePoints
          */
-        val textCodePointLength = text.codePointCount(0, text.length)
+        val textCodePointLength = codePointCountCompat(text, 0, text.length)
         var codePoint: Int
         var index = 0
         var twitterIndex = 0
         while (index < text.length) {
-            codePoint = text.codePointAt(index)
+            codePoint = codePointAtCompat(text, index)
             if (codePoint == '&'.code) {
                 semicolonIndex = text.indexOf(";", index)
                 if (-1 != semicolonIndex) {
@@ -125,33 +127,33 @@ internal object HTMLEntity {
                     if (entity != null) {
                         unescaped.append(entity)
                         index = semicolonIndex
-                        twitterIndex = text.codePointCount(0, semicolonIndex)
+                        twitterIndex = codePointCountCompat(text, 0, semicolonIndex)
                         delta = 1 - escaped.length
                     } else {
-                        unescaped.appendCodePoint(codePoint)
+                        appendCodePointCompat(unescaped, codePoint)
                     }
                 } else {
-                    unescaped.appendCodePoint(codePoint)
+                    appendCodePointCompat(unescaped, codePoint)
                 }
             } else {
-                unescaped.appendCodePoint(codePoint)
+                appendCodePointCompat(unescaped, codePoint)
             }
             if (entityIndex < entityIndexes.size) {
                 if (handlingStart) {
                     if (entityIndexes[entityIndex].start == (delta + twitterIndex)) {
                         entityIndexes[entityIndex].start =
-                            unescaped.length - Character.charCount(text.codePointAt(index))
+                            unescaped.length - charCountCompat(codePointAtCompat(text, index))
                         handlingStart = false
                     }
                 } else if (entityIndexes[entityIndex].end == (delta + twitterIndex)) {
                     entityIndexes[entityIndex].end =
-                        unescaped.length - Character.charCount(text.codePointAt(index))
+                        unescaped.length - charCountCompat(codePointAtCompat(text, index))
                     entityIndex++
                     handlingStart = true
                 }
             }
             delta = 0
-            index += Character.charCount(codePoint)
+            index += charCountCompat(codePoint)
             twitterIndex++
         }
         if (entityIndex < entityIndexes.size) {
@@ -425,5 +427,76 @@ internal object HTMLEntity {
             escapeEntityMap[entity[0]] = entity[2]
             escapeEntityMap[entity[1]] = entity[2]
         }
+    }
+}
+
+/**
+ * `java.lang.StringBuilder.replace(start, end, str)` 相当（commonMain 用）。
+ * [start, end) の範囲を削除し、その位置に [str] を挿入する。
+ * commonMain の `kotlin.text.StringBuilder` には `replace(Int, Int, String)` が無いため、
+ * `deleteRange` + `insert` で同等の操作を行う。
+ */
+private fun replaceRangeCompat(sb: StringBuilder, start: Int, end: Int, str: String) {
+    sb.deleteRange(start, end)
+    sb.insert(start, str)
+}
+
+// --- コードポイント処理の common 実装 ---
+// commonMain では JVM 専用の String.codePointAt / codePointCount / Character.charCount /
+// StringBuilder.appendCodePoint が使えないため、サロゲートペアを手処理する同値ヘルパーを定義する。
+// Kotlin common stdlib の Char.isHighSurrogate()/isLowSurrogate() は全プラットフォームで利用可能。
+
+/**
+ * `String.codePointAt(index)` 相当。
+ * index が high surrogate かつ直後が low surrogate の場合はサロゲートペアを合成した
+ * コードポイントを返し、そうでなければその位置の char のコードをそのまま返す（Java と同挙動）。
+ */
+private fun codePointAtCompat(text: String, index: Int): Int {
+    val high = text[index]
+    if (high.isHighSurrogate() && index + 1 < text.length) {
+        val low = text[index + 1]
+        if (low.isLowSurrogate()) {
+            return 0x10000 + ((high.code - 0xD800) shl 10) + (low.code - 0xDC00)
+        }
+    }
+    return high.code
+}
+
+/**
+ * `String.codePointCount(beginIndex, endIndex)` 相当。
+ * 範囲内のコードポイント数を数える。単独のサロゲートは 1 個として数える（Java と同挙動）。
+ */
+private fun codePointCountCompat(text: String, beginIndex: Int, endIndex: Int): Int {
+    var count = 0
+    var i = beginIndex
+    while (i < endIndex) {
+        val c = text[i]
+        if (c.isHighSurrogate() && i + 1 < endIndex && text[i + 1].isLowSurrogate()) {
+            i += 2
+        } else {
+            i++
+        }
+        count++
+    }
+    return count
+}
+
+/**
+ * `Character.charCount(codePoint)` 相当。
+ * 補助文字（>= U+10000）は 2、それ以外は 1 を返す。
+ */
+private fun charCountCompat(codePoint: Int): Int = if (codePoint >= 0x10000) 2 else 1
+
+/**
+ * `StringBuilder.appendCodePoint(codePoint)` 相当。
+ * BMP 内はそのまま 1 char を、補助文字はサロゲートペア 2 char を追加する。
+ */
+private fun appendCodePointCompat(sb: StringBuilder, codePoint: Int) {
+    if (codePoint < 0x10000) {
+        sb.append(codePoint.toChar())
+    } else {
+        val cp = codePoint - 0x10000
+        sb.append((0xD800 + (cp shr 10)).toChar())
+        sb.append((0xDC00 + (cp and 0x3FF)).toChar())
     }
 }
