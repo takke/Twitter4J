@@ -22,45 +22,50 @@ package twitter4j
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-open class TwitterException : Exception, TwitterResponse, HttpResponseCode {
-    var statusCode = -1
-        private set
-    var errorCode = -1
-        private set
+actual open class TwitterException : Exception, TwitterResponse, HttpResponseCode {
+    // expect 側は read-only の `val` として宣言しているため、内部可変は private backing field で保持する。
+    // JVMの公開シグネチャ（getStatusCode() 等）は従来通り維持される。
+    private var _statusCode = -1
+    actual val statusCode: Int
+        get() = _statusCode
+    private var _errorCode = -1
+    actual val errorCode: Int
+        get() = _errorCode
     private var exceptionDiagnosis: ExceptionDiagnosis? = null
     private var response: HttpResponse? = null
-    var errorMessage: String? = null
-        private set
+    private var _errorMessage: String? = null
+    actual val errorMessage: String?
+        get() = _errorMessage
 
     private var nested = false
 
-    constructor(message: String?, cause: Throwable?) : super(message, cause) {
+    actual constructor(message: String?, cause: Throwable?) : super(message, cause) {
         decode(message)
     }
 
-    constructor(message: String?) : this(message, null as Throwable?)
+    actual constructor(message: String?) : this(message, null as Throwable?)
 
-    constructor(cause: Exception) : this(cause.message, cause) {
+    actual constructor(cause: Exception) : this(cause.message, cause) {
         if (cause is TwitterException) {
             cause.setNested()
         }
     }
 
-    constructor(message: String?, res: HttpResponse) : this(message) {
+    actual constructor(message: String?, res: HttpResponse) : this(message) {
         response = res
-        this.statusCode = res.getStatusCode()
+        this._statusCode = res.getStatusCode()
     }
 
-    constructor(message: String?, cause: Exception?, statusCode: Int) : this(message, cause as Throwable?) {
-        this.statusCode = statusCode
+    actual constructor(message: String?, cause: Exception?, statusCode: Int) : this(message, cause as Throwable?) {
+        this._statusCode = statusCode
     }
 
-    constructor(message: String?, errorCode: Int) : this(message) {
-        this.errorMessage = message
-        this.errorCode = errorCode
+    actual constructor(message: String?, errorCode: Int) : this(message) {
+        this._errorMessage = message
+        this._errorCode = errorCode
     }
 
-    override val message: String
+    actual override val message: String
         get() {
             val value = StringBuilder()
             if (errorMessage != null && errorCode != -1) {
@@ -84,15 +89,15 @@ open class TwitterException : Exception, TwitterResponse, HttpResponseCode {
                 val json = JSONObject(str)
                 if (!json.isNull("errors")) {
                     val error = json.getJSONArray("errors").getJSONObject(0)
-                    this.errorMessage = error.getString("message")
-                    this.errorCode = ParseUtil.getInt("code", error)
+                    this._errorMessage = error.getString("message")
+                    this._errorCode = ParseUtil.getInt("code", error)
                 }
             } catch (ignore: JSONException) {
             }
         }
     }
 
-    fun getResponseHeader(name: String): String? {
+    actual fun getResponseHeader(name: String): String? {
         var value: String? = null
         val res = response
         if (res != null) {
@@ -104,7 +109,7 @@ open class TwitterException : Exception, TwitterResponse, HttpResponseCode {
         return value
     }
 
-    override val rateLimitStatus: RateLimitStatus?
+    actual override val rateLimitStatus: RateLimitStatus?
         get() {
             if (null == response) {
                 return null
@@ -112,7 +117,7 @@ open class TwitterException : Exception, TwitterResponse, HttpResponseCode {
             return JSONImplFactory.createRateLimitStatusFromResponseHeader(response!!)
         }
 
-    override val accessLevel: Int
+    actual override val accessLevel: Int
         get() = ParseUtil.toAccessLevel(response)
 
     /**
@@ -175,7 +180,7 @@ open class TwitterException : Exception, TwitterResponse, HttpResponseCode {
      * @return if the exception is caused by non-existing resource
      * @since Twitter4J 2.1.2
      */
-    fun resourceNotFound(): Boolean {
+    actual fun resourceNotFound(): Boolean {
         return statusCode == HttpResponseCode.NOT_FOUND
     }
 
@@ -213,11 +218,11 @@ open class TwitterException : Exception, TwitterResponse, HttpResponseCode {
     val isErrorMessageAvailable: Boolean
         get() = errorMessage != null
 
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || javaClass != other.javaClass) return false
 
-        val that = o as TwitterException
+        val that = other as TwitterException
 
         if (errorCode != that.errorCode) return false
         if (nested != that.nested) return false

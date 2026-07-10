@@ -29,12 +29,12 @@ import java.io.UnsupportedEncodingException
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-abstract class HttpResponse {
+actual abstract class HttpResponse {
 
     @JvmField
     protected val CONF: HttpClientConfiguration?
 
-    protected constructor() {
+    protected actual constructor() {
         this.CONF = ConfigurationContext.getInstance().getHttpClientConfiguration()
     }
 
@@ -53,13 +53,13 @@ abstract class HttpResponse {
 
     private var streamConsumed = false
 
-    fun getStatusCode(): Int {
+    actual fun getStatusCode(): Int {
         return statusCode
     }
 
-    abstract fun getResponseHeader(name: String): String?
+    actual abstract fun getResponseHeader(name: String): String?
 
-    abstract fun getResponseHeaderFields(): MutableMap<String, MutableList<String>>?
+    actual abstract fun getResponseHeaderFields(): MutableMap<String, MutableList<String>>?
 
     /**
      * Returns the response stream.<br></br>
@@ -87,7 +87,7 @@ abstract class HttpResponse {
      * @throws TwitterException when there is any network issue upon response body consumption
      */
     @Throws(TwitterException::class)
-    open fun asString(): String {
+    actual open fun asString(): String {
         if (null == responseAsString) {
             var br: BufferedReader? = null
             var stream: InputStream? = null
@@ -137,7 +137,7 @@ abstract class HttpResponse {
      * @throws TwitterException when the response body is not in JSON Object format
      */
     @Throws(TwitterException::class)
-    open fun asJSONObject(): JSONObject {
+    actual open fun asJSONObject(): JSONObject {
         if (json == null) {
             try {
                 json = JSONObject(asString())
@@ -172,7 +172,7 @@ abstract class HttpResponse {
      * @throws TwitterException when the response body is not in JSON Array format
      */
     @Throws(TwitterException::class)
-    open fun asJSONArray(): JSONArray {
+    actual open fun asJSONArray(): JSONArray {
         if (jsonArray == null) {
             try {
                 jsonArray = JSONArray(asString())
