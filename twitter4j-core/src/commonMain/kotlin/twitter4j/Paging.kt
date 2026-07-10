@@ -15,6 +15,9 @@
  */
 package twitter4j
 
+import kotlin.jvm.JvmField
+import kotlin.jvm.JvmOverloads
+
 
 /**
  * Controls pagination.<br></br>
@@ -168,7 +171,7 @@ class Paging : Serializable {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+        if (other == null || this::class != other::class) return false
 
         other as Paging
 

@@ -15,6 +15,9 @@
  */
 package twitter4j
 
+import kotlin.jvm.JvmField
+import kotlin.jvm.JvmStatic
+
 
 /**
  * A data class represents search query.<br></br>
@@ -285,8 +288,13 @@ class Query : Serializable {
             params.add(HttpParameter("result_type", resultType!!.name))
         }
         params.add(WITH_TWITTER_USER_ID)
+        // KMP移行 Phase 4-3a: java.util.Collection#toArray は commonMain に無いため、
+        // 挙動同値の arrayOfNulls + 個別代入に置き換える。
         val paramArray = arrayOfNulls<HttpParameter>(params.size)
-        return params.toArray(paramArray)
+        for (i in params.indices) {
+            paramArray[i] = params[i]
+        }
+        return paramArray
     }
 
     private fun appendParameter(name: String, value: String?, params: MutableList<HttpParameter>) {
@@ -314,7 +322,7 @@ class Query : Serializable {
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (o == null || this::class != o::class) return false
         val query1 = o as Query
         if (maxId != query1.maxId) return false
         if (count != query1.count) return false

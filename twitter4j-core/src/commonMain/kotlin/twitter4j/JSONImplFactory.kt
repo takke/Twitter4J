@@ -17,13 +17,17 @@
 package twitter4j
 
 import twitter4j.api.HelpResources
-import twitter4j.conf.Configuration
+import twitter4j.conf.JsonStoreConfiguration
+import kotlin.jvm.JvmStatic
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 2.2.4
  */
-internal class JSONImplFactory(private val conf: Configuration) : ObjectFactory {
+// KMP移行 Phase 4-3a: conf の型は各 *JSONImpl が要求する [JsonStoreConfiguration] に緩めた。
+// 実際の呼び出し元（TwitterBaseImpl）は [twitter4j.conf.Configuration] を渡すが、
+// Configuration は JsonStoreConfiguration の部分型のため無修正で通る。
+internal class JSONImplFactory(private val conf: JsonStoreConfiguration) : ObjectFactory {
 
     @Throws(TwitterException::class)
     override fun createStatus(json: JSONObject): Status {

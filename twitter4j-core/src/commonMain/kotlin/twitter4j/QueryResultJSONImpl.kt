@@ -16,7 +16,7 @@
 
 package twitter4j
 
-import twitter4j.conf.Configuration
+import twitter4j.conf.JsonStoreConfiguration
 
 /**
  * A data class representing search API response
@@ -44,7 +44,7 @@ internal class QueryResultJSONImpl : TwitterResponseImpl, QueryResult {
     private var nextResults: String? = null
 
     @Throws(TwitterException::class)
-    constructor(res: HttpResponse, conf: Configuration) : super(res) {
+    constructor(res: HttpResponse, conf: JsonStoreConfiguration) : super(res) {
         val json = res.asJSONObject()
         try {
             val searchMetaData = json.getJSONObject("search_metadata")
@@ -88,7 +88,7 @@ internal class QueryResultJSONImpl : TwitterResponseImpl, QueryResult {
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (o == null || this::class != o::class) return false
 
         val that = o as QueryResult
 

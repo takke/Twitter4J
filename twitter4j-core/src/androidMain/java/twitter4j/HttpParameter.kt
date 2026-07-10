@@ -18,49 +18,51 @@ package twitter4j
 
 import java.io.File
 import java.io.InputStream
-import java.io.UnsupportedEncodingException
-import java.net.URLDecoder
-import java.net.URLEncoder
-import java.util.ArrayList
 
 /**
  * A data class representing HTTP Post parameter
  *
+ * KMP移行 Phase 4-3a: commonMain の expect class [HttpParameter] に対する JVM(Android) actual。
+ * `java.io.File` / `java.io.InputStream` ベースのファイルパラメータ（[file] / [fileBody] /
+ * [getContentType]）は本 actual 固有の追加メンバとして温存し、`HttpClientImpl` /
+ * `AlternativeHttpClientImpl`（マルチパートPOST）や twitter4j-v2 の既存呼び出しを無修正で受け入れる。
+ * 静的ロジックは commonMain の [HttpParameterEncoding] へ委譲する。
+ *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-class HttpParameter private constructor(
-    val name: String?,
-    val value: String?,
-    val jsonObject: JSONObject?,
+actual class HttpParameter private constructor(
+    actual val name: String?,
+    actual val value: String?,
+    actual val jsonObject: JSONObject?,
     val file: File?,
     val fileBody: InputStream?
 ) : Comparable<HttpParameter>, Serializable {
 
-    constructor(name: String?, value: String?) : this(name, value, null, null, null)
+    actual constructor(name: String?, value: String?) : this(name, value, null, null, null)
 
-    constructor(jsonObject: JSONObject?) : this(null, null, jsonObject, null, null)
+    actual constructor(jsonObject: JSONObject?) : this(null, null, jsonObject, null, null)
 
     constructor(name: String?, file: File?) : this(name, null, null, file, null)
 
     constructor(name: String?, fileName: String, fileBody: InputStream?) : this(name, null, null, File(fileName), fileBody)
 
-    constructor(name: String?, value: Int) : this(name, value.toString(), null, null, null)
+    actual constructor(name: String?, value: Int) : this(name, value.toString(), null, null, null)
 
-    constructor(name: String?, value: Long) : this(name, value.toString(), null, null, null)
+    actual constructor(name: String?, value: Long) : this(name, value.toString(), null, null, null)
 
-    constructor(name: String?, value: Double) : this(name, value.toString(), null, null, null)
+    actual constructor(name: String?, value: Double) : this(name, value.toString(), null, null, null)
 
-    constructor(name: String?, value: Boolean) : this(name, value.toString(), null, null, null)
+    actual constructor(name: String?, value: Boolean) : this(name, value.toString(), null, null, null)
 
-    fun isFile(): Boolean {
+    actual fun isFile(): Boolean {
         return file != null
     }
 
-    fun isJson(): Boolean {
+    actual fun isJson(): Boolean {
         return jsonObject != null
     }
 
-    fun hasFileBody(): Boolean {
+    actual fun hasFileBody(): Boolean {
         return fileBody != null
     }
 
@@ -99,11 +101,11 @@ class HttpParameter private constructor(
         return contentType
     }
 
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || javaClass != other.javaClass) return false
 
-        val that = o as HttpParameter
+        val that = other as HttpParameter
 
         if (if (name != null) name != that.name else that.name != null) return false
         if (if (value != null) value != that.value else that.value != null) return false
@@ -131,7 +133,7 @@ class HttpParameter private constructor(
                 '}')
     }
 
-    override fun compareTo(o: HttpParameter): Int {
+    actual override fun compareTo(o: HttpParameter): Int {
         var compared = 0
         if (name != null) {
             compared = name.compareTo(o.name!!)
@@ -144,7 +146,7 @@ class HttpParameter private constructor(
         return compared
     }
 
-    companion object {
+    actual companion object {
         private const val serialVersionUID = 4046908449190454692L
 
         private const val JPEG = "image/jpeg"
@@ -153,83 +155,49 @@ class HttpParameter private constructor(
         private const val OCTET = "application/octet-stream"
 
         @JvmStatic
-        fun containsJson(params: Array<HttpParameter>): Boolean {
-            return params.size == 1 && params[0].isJson()
+        actual fun containsJson(params: Array<HttpParameter>): Boolean {
+            return httpContainsJson(params)
         }
 
         @JvmStatic
-        fun containsFile(params: Array<HttpParameter>?): Boolean {
-            var containsFile = false
-            if (null == params) {
-                return false
-            }
-            for (param in params) {
-                if (param.isFile()) {
-                    containsFile = true
-                    break
-                }
-            }
-            return containsFile
+        actual fun containsFile(params: Array<HttpParameter>?): Boolean {
+            return httpContainsFile(params)
         }
 
         @JvmStatic
-        fun containsFile(params: List<HttpParameter>): Boolean {
-            var containsFile = false
-            for (param in params) {
-                if (param.isFile()) {
-                    containsFile = true
-                    break
-                }
-            }
-            return containsFile
+        actual fun containsFile(params: List<HttpParameter>): Boolean {
+            return httpContainsFile(params)
         }
 
         @JvmStatic
-        fun getParameterArray(name: String, value: String): Array<HttpParameter> {
-            return arrayOf(HttpParameter(name, value))
+        actual fun getParameterArray(name: String, value: String): Array<HttpParameter> {
+            return httpGetParameterArray(name, value)
         }
 
         @JvmStatic
-        fun getParameterArray(name: String, value: Int): Array<HttpParameter> {
-            return getParameterArray(name, value.toString())
+        actual fun getParameterArray(name: String, value: Int): Array<HttpParameter> {
+            return httpGetParameterArray(name, value.toString())
         }
 
         @JvmStatic
-        fun getParameterArray(
+        actual fun getParameterArray(
             name1: String, value1: String,
             name2: String, value2: String
         ): Array<HttpParameter> {
-            return arrayOf(
-                HttpParameter(name1, value1),
-                HttpParameter(name2, value2)
-            )
+            return httpGetParameterArray(name1, value1, name2, value2)
         }
 
         @JvmStatic
-        fun getParameterArray(
+        actual fun getParameterArray(
             name1: String, value1: Int,
             name2: String, value2: Int
         ): Array<HttpParameter> {
-            return getParameterArray(name1, value1.toString(), name2, value2.toString())
+            return httpGetParameterArray(name1, value1.toString(), name2, value2.toString())
         }
 
         @JvmStatic
-        fun encodeParameters(httpParams: Array<HttpParameter>?): String {
-            if (null == httpParams) {
-                return ""
-            }
-            val buf = StringBuilder()
-            for (j in httpParams.indices) {
-                if (httpParams[j].isFile()) {
-                    throw IllegalArgumentException("parameter [" + httpParams[j].name + "]should be text")
-                }
-                if (j != 0) {
-                    buf.append("&")
-                }
-                buf.append(encode(httpParams[j].name))
-                    .append("=").append(encode(httpParams[j].value))
-            }
-            return buf.toString()
+        actual fun encodeParameters(httpParams: Array<HttpParameter>?): String {
+            return httpEncodeParameters(httpParams)
         }
 
         /**
@@ -242,33 +210,8 @@ class HttpParameter private constructor(
          * @see [RFC 3986 - Uniform Resource Identifier (URI): Generic Syntax - 2.1. Percent-Encoding](http://tools.ietf.org/html/rfc3986.section-2.1)
          */
         @JvmStatic
-        fun encode(value: String?): String {
-            var encoded: String? = null
-            try {
-                encoded = URLEncoder.encode(value, "UTF-8")
-            } catch (ignore: UnsupportedEncodingException) {
-            }
-            val enc = encoded!!
-            val buf = StringBuilder(enc.length)
-            var focus: Char
-            var i = 0
-            while (i < enc.length) {
-                focus = enc[i]
-                if (focus == '*') {
-                    buf.append("%2A")
-                } else if (focus == '+') {
-                    buf.append("%20")
-                } else if (focus == '%' && (i + 1) < enc.length &&
-                    enc[i + 1] == '7' && enc[i + 2] == 'E'
-                ) {
-                    buf.append('~')
-                    i += 2
-                } else {
-                    buf.append(focus)
-                }
-                i++
-            }
-            return buf.toString()
+        actual fun encode(value: String?): String {
+            return httpPercentEncode(value)
         }
 
         /**
@@ -281,19 +224,8 @@ class HttpParameter private constructor(
          * @see [RFC 3986 - Uniform Resource Identifier (URI): Generic Syntax - 2.1. Percent-Encoding](http://tools.ietf.org/html/rfc3986.section-2.1)
          */
         @JvmStatic
-        fun decode(value: String): String? {
-            var v = value
-            v = v.replace("%2A", "*")
-            v = v.replace("%2a", "*")
-            v = v.replace("%20", " ")
-
-            var decoded: String? = null
-            try {
-                decoded = URLDecoder.decode(v, "UTF-8")
-            } catch (ignore: UnsupportedEncodingException) {
-            }
-
-            return decoded
+        actual fun decode(value: String): String? {
+            return httpDecodeValue(value)
         }
 
         /**
@@ -303,17 +235,8 @@ class HttpParameter private constructor(
          * @return decoded parameters
          */
         @JvmStatic
-        fun decodeParameters(queryParameters: String): List<HttpParameter> {
-            val result: MutableList<HttpParameter> = ArrayList()
-            for (pair in queryParameters.split("&".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()) {
-                val parts = pair.split("=".toRegex(), limit = 2).toTypedArray()
-                if (parts.size == 2) {
-                    val name = decode(parts[0])
-                    val value = decode(parts[1])
-                    if (name != "" && value != "") result.add(HttpParameter(name, value))
-                }
-            }
-            return result
+        actual fun decodeParameters(queryParameters: String): List<HttpParameter> {
+            return httpDecodeParameters(queryParameters)
         }
     }
 }

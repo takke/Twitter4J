@@ -46,7 +46,7 @@ class HttpResponseEvent internal constructor(
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (o == null || this::class != o::class) return false
 
         val that = o as HttpResponseEvent
 

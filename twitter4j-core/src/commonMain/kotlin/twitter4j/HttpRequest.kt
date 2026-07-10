@@ -17,7 +17,7 @@
 package twitter4j
 
 import twitter4j.auth.Authorization
-import java.util.Arrays
+import kotlin.jvm.JvmName
 
 /**
  * HTTP Request parameter object
@@ -55,13 +55,13 @@ class HttpRequest(
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (o == null || this::class != o::class) return false
 
         val that = o as HttpRequest
 
         if (if (authorization != null) authorization != that.authorization else that.authorization != null)
             return false
-        if (!Arrays.equals(parameters, that.parameters)) return false
+        if (!parameters.contentEquals(that.parameters)) return false
         if (if (requestHeaders != null) requestHeaders != that.requestHeaders else that.requestHeaders != null)
             return false
         if (method != that.method)
@@ -75,7 +75,7 @@ class HttpRequest(
     override fun hashCode(): Int {
         var result = method.hashCode()
         result = 31 * result + url.hashCode()
-        result = 31 * result + (if (parameters != null) Arrays.hashCode(parameters) else 0)
+        result = 31 * result + (if (parameters != null) parameters.contentHashCode() else 0)
         result = 31 * result + (authorization?.hashCode() ?: 0)
         result = 31 * result + (requestHeaders?.hashCode() ?: 0)
         return result
@@ -85,7 +85,7 @@ class HttpRequest(
         return ("HttpRequest{" +
                 "requestMethod=" + method +
                 ", url='" + url + '\'' +
-                ", postParams=" + (if (parameters == null) null else Arrays.asList(*parameters)) +
+                ", postParams=" + (if (parameters == null) null else parameters.toList()) +
                 ", authentication=" + authorization +
                 ", requestHeaders=" + requestHeaders +
                 '}')
