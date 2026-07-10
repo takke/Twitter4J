@@ -19,8 +19,7 @@ package twitter4j
 /**
  * [newHttpClient] の iOS(Native) actual。
  *
- * Phase 4-3b で NSURLSession ベースの同期 [HttpClient] 実装（[HttpClient] IF 直実装）を返す予定。
- * 本バッチ（4-3a）ではコンパイルを通すための TODO スタブとする。
+ * NSURLSession ベースの同期 [HttpClient] 実装（[NsUrlSessionHttpClient]）を返す（KMP移行 Phase 4-3b）。
  */
 actual fun newHttpClient(conf: HttpClientConfiguration): HttpClient =
-    TODO("iOS(NSURLSession) の HttpClient は KMP移行 Phase 4-3b で実装する")
+    NsUrlSessionHttpClient(conf)
