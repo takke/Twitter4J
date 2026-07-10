@@ -16,7 +16,8 @@
 
 package twitter4j
 
-import twitter4j.conf.Configuration
+import kotlin.jvm.JvmStatic
+import twitter4j.conf.JsonStoreConfiguration
 
 /**
  * A data class representing a Saved Search
@@ -39,7 +40,7 @@ internal class SavedSearchJSONImpl : TwitterResponseImpl, SavedSearch {
         private set
 
     @Throws(TwitterException::class)
-    constructor(res: HttpResponse, conf: Configuration) : super(res) {
+    constructor(res: HttpResponse, conf: JsonStoreConfiguration) : super(res) {
         if (conf.isJSONStoreEnabled) {
             TwitterObjectFactory.clearThreadLocalMap()
         }
@@ -103,7 +104,7 @@ internal class SavedSearchJSONImpl : TwitterResponseImpl, SavedSearch {
 
         @JvmStatic
         @Throws(TwitterException::class)
-        fun createSavedSearchList(res: HttpResponse, conf: Configuration): ResponseList<SavedSearch> {
+        fun createSavedSearchList(res: HttpResponse, conf: JsonStoreConfiguration): ResponseList<SavedSearch> {
             if (conf.isJSONStoreEnabled) {
                 TwitterObjectFactory.clearThreadLocalMap()
             }

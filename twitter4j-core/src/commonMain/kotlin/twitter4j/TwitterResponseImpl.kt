@@ -16,6 +16,7 @@
 
 package twitter4j
 
+import kotlin.jvm.Transient
 /**
  * Super interface of Twitter Response data interfaces which indicates that rate limit status is available.
  *

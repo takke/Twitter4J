@@ -15,7 +15,8 @@
  */
 package twitter4j
 
-import twitter4j.conf.Configuration
+import kotlin.jvm.JvmStatic
+import twitter4j.conf.JsonStoreConfiguration
 
 /**
  * A data class representing Basic user information element
@@ -88,7 +89,7 @@ class UserJSONImpl : TwitterResponseImpl, User {
         private set
 
     @Throws(TwitterException::class)
-    constructor(res: HttpResponse, conf: Configuration) : super(res) {
+    constructor(res: HttpResponse, conf: JsonStoreConfiguration) : super(res) {
         if (conf.isJSONStoreEnabled) {
             TwitterObjectFactory.clearThreadLocalMap()
         }
@@ -336,7 +337,7 @@ class UserJSONImpl : TwitterResponseImpl, User {
 
         @JvmStatic
         @Throws(TwitterException::class)
-        fun createPagableUserList(res: HttpResponse, conf: Configuration): PagableResponseList<User> {
+        fun createPagableUserList(res: HttpResponse, conf: JsonStoreConfiguration): PagableResponseList<User> {
             try {
                 if (conf.isJSONStoreEnabled) {
                     TwitterObjectFactory.clearThreadLocalMap()
@@ -364,13 +365,13 @@ class UserJSONImpl : TwitterResponseImpl, User {
 
         @JvmStatic
         @Throws(TwitterException::class)
-        fun createUserList(res: HttpResponse, conf: Configuration): ResponseList<User> {
+        fun createUserList(res: HttpResponse, conf: JsonStoreConfiguration): ResponseList<User> {
             return createUserList(res.asJSONArray(), res, conf)
         }
 
         @JvmStatic
         @Throws(TwitterException::class)
-        fun createUserList(list: JSONArray, res: HttpResponse, conf: Configuration): ResponseList<User> {
+        fun createUserList(list: JSONArray, res: HttpResponse, conf: JsonStoreConfiguration): ResponseList<User> {
             try {
                 if (conf.isJSONStoreEnabled) {
                     TwitterObjectFactory.clearThreadLocalMap()

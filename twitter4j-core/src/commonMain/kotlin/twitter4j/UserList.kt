@@ -77,7 +77,7 @@ interface UserList : Comparable<UserList?>, TwitterResponse, Serializable {
      * @return the uri of the list
      */
     @Suppress("PropertyName")
-    val URI: java.net.URI
+    val URI: URI
 
     /**
      * tests if the list is public

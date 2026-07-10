@@ -15,7 +15,7 @@
  */
 package twitter4j
 
-import twitter4j.conf.Configuration
+import twitter4j.conf.JsonStoreConfiguration
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
@@ -40,7 +40,7 @@ internal class TwitterAPIConfigurationJSONImpl : TwitterResponseImpl, TwitterAPI
         private set
 
     @Throws(TwitterException::class)
-    constructor(res: HttpResponse, conf: Configuration) : super(res) {
+    constructor(res: HttpResponse, conf: JsonStoreConfiguration) : super(res) {
         try {
             val json = res.asJSONObject()
             photoSizeLimit = ParseUtil.getInt("photo_size_limit", json)

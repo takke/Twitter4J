@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalTime::class)
+
 package twitter4j
 
-import twitter4j.conf.Configuration
-import java.util.Collections
+import kotlin.jvm.JvmStatic
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import twitter4j.conf.JsonStoreConfiguration
 
 /**
  * A data class representing Twitter REST API's rate limit status
@@ -40,7 +44,7 @@ class RateLimitStatusJSONImpl : RateLimitStatus, Serializable {
         this.limit = limit
         this.remaining = remaining
         this.resetTimeInSeconds = resetTimeInSeconds
-        this.secondsUntilReset = ((resetTimeInSeconds * 1000L - System.currentTimeMillis()) / 1000).toInt()
+        this.secondsUntilReset = ((resetTimeInSeconds * 1000L - Clock.System.now().toEpochMilliseconds()) / 1000).toInt()
     }
 
     @Throws(TwitterException::class)
@@ -53,12 +57,12 @@ class RateLimitStatusJSONImpl : RateLimitStatus, Serializable {
         this.limit = ParseUtil.getInt("limit", json)
         this.remaining = ParseUtil.getInt("remaining", json)
         this.resetTimeInSeconds = ParseUtil.getInt("reset", json)
-        this.secondsUntilReset = ((resetTimeInSeconds * 1000L - System.currentTimeMillis()) / 1000).toInt()
+        this.secondsUntilReset = ((resetTimeInSeconds * 1000L - Clock.System.now().toEpochMilliseconds()) / 1000).toInt()
     }
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (o == null || this::class != o::class) return false
 
         val that = o as RateLimitStatusJSONImpl
 
@@ -92,7 +96,7 @@ class RateLimitStatusJSONImpl : RateLimitStatus, Serializable {
 
         @JvmStatic
         @Throws(TwitterException::class)
-        fun createRateLimitStatuses(res: HttpResponse, conf: Configuration): Map<String, RateLimitStatus> {
+        fun createRateLimitStatuses(res: HttpResponse, conf: JsonStoreConfiguration): Map<String, RateLimitStatus> {
             val json = res.asJSONObject()
             val map = createRateLimitStatuses(json)
             if (conf.isJSONStoreEnabled) {
@@ -119,7 +123,7 @@ class RateLimitStatusJSONImpl : RateLimitStatus, Serializable {
                         map[endpoint] = rateLimitStatus
                     }
                 }
-                return Collections.unmodifiableMap(map)
+                return map.toMap()
             } catch (jsone: JSONException) {
                 throw TwitterException(jsone)
             }

@@ -26,7 +26,7 @@ import twitter4j.auth.AuthorizationConfiguration
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-interface Configuration : AuthorizationConfiguration, Serializable {
+interface Configuration : AuthorizationConfiguration, JsonStoreConfiguration, Serializable {
 
     fun isDebugEnabled(): Boolean
 
@@ -65,7 +65,7 @@ interface Configuration : AuthorizationConfiguration, Serializable {
 
     fun isIncludeMyRetweetEnabled(): Boolean
 
-    val isJSONStoreEnabled: Boolean
+    override val isJSONStoreEnabled: Boolean
 
     fun isMBeanEnabled(): Boolean
 

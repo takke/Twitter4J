@@ -1,17 +1,16 @@
 package twitter4j
 
+import kotlin.jvm.JvmStatic
+
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
  * @since Twitter4J 4.0.0
  */
 object TwitterObjectFactory {
 
-    private val rawJsonMap: ThreadLocal<MutableMap<Any?, Any?>> =
-        object : ThreadLocal<MutableMap<Any?, Any?>>() {
-            override fun initialValue(): MutableMap<Any?, Any?> {
-                return HashMap()
-            }
-        }
+    // KMP移行 Phase 5-3: java.lang.ThreadLocal 直接依存を expect/actual の [RawJsonThreadLocalMap] へ移設。
+    // JVM(Android) では従来どおりスレッドローカルなマップ、iOS では共有マップで代替する。
+    private val rawJsonMap = RawJsonThreadLocalMap()
 
     private var registeredAtleastOnce = false
 
@@ -28,7 +27,7 @@ object TwitterObjectFactory {
         if (!registeredAtleastOnce) {
             throw IllegalStateException("Apparently jsonStoreEnabled is not set to true.")
         }
-        val json = rawJsonMap.get()!![obj]
+        val json = rawJsonMap.get()[obj]
         return when (json) {
             is String -> json
             null -> null
@@ -252,7 +251,7 @@ object TwitterObjectFactory {
      */
     @JvmStatic
     internal fun clearThreadLocalMap() {
-        rawJsonMap.get()!!.clear()
+        rawJsonMap.get().clear()
     }
 
     /**
@@ -263,7 +262,7 @@ object TwitterObjectFactory {
     @JvmStatic
     fun <T> registerJSONObject(key: T, json: Any): T {
         registeredAtleastOnce = true
-        rawJsonMap.get()!![key] = json
+        rawJsonMap.get()[key] = json
         return key
     }
 
@@ -274,6 +273,6 @@ object TwitterObjectFactory {
      */
     @JvmStatic
     fun <T> removeJSONObject(key: T) {
-        rawJsonMap.get()!!.remove(key)
+        rawJsonMap.get().remove(key)
     }
 }

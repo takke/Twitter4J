@@ -15,7 +15,8 @@
  */
 package twitter4j
 
-import twitter4j.conf.Configuration
+import kotlin.jvm.JvmStatic
+import twitter4j.conf.JsonStoreConfiguration
 
 /**
  * A data class representing one single status of a user.
@@ -87,7 +88,7 @@ internal class StatusJSONImpl : TwitterResponseImpl, Status {
         private set
 
     @Throws(TwitterException::class)
-    constructor(res: HttpResponse, conf: Configuration) : super(res) {
+    constructor(res: HttpResponse, conf: JsonStoreConfiguration) : super(res) {
         val json = res.asJSONObject()
         init(json)
         if (conf.isJSONStoreEnabled) {
@@ -97,7 +98,7 @@ internal class StatusJSONImpl : TwitterResponseImpl, Status {
     }
 
     @Throws(TwitterException::class)
-    constructor(json: JSONObject, conf: Configuration) : super() {
+    constructor(json: JSONObject, conf: JsonStoreConfiguration) : super() {
         init(json)
         if (conf.isJSONStoreEnabled) {
             TwitterObjectFactory.registerJSONObject(this, json)
@@ -130,7 +131,7 @@ internal class StatusJSONImpl : TwitterResponseImpl, Status {
             if (!json.isNull("user")) {
                 user = UserJSONImpl(json.getJSONObject("user"))
             }
-            geoLocation = JSONImplFactory.createGeoLocation(json)
+            geoLocation = GeoLocationJSONImplFactory.createGeoLocation(json)
             if (!json.isNull("place")) {
                 place = PlaceJSONImpl(json.getJSONObject("place"))
             }
@@ -378,7 +379,7 @@ internal class StatusJSONImpl : TwitterResponseImpl, Status {
 
         @JvmStatic
         @Throws(TwitterException::class)
-        fun createStatusList(res: HttpResponse, conf: Configuration): ResponseList<Status> {
+        fun createStatusList(res: HttpResponse, conf: JsonStoreConfiguration): ResponseList<Status> {
             try {
                 if (conf.isJSONStoreEnabled) {
                     TwitterObjectFactory.clearThreadLocalMap()

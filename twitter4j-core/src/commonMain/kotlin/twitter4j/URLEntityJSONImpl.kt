@@ -17,13 +17,13 @@
 package twitter4j
 
 /**
- * A data class representing permalink of the quoted status
+ * A data class representing one single URL entity.
  *
- * @author Hiroaki Takeuchi - takke30 at gmail.com
- * @since Twitter4J 4.0.7
+ * @author Mocel - mocel at guma.jp
+ * @since Twitter4J 2.1.9
  */
 @Suppress("PropertyName")
-class QuotedStatusPermalinkJSONImpl : EntityIndex, URLEntity {
+class URLEntityJSONImpl : EntityIndex, URLEntity {
 
     // 元実装では url/expandedURL/displayURL が null になりうるが、URLEntity の各プロパティは非nullのため既定値 "" とする。
     private var url: String = ""
@@ -43,24 +43,40 @@ class QuotedStatusPermalinkJSONImpl : EntityIndex, URLEntity {
         init(json)
     }
 
+    constructor(start: Int, end: Int, url: String, expandedURL: String, displayURL: String) : super() {
+        this.start = start
+        this.end = end
+        this.url = url
+        this.expandedURL = expandedURL
+        this.displayURL = displayURL
+    }
+
     /* For serialization purposes only. */
     constructor() : super()
 
     @Throws(TwitterException::class)
     private fun init(json: JSONObject) {
         try {
+            val indicesArray = json.getJSONArray("indices")
+            start = indicesArray.getInt(0)
+            end = indicesArray.getInt(1)
+
             if (!json.isNull("url")) {
                 this.url = json.getString("url")
             }
 
-            expandedURL = if (!json.isNull("expanded")) {
-                json.getString("expanded")
+            expandedURL = if (!json.isNull("expanded_url")) {
+                // sets expandedURL to url if expanded_url is null
+                // http://jira.twitter4j.org/browse/TFJ-704
+                json.getString("expanded_url")
             } else {
                 url
             }
 
-            displayURL = if (!json.isNull("display")) {
-                json.getString("display")
+            displayURL = if (!json.isNull("display_url")) {
+                // sets displayURL to url if expanded_url is null
+                // http://jira.twitter4j.org/browse/TFJ-704
+                json.getString("display_url")
             } else {
                 url
             }
@@ -71,13 +87,15 @@ class QuotedStatusPermalinkJSONImpl : EntityIndex, URLEntity {
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (o == null || this::class != o::class) return false
 
-        val that = o as QuotedStatusPermalinkJSONImpl
+        val that = o as URLEntityJSONImpl
 
-        if (url != that.url) return false
+        if (displayURL != that.displayURL) return false
         if (expandedURL != that.expandedURL) return false
-        return displayURL == that.displayURL
+        if (url != that.url) return false
+
+        return true
     }
 
     override fun hashCode(): Int {
@@ -88,7 +106,7 @@ class QuotedStatusPermalinkJSONImpl : EntityIndex, URLEntity {
     }
 
     override fun toString(): String {
-        return "QuotedStatusPermalinkJSONImpl{" +
+        return "URLEntityJSONImpl{" +
                 "url='" + url + '\'' +
                 ", expandedURL='" + expandedURL + '\'' +
                 ", displayURL='" + displayURL + '\'' +
@@ -96,6 +114,6 @@ class QuotedStatusPermalinkJSONImpl : EntityIndex, URLEntity {
     }
 
     companion object {
-        private const val serialVersionUID = -9029983811168784541L
+        private const val serialVersionUID = 7333552738058031524L
     }
 }

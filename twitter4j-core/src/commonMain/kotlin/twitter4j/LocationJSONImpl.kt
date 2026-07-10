@@ -16,7 +16,8 @@
 
 package twitter4j
 
-import twitter4j.conf.Configuration
+import kotlin.jvm.JvmStatic
+import twitter4j.conf.JsonStoreConfiguration
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
@@ -87,7 +88,7 @@ constructor(location: JSONObject) : Location {
 
         @JvmStatic
         @Throws(TwitterException::class)
-        fun createLocationList(res: HttpResponse, conf: Configuration): ResponseList<Location> {
+        fun createLocationList(res: HttpResponse, conf: JsonStoreConfiguration): ResponseList<Location> {
             if (conf.isJSONStoreEnabled) {
                 TwitterObjectFactory.clearThreadLocalMap()
             }

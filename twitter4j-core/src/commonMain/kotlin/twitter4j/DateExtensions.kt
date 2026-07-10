@@ -43,8 +43,9 @@ fun Date.toInstant(): Instant = Instant.fromEpochMilliseconds(getTime())
  * commonMain の [Date] は expect クラスであり `toInstant()` メンバを持たない（JVMメンバ衝突が無い）ため、
  * ここでは上記 [Date.toInstant] 拡張を直接使用できる。
  *
- * ※ UserList は `java.net.URI`（JVM専用型）を公開シグネチャに持ち commonMain へ移動できないため、
- *   [UserList.createdAtAsInstant] のみ androidMain の ModelDateExtensions.kt に残置している。
+ * ※ Phase 5-3 で UserList の `java.net.URI` 依存を expect/actual の [URI] へ移設し UserList / UserListJSONImpl も
+ *   commonMain へ移動したため、旧 androidMain の ModelDateExtensions.kt にあった [UserList.createdAtAsInstant] も
+ *   本ファイルへ統合した。
  */
 
 /** [Status.createdAt] を [Instant] として取得する。 */
@@ -70,3 +71,7 @@ val Trends.asOfAsInstant: Instant
 /** [Trends.trendAt] を [Instant] として取得する。 */
 val Trends.trendAtAsInstant: Instant
     get() = trendAt.toInstant()
+
+/** [UserList.createdAt] を [Instant] として取得する。 */
+val UserList.createdAtAsInstant: Instant
+    get() = createdAt.toInstant()

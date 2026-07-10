@@ -16,7 +16,8 @@
 
 package twitter4j
 
-import twitter4j.conf.Configuration
+import kotlin.jvm.JvmStatic
+import twitter4j.conf.JsonStoreConfiguration
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
@@ -53,7 +54,7 @@ internal class PlaceJSONImpl : TwitterResponseImpl, Place {
         private set
 
     @Throws(TwitterException::class)
-    constructor(res: HttpResponse, conf: Configuration) : super(res) {
+    constructor(res: HttpResponse, conf: JsonStoreConfiguration) : super(res) {
         val json = res.asJSONObject()
         init(json)
         if (conf.isJSONStoreEnabled) {
@@ -89,7 +90,7 @@ internal class PlaceJSONImpl : TwitterResponseImpl, Place {
                 val boundingBoxJSON = json.getJSONObject("bounding_box")
                 boundingBoxType = ParseUtil.getRawString("type", boundingBoxJSON) ?: ""
                 val array = boundingBoxJSON.getJSONArray("coordinates")
-                boundingBoxCoordinates = JSONImplFactory.coordinatesAsGeoLocationArray(array)
+                boundingBoxCoordinates = GeoLocationJSONImplFactory.coordinatesAsGeoLocationArray(array)
             } else {
                 boundingBoxType = ""
                 boundingBoxCoordinates = emptyArray()
@@ -104,7 +105,7 @@ internal class PlaceJSONImpl : TwitterResponseImpl, Place {
                         geometryCoordinates = arrayOf(arrayOf(GeoLocation(array.getDouble(1), array.getDouble(0))))
                     }
                     "Polygon" -> {
-                        geometryCoordinates = JSONImplFactory.coordinatesAsGeoLocationArray(array)
+                        geometryCoordinates = GeoLocationJSONImplFactory.coordinatesAsGeoLocationArray(array)
                     }
                     else -> {
                         // MultiPolygon currently unsupported.
@@ -171,7 +172,7 @@ internal class PlaceJSONImpl : TwitterResponseImpl, Place {
 
         @JvmStatic
         @Throws(TwitterException::class)
-        fun createPlaceList(res: HttpResponse, conf: Configuration): ResponseList<Place> {
+        fun createPlaceList(res: HttpResponse, conf: JsonStoreConfiguration): ResponseList<Place> {
             var json: JSONObject? = null
             try {
                 json = res.asJSONObject()
@@ -183,7 +184,7 @@ internal class PlaceJSONImpl : TwitterResponseImpl, Place {
 
         @JvmStatic
         @Throws(TwitterException::class)
-        fun createPlaceList(list: JSONArray, res: HttpResponse, conf: Configuration): ResponseList<Place> {
+        fun createPlaceList(list: JSONArray, res: HttpResponse, conf: JsonStoreConfiguration): ResponseList<Place> {
             if (conf.isJSONStoreEnabled) {
                 TwitterObjectFactory.clearThreadLocalMap()
             }

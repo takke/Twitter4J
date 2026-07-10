@@ -16,7 +16,7 @@
 
 package twitter4j
 
-import twitter4j.conf.Configuration
+import twitter4j.conf.JsonStoreConfiguration
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
@@ -81,7 +81,7 @@ internal class AccountSettingsJSONImpl : TwitterResponseImpl, AccountSettings {
     }
 
     @Throws(TwitterException::class)
-    constructor(res: HttpResponse, conf: Configuration) : this(res, res.asJSONObject()) {
+    constructor(res: HttpResponse, conf: JsonStoreConfiguration) : this(res, res.asJSONObject()) {
         if (conf.isJSONStoreEnabled) {
             TwitterObjectFactory.clearThreadLocalMap()
             TwitterObjectFactory.registerJSONObject(this, res.asJSONObject())

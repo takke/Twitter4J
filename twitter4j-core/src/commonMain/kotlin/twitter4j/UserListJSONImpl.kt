@@ -16,9 +16,8 @@
 
 package twitter4j
 
-import twitter4j.conf.Configuration
-import java.net.URI as JavaNetURI
-import java.net.URISyntaxException
+import kotlin.jvm.JvmStatic
+import twitter4j.conf.JsonStoreConfiguration
 
 /**
  * A data class representing Basic list information element
@@ -52,7 +51,7 @@ internal class UserListJSONImpl : TwitterResponseImpl, UserList {
         private set
 
     @Throws(TwitterException::class)
-    constructor(res: HttpResponse, conf: Configuration) : super(res) {
+    constructor(res: HttpResponse, conf: JsonStoreConfiguration) : super(res) {
         if (conf.isJSONStoreEnabled) {
             TwitterObjectFactory.clearThreadLocalMap()
         }
@@ -102,13 +101,10 @@ internal class UserListJSONImpl : TwitterResponseImpl, UserList {
         }
     }
 
-    override val URI: JavaNetURI
-        get() = try {
-            JavaNetURI(uri)
-        } catch (ex: URISyntaxException) {
-            // 元実装は URISyntaxException 時に null を返していたが、UserList.URI は非nullのため空URIを返す。
-            JavaNetURI("")
-        }
+    override val URI: URI
+        // KMP移行 Phase 5-3: java.net.URI 依存を expect/actual の [URI] / [createURI] へ移設。
+        // 不正URI時に空URIへフォールバックする挙動は [createURI]（androidMain actual）が引き継いでいる。
+        get() = createURI(uri)
 
     override val isPublic: Boolean
         get() = mode
@@ -154,7 +150,7 @@ internal class UserListJSONImpl : TwitterResponseImpl, UserList {
 
         @JvmStatic
         @Throws(TwitterException::class)
-        fun createPagableUserListList(res: HttpResponse, conf: Configuration): PagableResponseList<UserList> {
+        fun createPagableUserListList(res: HttpResponse, conf: JsonStoreConfiguration): PagableResponseList<UserList> {
             try {
                 if (conf.isJSONStoreEnabled) {
                     TwitterObjectFactory.clearThreadLocalMap()
@@ -182,7 +178,7 @@ internal class UserListJSONImpl : TwitterResponseImpl, UserList {
 
         @JvmStatic
         @Throws(TwitterException::class)
-        fun createUserListList(res: HttpResponse, conf: Configuration): ResponseList<UserList> {
+        fun createUserListList(res: HttpResponse, conf: JsonStoreConfiguration): ResponseList<UserList> {
             try {
                 if (conf.isJSONStoreEnabled) {
                     TwitterObjectFactory.clearThreadLocalMap()

@@ -16,7 +16,7 @@
 
 package twitter4j
 
-import twitter4j.conf.Configuration
+import twitter4j.conf.JsonStoreConfiguration
 
 /**
  * A data class representing array of numeric IDs.
@@ -33,7 +33,7 @@ internal class IDsJSONImpl : TwitterResponseImpl, IDs {
         private set
 
     @Throws(TwitterException::class)
-    constructor(res: HttpResponse, conf: Configuration) : super(res) {
+    constructor(res: HttpResponse, conf: JsonStoreConfiguration) : super(res) {
         val json = res.asString()
         init(json)
         if (conf.isJSONStoreEnabled) {

@@ -15,8 +15,9 @@
  */
 package twitter4j
 
+import kotlin.jvm.JvmStatic
 import twitter4j.api.HelpResources
-import twitter4j.conf.Configuration
+import twitter4j.conf.JsonStoreConfiguration
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
@@ -62,7 +63,7 @@ constructor(json: JSONObject) : HelpResources.Language {
 
         @JvmStatic
         @Throws(TwitterException::class)
-        fun createLanguageList(res: HttpResponse, conf: Configuration): ResponseList<HelpResources.Language> {
+        fun createLanguageList(res: HttpResponse, conf: JsonStoreConfiguration): ResponseList<HelpResources.Language> {
             return createLanguageList(res.asJSONArray(), res, conf)
         }
 
@@ -71,7 +72,7 @@ constructor(json: JSONObject) : HelpResources.Language {
         fun createLanguageList(
             list: JSONArray,
             res: HttpResponse,
-            conf: Configuration
+            conf: JsonStoreConfiguration
         ): ResponseList<HelpResources.Language> {
             if (conf.isJSONStoreEnabled) {
                 TwitterObjectFactory.clearThreadLocalMap()

@@ -16,8 +16,8 @@
 
 package twitter4j
 
-import twitter4j.conf.Configuration
-import java.util.Collections
+import kotlin.jvm.JvmStatic
+import twitter4j.conf.JsonStoreConfiguration
 
 /**
  * A data class representing Trends.
@@ -44,7 +44,7 @@ internal class TrendsJSONImpl : TwitterResponseImpl, Trends {
     }
 
     @Throws(TwitterException::class)
-    constructor(res: HttpResponse, conf: Configuration) : super(res) {
+    constructor(res: HttpResponse, conf: JsonStoreConfiguration) : super(res) {
         init(res.asString(), conf.isJSONStoreEnabled)
         if (conf.isJSONStoreEnabled) {
             TwitterObjectFactory.clearThreadLocalMap()
@@ -148,7 +148,9 @@ internal class TrendsJSONImpl : TwitterResponseImpl, Trends {
                         trends.add(TrendsJSONImpl(asOf, location, ParseUtil.getDate(key, "yyyy-MM-dd"), trendsArray))
                     }
                 }
-                Collections.sort(trends)
+                // KMP移行 Phase 5-3: java.util.Collections.sort → MutableList.sort()（Trends は Comparable<Trends>）。
+                // 自然順序による安定ソートで、旧 Collections.sort と同一挙動。
+                trends.sort()
                 return trends
             } catch (jsone: JSONException) {
                 throw TwitterException(jsone.message + ":" + res.asString(), jsone)

@@ -1,5 +1,6 @@
 package twitter4j
 
+import kotlin.jvm.JvmStatic
 object EntitiesParseUtil {
 
     @JvmStatic

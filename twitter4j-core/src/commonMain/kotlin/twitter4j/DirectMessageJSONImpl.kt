@@ -16,7 +16,8 @@
 
 package twitter4j
 
-import twitter4j.conf.Configuration
+import kotlin.jvm.JvmStatic
+import twitter4j.conf.JsonStoreConfiguration
 
 /**
  * A data class representing sent/received direct message.
@@ -54,7 +55,7 @@ internal class DirectMessageJSONImpl : TwitterResponseImpl, DirectMessage {
         private set
 
     @Throws(TwitterException::class)
-    constructor(res: HttpResponse, conf: Configuration) : super(res) {
+    constructor(res: HttpResponse, conf: JsonStoreConfiguration) : super(res) {
         val json = res.asJSONObject()
         try {
             val event = json.getJSONObject("event")
@@ -132,7 +133,7 @@ internal class DirectMessageJSONImpl : TwitterResponseImpl, DirectMessage {
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (o == null || this::class != o::class) return false
 
         val that = o as DirectMessageJSONImpl
 
@@ -188,7 +189,7 @@ internal class DirectMessageJSONImpl : TwitterResponseImpl, DirectMessage {
 
         @JvmStatic
         @Throws(TwitterException::class)
-        fun createDirectMessageList(res: HttpResponse, conf: Configuration): DirectMessageList {
+        fun createDirectMessageList(res: HttpResponse, conf: JsonStoreConfiguration): DirectMessageList {
             try {
                 if (conf.isJSONStoreEnabled) {
                     TwitterObjectFactory.clearThreadLocalMap()

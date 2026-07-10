@@ -213,45 +213,9 @@ internal class JSONImplFactory(private val conf: Configuration) : ObjectFactory 
     companion object {
         private const val serialVersionUID = -1853541456182663343L
 
-        /**
-         * returns a GeoLocation instance if a "geo" element is found.
-         *
-         * @param json JSONObject to be parsed
-         * @return GeoLocation instance
-         * @throws TwitterException when coordinates is not included in geo element (should be an API side issue)
-         */
-        @JvmStatic
-        @Throws(TwitterException::class)
-        fun createGeoLocation(json: JSONObject): GeoLocation? {
-            try {
-                if (!json.isNull("coordinates")) {
-                    var coordinates = json.getJSONObject("coordinates")
-                            .getString("coordinates")
-                    coordinates = coordinates.substring(1, coordinates.length - 1)
-                    val point = coordinates.split(",".toRegex()).toTypedArray()
-                    return GeoLocation(point[1].toDouble(), point[0].toDouble())
-                }
-            } catch (jsone: JSONException) {
-                throw TwitterException(jsone)
-            }
-            return null
-        }
-
-        @JvmStatic
-        @Throws(TwitterException::class)
-        fun coordinatesAsGeoLocationArray(coordinates: JSONArray): Array<Array<GeoLocation>> {
-            try {
-                return Array(coordinates.length()) { i ->
-                    val array = coordinates.getJSONArray(i)
-                    Array(array.length()) { j ->
-                        val coordinate = array.getJSONArray(j)
-                        GeoLocation(coordinate.getDouble(1), coordinate.getDouble(0))
-                    }
-                }
-            } catch (jsone: JSONException) {
-                throw TwitterException(jsone)
-            }
-        }
+        // ※ createGeoLocation / coordinatesAsGeoLocationArray は KMP移行 Phase 5-3 で
+        //    commonMain の [GeoLocationJSONImplFactory] へ移設した（StatusJSONImpl / PlaceJSONImpl が
+        //    commonMain から参照するため）。
 
         @JvmStatic
         fun createRateLimitStatusFromResponseHeader(res: HttpResponse): RateLimitStatus? {

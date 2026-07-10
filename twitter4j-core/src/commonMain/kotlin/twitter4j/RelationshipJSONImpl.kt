@@ -16,7 +16,8 @@
 
 package twitter4j
 
-import twitter4j.conf.Configuration
+import kotlin.jvm.JvmStatic
+import twitter4j.conf.JsonStoreConfiguration
 
 /**
  * A data class that has detailed information about a relationship between two users
@@ -45,7 +46,7 @@ internal class RelationshipJSONImpl : TwitterResponseImpl, Relationship {
     private var wantRetweets: Boolean = false
 
     @Throws(TwitterException::class)
-    constructor(res: HttpResponse, conf: Configuration) : this(res, res.asJSONObject()) {
+    constructor(res: HttpResponse, conf: JsonStoreConfiguration) : this(res, res.asJSONObject()) {
         if (conf.isJSONStoreEnabled) {
             TwitterObjectFactory.clearThreadLocalMap()
             TwitterObjectFactory.registerJSONObject(this, res.asJSONObject())
@@ -107,7 +108,7 @@ internal class RelationshipJSONImpl : TwitterResponseImpl, Relationship {
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (o == null || this::class != o::class) return false
 
         val that = o as RelationshipJSONImpl
 
@@ -162,7 +163,7 @@ internal class RelationshipJSONImpl : TwitterResponseImpl, Relationship {
 
         @JvmStatic
         @Throws(TwitterException::class)
-        fun createRelationshipList(res: HttpResponse, conf: Configuration): ResponseList<Relationship> {
+        fun createRelationshipList(res: HttpResponse, conf: JsonStoreConfiguration): ResponseList<Relationship> {
             try {
                 if (conf.isJSONStoreEnabled) {
                     TwitterObjectFactory.clearThreadLocalMap()
