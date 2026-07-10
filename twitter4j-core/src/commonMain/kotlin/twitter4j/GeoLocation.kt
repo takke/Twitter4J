@@ -52,8 +52,9 @@ class GeoLocation
 
         val that = o
 
-        if (java.lang.Double.compare(that.latitude, latitude) != 0) return false
-        if (java.lang.Double.compare(that.longitude, longitude) != 0) return false
+        // java.lang.Double.compare 相当を Kotlin common の Double.compareTo で置換（NaN/±0 の扱いも同等）
+        if (that.latitude.compareTo(latitude) != 0) return false
+        if (that.longitude.compareTo(longitude) != 0) return false
 
         return true
     }
@@ -61,9 +62,10 @@ class GeoLocation
     override fun hashCode(): Int {
         val result: Int
         var temp: Long
-        temp = java.lang.Double.doubleToLongBits(latitude)
+        // java.lang.Double.doubleToLongBits 相当を Kotlin common の Double.toBits で置換（NaN正規化も同等）
+        temp = latitude.toBits()
         result = (temp xor (temp ushr 32)).toInt()
-        temp = java.lang.Double.doubleToLongBits(longitude)
+        temp = longitude.toBits()
         return 31 * result + (temp xor (temp ushr 32)).toInt()
     }
 

@@ -22,44 +22,17 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 /**
- * Date を返す各モデルの公開プロパティに対応する `xxxAsInstant` 拡張群。
+ * UserList の `createdAtAsInstant` 拡張（androidMain 残置分）。
  *
- * KMP移行の過渡期において、消費側（TwitPane 本体等）が [Date] から [kotlin.time.Instant] へ
- * 段階的に移行できるよう提供する。null 許容性はモデル側の宣言に合わせている。
- *
- * ⚠️ 現時点では対象モデル（Status / User / ...）が androidMain に存在するため本拡張も androidMain に置く。
- *    Phase 3-5 以降でモデルが commonMain へ移動した際は、本ファイルも commonMain の
- *    [DateExtensions.kt] へ集約すること。
+ * Phase 5-1 で大半のモデルIFは commonMain へ移動し、対応する `xxxAsInstant` 拡張も
+ * [DateExtensions.kt]（commonMain）へ集約した。しかし [UserList] は `java.net.URI`（JVM専用型）を
+ * 公開シグネチャに持つため commonMain へ移動できず、本拡張のみ androidMain に残している。
  *
  * ⚠️ 実装で `Date.toInstant()`（[DateExtensions.kt]）を使わないのは、JVM 上では `java.util.Date` の
  *    メンバ `toInstant()`（`java.time.Instant` を返す）が優先され、[kotlin.time.Instant] にならないため。
  *    ここでは `Instant.fromEpochMilliseconds(date.time)` で明示的に [kotlin.time.Instant] を組み立てる。
  */
 
-/** [Status.createdAt] を [Instant] として取得する。 */
-val Status.createdAtAsInstant: Instant
-    get() = Instant.fromEpochMilliseconds(createdAt.time)
-
-/** [User.createdAt] を [Instant] として取得する（createdAt が null の場合は null）。 */
-val User.createdAtAsInstant: Instant?
-    get() = createdAt?.let { Instant.fromEpochMilliseconds(it.time) }
-
 /** [UserList.createdAt] を [Instant] として取得する。 */
 val UserList.createdAtAsInstant: Instant
     get() = Instant.fromEpochMilliseconds(createdAt.time)
-
-/** [DirectMessage.createdAt] を [Instant] として取得する。 */
-val DirectMessage.createdAtAsInstant: Instant
-    get() = Instant.fromEpochMilliseconds(createdAt.time)
-
-/** [SavedSearch.createdAt] を [Instant] として取得する。 */
-val SavedSearch.createdAtAsInstant: Instant
-    get() = Instant.fromEpochMilliseconds(createdAt.time)
-
-/** [Trends.asOf] を [Instant] として取得する。 */
-val Trends.asOfAsInstant: Instant
-    get() = Instant.fromEpochMilliseconds(asOf.time)
-
-/** [Trends.trendAt] を [Instant] として取得する。 */
-val Trends.trendAtAsInstant: Instant
-    get() = Instant.fromEpochMilliseconds(trendAt.time)

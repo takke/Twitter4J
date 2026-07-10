@@ -33,3 +33,40 @@ import kotlin.time.Instant
  *    JVM 側で [kotlin.time.Instant] が欲しい場合は各モデルの `xxxAsInstant` 拡張を用いること。
  */
 fun Date.toInstant(): Instant = Instant.fromEpochMilliseconds(getTime())
+
+/*
+ * ---- 各モデルの `xxxAsInstant` 拡張群 ----
+ *
+ * Phase 5-1 でモデルIF（Status / User / DirectMessage / SavedSearch / Trends 等）が commonMain へ
+ * 移動したため、旧 androidMain の ModelDateExtensions.kt から本ファイルへ集約した。
+ *
+ * commonMain の [Date] は expect クラスであり `toInstant()` メンバを持たない（JVMメンバ衝突が無い）ため、
+ * ここでは上記 [Date.toInstant] 拡張を直接使用できる。
+ *
+ * ※ UserList は `java.net.URI`（JVM専用型）を公開シグネチャに持ち commonMain へ移動できないため、
+ *   [UserList.createdAtAsInstant] のみ androidMain の ModelDateExtensions.kt に残置している。
+ */
+
+/** [Status.createdAt] を [Instant] として取得する。 */
+val Status.createdAtAsInstant: Instant
+    get() = createdAt.toInstant()
+
+/** [User.createdAt] を [Instant] として取得する（createdAt が null の場合は null）。 */
+val User.createdAtAsInstant: Instant?
+    get() = createdAt?.toInstant()
+
+/** [DirectMessage.createdAt] を [Instant] として取得する。 */
+val DirectMessage.createdAtAsInstant: Instant
+    get() = createdAt.toInstant()
+
+/** [SavedSearch.createdAt] を [Instant] として取得する。 */
+val SavedSearch.createdAtAsInstant: Instant
+    get() = createdAt.toInstant()
+
+/** [Trends.asOf] を [Instant] として取得する。 */
+val Trends.asOfAsInstant: Instant
+    get() = asOf.toInstant()
+
+/** [Trends.trendAt] を [Instant] として取得する。 */
+val Trends.trendAtAsInstant: Instant
+    get() = trendAt.toInstant()
