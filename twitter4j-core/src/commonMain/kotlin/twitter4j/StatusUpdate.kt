@@ -16,9 +16,9 @@
 
 package twitter4j
 
-import java.io.File
-import java.io.InputStream
-import java.util.Arrays
+import twitter4j.File
+import twitter4j.InputStream
+import kotlin.jvm.Transient
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
@@ -101,10 +101,10 @@ class StatusUpdate(val status: String) : Serializable {
         val mediaBody = this.mediaBody
         val mediaIds = this.mediaIds
         if (null != mediaFile) {
-            params.add(HttpParameter("media[]", mediaFile))
+            params.add(MediaUploadSupport.mediaHttpParameter("media[]", mediaFile))
             params.add(HttpParameter("possibly_sensitive", possiblySensitive))
         } else if (mediaName != null && mediaBody != null) {
-            params.add(HttpParameter("media[]", mediaName, mediaBody))
+            params.add(MediaUploadSupport.mediaHttpParameter("media[]", mediaName, mediaBody))
             params.add(HttpParameter("possibly_sensitive", possiblySensitive))
         } else if (mediaIds != null && mediaIds.size >= 1) {
             params.add(HttpParameter("media_ids", StringUtil.join(mediaIds)))
@@ -136,7 +136,7 @@ class StatusUpdate(val status: String) : Serializable {
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (o == null || this::class != o::class) return false
 
         val that = o as StatusUpdate
 
@@ -150,7 +150,7 @@ class StatusUpdate(val status: String) : Serializable {
         if (mediaName != that.mediaName) return false
         if (mediaBody != that.mediaBody) return false
         if (mediaFile != that.mediaFile) return false
-        if (!Arrays.equals(mediaIds, that.mediaIds)) return false
+        if (!mediaIds.contentEquals(that.mediaIds)) return false
         return attachmentUrl == that.attachmentUrl
     }
 
@@ -164,7 +164,7 @@ class StatusUpdate(val status: String) : Serializable {
         result = 31 * result + (mediaName?.hashCode() ?: 0)
         result = 31 * result + (mediaBody?.hashCode() ?: 0)
         result = 31 * result + (mediaFile?.hashCode() ?: 0)
-        result = 31 * result + Arrays.hashCode(mediaIds)
+        result = 31 * result + mediaIds.contentHashCode()
         result = 31 * result + (if (autoPopulateReplyMetadata) 1 else 0)
         result = 31 * result + (attachmentUrl?.hashCode() ?: 0)
         return result
@@ -181,7 +181,7 @@ class StatusUpdate(val status: String) : Serializable {
                 ", mediaName='" + mediaName + '\'' +
                 ", mediaBody=" + mediaBody +
                 ", mediaFile=" + mediaFile +
-                ", mediaIds=" + Arrays.toString(mediaIds) +
+                ", mediaIds=" + mediaIds.contentToString() +
                 ", autoPopulateReplyMetadata=" + autoPopulateReplyMetadata +
                 ", attachmentUrl='" + attachmentUrl + '\'' +
                 '}'

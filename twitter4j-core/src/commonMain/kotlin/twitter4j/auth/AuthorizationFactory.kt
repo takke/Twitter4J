@@ -17,6 +17,7 @@
 package twitter4j.auth
 
 import twitter4j.conf.Configuration
+import kotlin.jvm.JvmStatic
 
 /**
  * A static factory class for Authorization.

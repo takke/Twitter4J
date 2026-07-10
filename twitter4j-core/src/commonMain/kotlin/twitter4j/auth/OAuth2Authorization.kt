@@ -18,12 +18,9 @@ package twitter4j.auth
 
 import twitter4j.Serializable
 
-import java.io.UnsupportedEncodingException
-import java.net.URLEncoder
-
 import twitter4j.BASE64Encoder
 import twitter4j.HttpClient
-import twitter4j.HttpClientFactory
+import twitter4j.newHttpClient
 import twitter4j.HttpParameter
 import twitter4j.HttpRequest
 import twitter4j.TwitterException
@@ -45,7 +42,7 @@ class OAuth2Authorization(private val conf: Configuration) : Authorization, Seri
 
     init {
         setOAuthConsumer(conf.oAuthConsumerKey, conf.oAuthConsumerSecret)
-        http = HttpClientFactory.getInstance(conf.getHttpClientConfiguration())
+        http = newHttpClient(conf.getHttpClientConfiguration())
     }
 
     override fun setOAuthConsumer(consumerKey: String?, consumerSecret: String?) {
@@ -110,17 +107,15 @@ class OAuth2Authorization(private val conf: Configuration) : Authorization, Seri
 
     override fun getAuthorizationHeader(req: HttpRequest): String? {
         if (token == null) {
-            var credentials = ""
-            try {
-                credentials =
-                    URLEncoder.encode(consumerKey, "UTF-8") +
-                            ":" +
-                            URLEncoder.encode(consumerSecret, "UTF-8")
+            // KMP移行 Phase 4-4: java.net.URLEncoder（application/x-www-form-urlencoded）を
+            // common の HttpParameter.encode（パーセントエンコード）へ置換。
+            // consumerKey / consumerSecret は英数字トークンのため両者のエンコード結果は同一。
+            val credentials =
+                HttpParameter.encode(consumerKey) +
+                        ":" +
+                        HttpParameter.encode(consumerSecret)
 
-            } catch (ignore: UnsupportedEncodingException) {
-            }
-
-            return "Basic " + BASE64Encoder.encode(credentials.toByteArray())
+            return "Basic " + BASE64Encoder.encode(credentials.encodeToByteArray())
 
         } else {
             return token!!.generateAuthorizationHeader()

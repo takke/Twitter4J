@@ -20,6 +20,7 @@ import twitter4j.Serializable
 
 import twitter4j.HttpResponse
 import twitter4j.TwitterException
+import kotlin.jvm.Transient
 
 abstract class OAuthToken : Serializable {
 

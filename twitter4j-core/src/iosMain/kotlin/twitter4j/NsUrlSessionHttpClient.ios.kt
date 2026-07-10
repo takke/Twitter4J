@@ -77,8 +77,6 @@ class NsUrlSessionHttpClient(
     init {
         // HttpClientBase の既定ヘッダを複製する。
         // ただし Accept-Encoding: gzip は NSURLSession の透過解凍を活かすため意図的に付与しない（上記 gzip 参照）。
-        // NOTE: `Version` は現状 androidMain 専用のため iosMain から参照できない。Phase 4-4 で
-        //       Version を commonMain へ移した際に VERSION 定数を Version.version へ差し替える。
         requestHeaders["X-Twitter-Client-Version"] = VERSION
         requestHeaders["X-Twitter-Client-URL"] =
             "http://twitter4j.org/en/twitter4j-" + VERSION + ".xml"
@@ -330,8 +328,8 @@ class NsUrlSessionHttpClient(
     }
 
     companion object {
-        // androidMain の Version.version と同値。Phase 4-4 で Version を common 化したら Version.version へ差し替える。
-        private const val VERSION = "v4.0.8-20250316"
+        // Phase 4-4 で Version を commonMain へ移動したため、common の Version.version を直接参照する。
+        private val VERSION = Version.version
     }
 }
 

@@ -16,7 +16,7 @@
 
 package twitter4j.conf
 
-import java.util.Properties
+import twitter4j.Properties
 
 /**
  * A builder that can be used to construct a twitter4j configuration with desired settings.  This

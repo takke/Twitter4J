@@ -42,7 +42,7 @@ class XAuthAuthorization(private val basic: BasicAuthorization) : Authorization,
         return basic.password
     }
 
-    @Synchronized
+    @JvmSynchronized
     fun setOAuthConsumer(consumerKey: String?, consumerSecret: String?) {
         this.consumerKey = consumerKey
         this.consumerSecret = consumerSecret

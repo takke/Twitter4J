@@ -18,8 +18,6 @@ package twitter4j.auth
 
 import twitter4j.Serializable
 
-import java.util.Objects
-
 import twitter4j.HttpRequest
 import twitter4j.conf.Configuration
 
@@ -94,13 +92,14 @@ class CookieAuthorization(conf: Configuration) : Authorization, Serializable {
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (o == null || this::class != o::class) return false
         val that = o as CookieAuthorization
         return rawCookie == that.rawCookie
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(rawCookie)
+        // KMP移行 Phase 4-4: java.util.Objects.hash(single) と同値（Arrays.hashCode 相当）。
+        return 31 + (rawCookie?.hashCode() ?: 0)
     }
 
     override fun toString(): String {

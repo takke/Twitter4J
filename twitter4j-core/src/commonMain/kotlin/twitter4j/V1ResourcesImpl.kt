@@ -14,11 +14,8 @@ import twitter4j.api.TweetsResources
 import twitter4j.api.UsersResources
 import twitter4j.api.V1Resources
 import twitter4j.conf.ChunkedUploadConfiguration
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.IOException
-import java.io.InputStream
-import java.util.Collections
+import twitter4j.File
+import twitter4j.InputStream
 
 internal class V1ResourcesImpl(private val twitter: TwitterImpl) : V1Resources {
 
@@ -230,16 +227,16 @@ internal class V1ResourcesImpl(private val twitter: TwitterImpl) : V1Resources {
 
     @Throws(TwitterException::class)
     override fun uploadMedia(mediaFile: File): UploadedMedia {
-        checkFileValidity(mediaFile)
+        MediaUploadSupport.checkFileValidity(mediaFile)
         return UploadedMedia(
-            twitter.post(twitter.conf.getUploadBaseURL() + "media/upload.json", HttpParameter("media", mediaFile)).asJSONObject()
+            twitter.post(twitter.conf.getUploadBaseURL() + "media/upload.json", MediaUploadSupport.mediaHttpParameter("media", mediaFile)).asJSONObject()
         )
     }
 
     @Throws(TwitterException::class)
     override fun uploadMedia(fileName: String, media: InputStream): UploadedMedia {
         return UploadedMedia(
-            twitter.post(twitter.conf.getUploadBaseURL() + "media/upload.json", HttpParameter("media", fileName, media)).asJSONObject()
+            twitter.post(twitter.conf.getUploadBaseURL() + "media/upload.json", MediaUploadSupport.mediaHttpParameter("media", fileName, media)).asJSONObject()
         )
     }
 
@@ -257,7 +254,7 @@ internal class V1ResourcesImpl(private val twitter: TwitterImpl) : V1Resources {
 
     @Throws(TwitterException::class)
     override fun uploadMediaChunked(chunkedUploadConfiguration: ChunkedUploadConfiguration): UploadedMedia {
-        return ChunkedUploadDelegate(twitter).uploadMediaChunked(chunkedUploadConfiguration)
+        return MediaUploadSupport.uploadMediaChunked(twitter, chunkedUploadConfiguration)
     }
 
     /* Search Resources */
@@ -639,37 +636,21 @@ internal class V1ResourcesImpl(private val twitter: TwitterImpl) : V1Resources {
 
     @Throws(TwitterException::class)
     override fun updateProfileImage(image: File): User {
-        checkFileValidity(image)
+        MediaUploadSupport.checkFileValidity(image)
         return twitter.factory.createUser(
-            twitter.post(twitter.conf.getRestBaseURL() + "account/update_profile_image.json", HttpParameter("image", image))
+            twitter.post(twitter.conf.getRestBaseURL() + "account/update_profile_image.json", MediaUploadSupport.mediaHttpParameter("image", image))
         )
     }
 
     @Throws(TwitterException::class)
     override fun updateProfileImage(image: InputStream): User {
         return twitter.factory.createUser(
-            twitter.post(twitter.conf.getRestBaseURL() + "account/update_profile_image.json", HttpParameter("image", "image", image))
+            twitter.post(twitter.conf.getRestBaseURL() + "account/update_profile_image.json", MediaUploadSupport.mediaHttpParameter("image", "image", image))
         )
     }
 
-    /**
-     * Check the existence, and the type of the specified file.
-     *
-     * @param image image to be uploaded
-     * @throws TwitterException when the specified file is not found (FileNotFoundException will be nested)
-     *                          , or when the specified file object is not representing a file(IOException will be nested).
-     */
-    @Throws(TwitterException::class)
-    internal fun checkFileValidity(image: File) {
-        if (!image.exists()) {
-            //noinspection ThrowableInstanceNeverThrown
-            throw TwitterException(FileNotFoundException("$image is not found."))
-        }
-        if (!image.isFile) {
-            //noinspection ThrowableInstanceNeverThrown
-            throw TwitterException(IOException("$image is not a file."))
-        }
-    }
+    // KMP移行 Phase 4-4: checkFileValidity（java.io.File の存在・種別チェック）は JVM 固有処理のため
+    // MediaUploadSupport.checkFileValidity へ移設した。
 
     @Throws(TwitterException::class)
     override fun getBlocksList(): PagableResponseList<User> {
@@ -818,13 +799,13 @@ internal class V1ResourcesImpl(private val twitter: TwitterImpl) : V1Resources {
 
     @Throws(TwitterException::class)
     override fun updateProfileBanner(image: File) {
-        checkFileValidity(image)
-        twitter.post(twitter.conf.getRestBaseURL() + "account/update_profile_banner.json", HttpParameter("banner", image))
+        MediaUploadSupport.checkFileValidity(image)
+        twitter.post(twitter.conf.getRestBaseURL() + "account/update_profile_banner.json", MediaUploadSupport.mediaHttpParameter("banner", image))
     }
 
     @Throws(TwitterException::class)
     override fun updateProfileBanner(image: InputStream) {
-        twitter.post(twitter.conf.getRestBaseURL() + "account/update_profile_banner.json", HttpParameter("banner", "banner", image))
+        twitter.post(twitter.conf.getRestBaseURL() + "account/update_profile_banner.json", MediaUploadSupport.mediaHttpParameter("banner", "banner", image))
     }
 
     /* Favorites Resources */
@@ -1492,7 +1473,7 @@ internal class V1ResourcesImpl(private val twitter: TwitterImpl) : V1Resources {
     @Throws(TwitterException::class)
     private fun updateUserList(newListName: String?, isPublicList: Boolean, newDescription: String?, vararg params: HttpParameter): UserList {
         val httpParams: MutableList<HttpParameter> = ArrayList()
-        Collections.addAll(httpParams, *params)
+        httpParams.addAll(params)
         if (newListName != null) {
             httpParams.add(HttpParameter("name", newListName))
         }

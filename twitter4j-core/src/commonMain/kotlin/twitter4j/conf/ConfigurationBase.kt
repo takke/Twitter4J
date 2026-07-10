@@ -18,12 +18,9 @@ package twitter4j.conf
 
 import twitter4j.Serializable
 
-import java.io.ObjectStreamException
-import java.net.Proxy
-import java.util.Properties
-
 import twitter4j.HttpClientConfiguration
-import twitter4j.Logger
+import twitter4j.Properties
+import kotlin.jvm.JvmStatic
 
 /**
  * Configuration base class with default settings.
@@ -160,7 +157,7 @@ internal open class ConfigurationBase constructor() : Configuration, Serializabl
 
         override fun equals(o: Any?): Boolean {
             if (this === o) return true
-            if (o == null || javaClass != o.javaClass) return false
+            if (o == null || this::class != o::class) return false
 
             val that = o as MyHttpClientConfiguration
 
@@ -197,7 +194,7 @@ internal open class ConfigurationBase constructor() : Configuration, Serializabl
                     ", httpProxyUser='" + httpProxyUser + '\'' +
                     ", httpProxyPassword='" + httpProxyPassword + '\'' +
                     ", httpProxyPort=" + httpProxyPort +
-                    ", proxyType=" + (if (httpProxySocks) Proxy.Type.SOCKS else Proxy.Type.HTTP) +
+                    ", proxyType=" + (if (httpProxySocks) "SOCKS" else "HTTP") +
                     ", httpConnectionTimeout=" + httpConnectionTimeout +
                     ", httpReadTimeout=" + httpReadTimeout +
                     ", prettyDebug=" + prettyDebug +
@@ -206,24 +203,8 @@ internal open class ConfigurationBase constructor() : Configuration, Serializabl
         }
     }
 
-
-    fun dumpConfiguration() {
-        val log = Logger.getLogger(ConfigurationBase::class.java)
-        if (debug) {
-            val fields = ConfigurationBase::class.java.declaredFields
-            for (field in fields) {
-                try {
-                    val value = field.get(this)
-                    var strValue = value?.toString() ?: "null"
-                    if (value != null && field.name.matches(Regex("oAuthConsumerSecret|oAuthAccessTokenSecret|password"))) {
-                        strValue = value.toString().replace(Regex("."), "*")
-                    }
-                    log.debug(field.name + ": " + strValue)
-                } catch (ignore: IllegalAccessException) {
-                }
-            }
-        }
-    }
+    // KMP移行 Phase 4-4: dumpConfiguration() は JVM リフレクション（declaredFields 走査）に依存しており、
+    // かつ Logger.enabled=false 既定のため実質未使用だった。呼び出し元も存在しないため削除した。
 
     override fun isDebugEnabled(): Boolean {
         return debug
@@ -631,7 +612,7 @@ internal open class ConfigurationBase constructor() : Configuration, Serializabl
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
+        if (o == null || this::class != o::class) return false
 
         val that = o as ConfigurationBase
 
@@ -781,11 +762,9 @@ internal open class ConfigurationBase constructor() : Configuration, Serializabl
                 '}'
     }
 
-    // assures equality after deserialization
-    @Throws(ObjectStreamException::class)
-    protected open fun readResolve(): Any {
-        return getInstance(this)
-    }
+    // KMP移行 Phase 4-4: readResolve()（Javaデシリアライズ時の同一性保証フック）は Java シリアライズ機構
+    // 専用であり、Twitter4J の設定オブジェクトを Java シリアライズする経路は TwitPane に存在しないため削除した。
+    // これに伴い、readResolve からのみ使われていた getInstance() も削除した（instances / cacheInstance は温存）。
 
     fun cacheInstance() {
         cacheInstance(this)
@@ -814,16 +793,6 @@ internal open class ConfigurationBase constructor() : Configuration, Serializabl
         private fun cacheInstance(conf: ConfigurationBase) {
             if (!instances.contains(conf)) {
                 instances.add(conf)
-            }
-        }
-
-        private fun getInstance(configurationBase: ConfigurationBase): ConfigurationBase {
-            val index = instances.indexOf(configurationBase)
-            return if (index == -1) {
-                instances.add(configurationBase)
-                configurationBase
-            } else {
-                instances[index]
             }
         }
     }

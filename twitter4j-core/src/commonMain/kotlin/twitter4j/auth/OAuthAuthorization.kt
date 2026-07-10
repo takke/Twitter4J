@@ -14,25 +14,27 @@
  * limitations under the License.
  */
 
+@file:OptIn(ExperimentalTime::class)
+
 package twitter4j.auth
 
 import twitter4j.Serializable
 
-import java.io.UnsupportedEncodingException
-import java.net.URLDecoder
-import java.util.ArrayList
-import java.util.Collections
-import java.util.Random
-
 import twitter4j.BASE64Encoder
 import twitter4j.crypto.HmacSha1
 import twitter4j.HttpClient
-import twitter4j.HttpClientFactory
+import twitter4j.newHttpClient
 import twitter4j.HttpParameter
 import twitter4j.HttpRequest
 import twitter4j.Logger
+import twitter4j.ParseUtil
 import twitter4j.TwitterException
 import twitter4j.conf.Configuration
+import kotlin.jvm.JvmStatic
+import kotlin.jvm.Transient
+import kotlin.random.Random
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 /**
  * @author Yusuke Yamamoto - yusuke at mac.com
@@ -53,7 +55,7 @@ class OAuthAuthorization(private val conf: Configuration) : Authorization, Seria
      * @param conf configuration
      */
     init {
-        http = HttpClientFactory.getInstance(conf.getHttpClientConfiguration())
+        http = newHttpClient(conf.getHttpClientConfiguration())
         setOAuthConsumer(conf.oAuthConsumerKey, conf.oAuthConsumerSecret)
         if (conf.oAuthAccessToken != null && conf.oAuthAccessTokenSecret != null) {
             setOAuthAccessToken(AccessToken(conf.oAuthAccessToken!!, conf.oAuthAccessTokenSecret!!))
@@ -229,23 +231,20 @@ class OAuthAuthorization(private val conf: Configuration) : Authorization, Seria
         val queryStart = url.indexOf("?")
         if (-1 != queryStart) {
             val queryStrs = url.substring(queryStart + 1).split("&".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-            try {
-                for (query in queryStrs) {
-                    val split = query.split("=".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                    if (split.size == 2) {
-                        signatureBaseParams.add(
-                            HttpParameter(
-                                URLDecoder.decode(split[0], "UTF-8"),
-                                URLDecoder.decode(split[1], "UTF-8")
-                            )
+            for (query in queryStrs) {
+                val split = query.split("=".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                if (split.size == 2) {
+                    signatureBaseParams.add(
+                        HttpParameter(
+                            ParseUtil.urlDecode(split[0]),
+                            ParseUtil.urlDecode(split[1])
                         )
-                    } else {
-                        signatureBaseParams.add(
-                            HttpParameter(URLDecoder.decode(split[0], "UTF-8"), "")
-                        )
-                    }
+                    )
+                } else {
+                    signatureBaseParams.add(
+                        HttpParameter(ParseUtil.urlDecode(split[0]), "")
+                    )
                 }
-            } catch (ignore: UnsupportedEncodingException) {
             }
 
         }
@@ -257,13 +256,13 @@ class OAuthAuthorization(private val conf: Configuration) : Authorization, Seria
      * @see <a href="http://oauth.net/core/1.0a/#rfc.section.5.4.1">OAuth Core - 5.4.1.  Authorization Header</a>
      */
     internal fun generateAuthorizationHeader(method: String, url: String, params: Array<HttpParameter>?, token: OAuthToken?): String {
-        val timestamp = System.currentTimeMillis() / 1000
+        val timestamp = Clock.System.now().toEpochMilliseconds() / 1000
         val nonce = timestamp + RAND.nextInt()
         return generateAuthorizationHeader(method, url, params, nonce.toString(), timestamp.toString(), token)
     }
 
     fun generateOAuthSignatureHttpParams(method: String, url: String): List<HttpParameter> {
-        val timestamp = System.currentTimeMillis() / 1000
+        val timestamp = Clock.System.now().toEpochMilliseconds() / 1000
         val nonce = timestamp + RAND.nextInt()
 
         val oauthHeaderParams = ArrayList<HttpParameter>(5)
@@ -307,17 +306,17 @@ class OAuthAuthorization(private val conf: Configuration) : Authorization, Seria
         val keyBytes: ByteArray
         if (null == token) {
             val oauthSignature = HttpParameter.encode(consumerSecret) + "&"
-            keyBytes = oauthSignature.toByteArray()
+            keyBytes = oauthSignature.encodeToByteArray()
         } else {
             var s = token.secretKeyBytes
             if (null == s) {
                 val oauthSignature = HttpParameter.encode(consumerSecret) + "&" + HttpParameter.encode(token.tokenSecret)
-                s = oauthSignature.toByteArray()
+                s = oauthSignature.encodeToByteArray()
                 token.secretKeyBytes = s
             }
             keyBytes = s
         }
-        val byteHMAC = HmacSha1.mac(keyBytes, data.toByteArray())
+        val byteHMAC = HmacSha1.mac(keyBytes, data.encodeToByteArray())
         return BASE64Encoder.encode(byteHMAC)
     }
 
@@ -370,9 +369,9 @@ class OAuthAuthorization(private val conf: Configuration) : Authorization, Seria
         private var http: HttpClient? = null
 
         private val OAUTH_SIGNATURE_METHOD = HttpParameter("oauth_signature_method", "HMAC-SHA1")
-        private val logger = Logger.getLogger(OAuthAuthorization::class.java)
+        private val logger = Logger.getLogger(OAuthAuthorization::class)
 
-        private val RAND = Random()
+        private val RAND = Random.Default
 
         /**
          * The request parameters are collected, sorted and concatenated into a normalized string.
@@ -387,7 +386,7 @@ class OAuthAuthorization(private val conf: Configuration) : Authorization, Seria
         }
 
         private fun normalizeRequestParameters(params: MutableList<HttpParameter>): String {
-            Collections.sort(params)
+            params.sort()
             return encodeParameters(params)
         }
 

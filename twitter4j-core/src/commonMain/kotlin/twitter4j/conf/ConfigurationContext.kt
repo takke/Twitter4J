@@ -16,6 +16,8 @@
 
 package twitter4j.conf
 
+import kotlin.jvm.JvmStatic
+
 /**
  * Static factory of Configuration.
  *

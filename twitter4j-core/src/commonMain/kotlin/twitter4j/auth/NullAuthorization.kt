@@ -18,8 +18,8 @@ package twitter4j.auth
 
 import twitter4j.Serializable
 
-import java.io.ObjectStreamException
 import twitter4j.HttpRequest
+import kotlin.jvm.JvmStatic
 
 /**
  * An interface represents credentials.
@@ -48,10 +48,9 @@ class NullAuthorization private constructor() : Authorization, Serializable {
         return "NullAuthentication{SINGLETON}"
     }
 
-    @Throws(ObjectStreamException::class)
-    private fun readResolve(): Any {
-        return SINGLETON
-    }
+    // KMP移行 Phase 4-4: readResolve()（Javaデシリアライズ時に SINGLETON を保つフック）は
+    // Java シリアライズ機構専用であり、Twitter4J の Authorization を Java シリアライズする経路は
+    // TwitPane に存在しないため削除した。
 
     companion object {
         private const val serialVersionUID = -7704668493278727510L

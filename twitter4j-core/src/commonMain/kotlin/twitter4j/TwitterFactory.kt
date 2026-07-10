@@ -22,7 +22,8 @@ import twitter4j.auth.AuthorizationFactory
 import twitter4j.auth.OAuthAuthorization
 import twitter4j.conf.Configuration
 import twitter4j.conf.ConfigurationContext
-import java.lang.reflect.Constructor
+import kotlin.jvm.JvmField
+import kotlin.jvm.JvmStatic
 
 /**
  * A factory class for Twitter.
@@ -81,73 +82,22 @@ class TwitterFactory
     }
 
     fun getInstance(auth: Authorization): Twitter {
-        try {
-            return TWITTER_CONSTRUCTOR.newInstance(conf, auth)
-        } catch (e: InstantiationException) {
-            throw AssertionError(e)
-        } catch (e: IllegalAccessException) {
-            throw AssertionError(e)
-        } catch (e: java.lang.reflect.InvocationTargetException) {
-            throw AssertionError(e)
-        }
+        // KMP移行 Phase 4-4: 従来の Class.forName + Constructor.newInstance によるリフレクション生成
+        // （Google App Engine 判定を含む）を廃止し、TwitterImpl を直接 new する方式へ変更した。
+        // App Engine 用の AppEngineTwitterImpl はこのビルドには存在せず、Native ではリフレクション自体が
+        // 使用不可のため、直接生成が唯一かつ最も安全な選択となる。
+        return TwitterImpl(conf, auth)
     }
 
     companion object {
         private const val serialVersionUID = -563983536986910054L
 
-        private val TWITTER_CONSTRUCTOR: Constructor<Twitter>
-
         /*AsyncTwitterFactory and TWitterStream will access this field*/
         @JvmField
         internal val DEFAULT_AUTHORIZATION: Authorization = AuthorizationFactory.getInstance(ConfigurationContext.getInstance())
 
-        private val SINGLETON: Twitter
-
-        init {
-            // detecting Google App Engine
-            var gaeDetected: Boolean
-            try {
-                Class.forName("com.google.appengine.api.urlfetch.URLFetchService")
-                gaeDetected = true
-            } catch (cnfe: ClassNotFoundException) {
-                gaeDetected = false
-            }
-
-            var className: String? = null
-            if (gaeDetected) {
-                val APP_ENGINE_TWITTER_IMPL = "twitter4j.AppEngineTwitterImpl"
-                try {
-                    Class.forName(APP_ENGINE_TWITTER_IMPL)
-                    className = APP_ENGINE_TWITTER_IMPL
-                } catch (ignore: ClassNotFoundException) {
-                }
-            }
-            val resolvedClassName = className ?: "twitter4j.TwitterImpl"
-            val constructor: Constructor<Twitter>
-            val clazz: Class<*>
-            try {
-                clazz = Class.forName(resolvedClassName)
-                @Suppress("UNCHECKED_CAST")
-                constructor = clazz.getDeclaredConstructor(
-                    Configuration::class.java, Authorization::class.java
-                ) as Constructor<Twitter>
-            } catch (e: NoSuchMethodException) {
-                throw AssertionError(e)
-            } catch (e: ClassNotFoundException) {
-                throw AssertionError(e)
-            }
-            TWITTER_CONSTRUCTOR = constructor
-
-            try {
-                SINGLETON = TWITTER_CONSTRUCTOR.newInstance(ConfigurationContext.getInstance(), DEFAULT_AUTHORIZATION)
-            } catch (e: InstantiationException) {
-                throw AssertionError(e)
-            } catch (e: IllegalAccessException) {
-                throw AssertionError(e)
-            } catch (e: java.lang.reflect.InvocationTargetException) {
-                throw AssertionError(e)
-            }
-        }
+        // KMP移行 Phase 4-4: リフレクションを廃し、既定シングルトンも TwitterImpl を直接生成する。
+        private val SINGLETON: Twitter = TwitterImpl(ConfigurationContext.getInstance(), DEFAULT_AUTHORIZATION)
 
         /**
          * Returns default singleton Twitter instance.

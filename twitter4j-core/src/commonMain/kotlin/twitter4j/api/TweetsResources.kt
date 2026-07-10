@@ -18,8 +18,8 @@ package twitter4j.api
 
 import twitter4j.*
 import twitter4j.conf.ChunkedUploadConfiguration
-import java.io.File
-import java.io.InputStream
+import twitter4j.File
+import twitter4j.InputStream
 
 /**
  * @author Joern Huxhorn - jhuxhorn at googlemail.com

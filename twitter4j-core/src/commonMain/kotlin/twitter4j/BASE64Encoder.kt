@@ -16,6 +16,8 @@
 
 package twitter4j
 
+import kotlin.jvm.JvmStatic
+
 /**
  * A utility class encodes byte array into String using Base64 encoding scheme.
  *

@@ -20,7 +20,6 @@ package twitter4j
 import twitter4j.api.V1Resources
 import twitter4j.auth.Authorization
 import twitter4j.conf.Configuration
-import java.util.concurrent.ConcurrentHashMap
 
 /**
  * A java representation of the <a href="https://dev.twitter.com/docs/api">Twitter REST API</a><br>
@@ -89,8 +88,11 @@ class TwitterImpl /*package*/ internal constructor(conf: Configuration, auth: Au
 
             // implicitParamsMap.containsKey() is evaluated in the above if clause.
             // thus implicitParamsStrMap needs to be initialized first
-            implicitParamsStrMap.putIfAbsent(conf, implicitParamsStr)
-            implicitParamsMap.putIfAbsent(conf, implicitParams)
+            // KMP移行 Phase 4-4: putIfAbsent は common の MutableMap に存在しないため通常の put に置換。
+            // 値は conf に対して決定的なため、競合で上書きされても同一値であり無害（JVM 側は
+            // ConcurrentHashMap のため put 自体はスレッドセーフ）。
+            implicitParamsStrMap[conf] = implicitParamsStr
+            implicitParamsMap[conf] = implicitParams
 
             this.IMPLICIT_PARAMS = implicitParams
             this.IMPLICIT_PARAMS_STR = implicitParamsStr
@@ -145,8 +147,8 @@ class TwitterImpl /*package*/ internal constructor(conf: Configuration, auth: Au
     internal fun mergeParameters(params1: Array<out HttpParameter?>?, params2: Array<out HttpParameter?>?): Array<HttpParameter?> {
         if (params1 != null && params2 != null) {
             val params = arrayOfNulls<HttpParameter>(params1.size + params2.size)
-            System.arraycopy(params1, 0, params, 0, params1.size)
-            System.arraycopy(params2, 0, params, params1.size, params2.size)
+            params1.copyInto(params, 0, 0, params1.size)
+            params2.copyInto(params, params1.size, 0, params2.size)
             return params
         }
         if (null == params1 && null == params2) {
@@ -158,7 +160,7 @@ class TwitterImpl /*package*/ internal constructor(conf: Configuration, auth: Au
     internal fun mergeParameters(params1: Array<out HttpParameter?>?, params2: HttpParameter?): Array<HttpParameter?> {
         if (params1 != null && params2 != null) {
             val params = arrayOfNulls<HttpParameter>(params1.size + 1)
-            System.arraycopy(params1, 0, params, 0, params1.size)
+            params1.copyInto(params, 0, 0, params1.size)
             params[params.size - 1] = params2
             return params
         }
@@ -186,7 +188,7 @@ class TwitterImpl /*package*/ internal constructor(conf: Configuration, auth: Au
     companion object {
         private const val serialVersionUID = 9170943084096085770L
 
-        private val implicitParamsMap = ConcurrentHashMap<Configuration, Array<HttpParameter>>()
-        private val implicitParamsStrMap = ConcurrentHashMap<Configuration, String>()
+        private val implicitParamsMap = newConcurrentMap<Configuration, Array<HttpParameter>>()
+        private val implicitParamsStrMap = newConcurrentMap<Configuration, String>()
     }
 }

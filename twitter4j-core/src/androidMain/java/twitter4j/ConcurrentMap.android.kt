@@ -13,30 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package twitter4j
 
-/**
- * @author Yusuke Yamamoto - yusuke at mac.com
- */
-class Version private constructor() {
-    init {
-        throw AssertionError()
-    }
+import java.util.concurrent.ConcurrentHashMap
 
-    companion object {
-        @JvmStatic
-        val version = "v4.0.8-20250316"
-
-        private const val TITLE = "Twitter4J"
-
-        /**
-         * prints the version string
-         *
-         * @param args will be just ignored.
-         */
-        @JvmStatic
-        fun main(args: Array<String>) {
-            println("$TITLE $version")
-        }
-    }
-}
+// JVM では従来どおり ConcurrentHashMap を用いる。
+internal actual fun <K : Any, V : Any> newConcurrentMap(): MutableMap<K, V> = ConcurrentHashMap()

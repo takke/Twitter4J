@@ -28,8 +28,8 @@ import twitter4j.auth.OAuthAuthorization
 import twitter4j.auth.OAuthSupport
 import twitter4j.auth.RequestToken
 import twitter4j.conf.Configuration
-import java.io.IOException
-import java.io.ObjectInputStream
+import kotlin.jvm.JvmField
+import kotlin.jvm.Transient
 
 /**
  * Base class of Twitter / AsyncTwitter / TwitterStream supports OAuth.
@@ -91,7 +91,7 @@ abstract class TwitterBaseImpl internal constructor(conf: Configuration, auth: A
             }
         }
         this.auth = resolvedAuth
-        http = HttpClientFactory.getInstance(conf.getHttpClientConfiguration())
+        http = newHttpClient(conf.getHttpClientConfiguration())
         setFactory()
     }
 
@@ -174,31 +174,15 @@ abstract class TwitterBaseImpl internal constructor(conf: Configuration, auth: A
         }
     }
 
-    @Throws(IOException::class)
-    private fun writeObject(out: java.io.ObjectOutputStream) {
-        // http://docs.oracle.com/javase/6/docs/platform/serialization/spec/output.html#861
-        out.putFields()
-        out.writeFields()
-
-        out.writeObject(conf)
-        out.writeObject(auth)
-    }
-
-    @Throws(IOException::class, ClassNotFoundException::class)
-    private fun readObject(stream: ObjectInputStream) {
-        // http://docs.oracle.com/javase/6/docs/platform/serialization/spec/input.html#2971
-        stream.readFields()
-
-        conf = stream.readObject() as Configuration
-        auth = stream.readObject() as Authorization
-        http = HttpClientFactory.getInstance(conf.getHttpClientConfiguration())
-        setFactory()
-    }
+    // KMP移行 Phase 4-4: writeObject/readObject（Javaシリアライズのカスタムフック）は
+    // JVM のオブジェクトシリアライズ機構専用であり、Twitter インスタンスを Java シリアライズする経路は
+    // TwitPane に存在しないため削除した。http は @Transient のため元々シリアライズ対象外で、
+    // 復元時に再生成していただけであり、挙動上の影響はない。
 
 
     // methods declared in OAuthSupport interface
 
-    @Synchronized
+    @JvmSynchronized
     override fun setOAuthConsumer(consumerKey: String?, consumerSecret: String?) {
         if (null == consumerKey) {
             throw NullPointerException("consumer key is null")
@@ -254,7 +238,7 @@ abstract class TwitterBaseImpl internal constructor(conf: Configuration, auth: A
      * @throws TwitterException When Twitter service or network is unavailable, when the user has not authorized, or when the client application is not permitted to use xAuth
      * @see <a href="https://dev.twitter.com/docs/oauth/xauth">xAuth | Twitter Developers</a>
      */
-    @Synchronized
+    @JvmSynchronized
     @Throws(TwitterException::class)
     override fun getOAuthAccessToken(): AccessToken {
         var auth: Authorization = this.auth
@@ -285,7 +269,7 @@ abstract class TwitterBaseImpl internal constructor(conf: Configuration, auth: A
     }
 
 
-    @Synchronized
+    @JvmSynchronized
     @Throws(TwitterException::class)
     override fun getOAuthAccessToken(oauthVerifier: String?): AccessToken {
         val oauthAccessToken = getOAuth().getOAuthAccessToken(oauthVerifier)
@@ -293,7 +277,7 @@ abstract class TwitterBaseImpl internal constructor(conf: Configuration, auth: A
         return oauthAccessToken
     }
 
-    @Synchronized
+    @JvmSynchronized
     @Throws(TwitterException::class)
     override fun getOAuthAccessToken(requestToken: RequestToken?): AccessToken {
         val oauth = getOAuth()
@@ -302,18 +286,18 @@ abstract class TwitterBaseImpl internal constructor(conf: Configuration, auth: A
         return oauthAccessToken
     }
 
-    @Synchronized
+    @JvmSynchronized
     @Throws(TwitterException::class)
     override fun getOAuthAccessToken(requestToken: RequestToken?, oauthVerifier: String?): AccessToken {
         return getOAuth().getOAuthAccessToken(requestToken, oauthVerifier)
     }
 
-    @Synchronized
+    @JvmSynchronized
     override fun setOAuthAccessToken(accessToken: AccessToken?) {
         getOAuth().setOAuthAccessToken(accessToken)
     }
 
-    @Synchronized
+    @JvmSynchronized
     @Throws(TwitterException::class)
     override fun getOAuthAccessToken(screenName: String?, password: String?): AccessToken {
         return getOAuth().getOAuthAccessToken(screenName, password)
@@ -329,7 +313,7 @@ abstract class TwitterBaseImpl internal constructor(conf: Configuration, auth: A
         return auth as OAuthSupport
     }
 
-    @Synchronized
+    @JvmSynchronized
     @Throws(TwitterException::class)
     override fun getOAuth2Token(): OAuth2Token {
         return getOAuth2().getOAuth2Token()
@@ -339,7 +323,7 @@ abstract class TwitterBaseImpl internal constructor(conf: Configuration, auth: A
         getOAuth2().setOAuth2Token(oauth2Token)
     }
 
-    @Synchronized
+    @JvmSynchronized
     @Throws(TwitterException::class)
     override fun invalidateOAuth2Token() {
         getOAuth2().invalidateOAuth2Token()

@@ -16,9 +16,8 @@
 
 package twitter4j.conf
 
-import java.io.File
-import java.io.InputStream
-
+import twitter4j.File
+import twitter4j.InputStream
 import twitter4j.TwitterException
 
 /**

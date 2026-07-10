@@ -23,7 +23,7 @@ internal class ChunkedUploadDelegate(private val twitter: TwitterImpl) {
         val mediaFile = uploadConfiguration.file
         this.uploadConfiguration = uploadConfiguration
         return if (mediaFile != null) {
-            (twitter.v1Resources() as V1ResourcesImpl).checkFileValidity(mediaFile)
+            MediaUploadSupport.checkFileValidity(mediaFile)
             try {
                 upload(
                     uploadConfiguration.mediaType, uploadConfiguration.mediaCategory,

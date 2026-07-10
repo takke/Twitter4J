@@ -18,14 +18,12 @@ package twitter4j.auth
 
 import twitter4j.Serializable
 
+import twitter4j.HttpParameter
 import twitter4j.HttpResponse
 import twitter4j.JSONException
 import twitter4j.JSONObject
+import twitter4j.ParseUtil
 import twitter4j.TwitterException
-
-import java.io.UnsupportedEncodingException
-import java.net.URLDecoder
-import java.net.URLEncoder
 
 class OAuth2Token : Serializable {
 
@@ -39,10 +37,8 @@ class OAuth2Token : Serializable {
     internal constructor(res: HttpResponse) {
         val json = res.asJSONObject()
         tokenType = getRawString("token_type", json)
-        try {
-            accessToken = URLDecoder.decode(getRawString("access_token", json), "UTF-8")
-        } catch (ignore: UnsupportedEncodingException) {
-        }
+        // KMP移行 Phase 4-4: java.net.URLDecoder を common の ParseUtil.urlDecode へ置換。
+        accessToken = getRawString("access_token", json)?.let { ParseUtil.urlDecode(it) }
     }
 
     constructor(tokenType: String?, accessToken: String?) {
@@ -51,11 +47,8 @@ class OAuth2Token : Serializable {
     }
 
     internal fun generateAuthorizationHeader(): String {
-        var encoded = ""
-        try {
-            encoded = URLEncoder.encode(accessToken, "UTF-8")
-        } catch (ignore: UnsupportedEncodingException) {
-        }
+        // KMP移行 Phase 4-4: java.net.URLEncoder を common の HttpParameter.encode（パーセントエンコード）へ置換。
+        val encoded = HttpParameter.encode(accessToken)
         return "Bearer $encoded"
     }
 

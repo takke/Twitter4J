@@ -18,7 +18,7 @@ package twitter4j.conf
 
 import twitter4j.Serializable
 
-import java.util.Properties
+import twitter4j.Properties
 
 import twitter4j.HttpClientConfiguration
 import twitter4j.auth.AuthorizationConfiguration

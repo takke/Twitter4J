@@ -35,7 +35,7 @@ class BasicAuthorization(
 
     private fun encodeBasicAuthenticationString(): String? {
         if (userId != null && password != null) {
-            return "Basic " + BASE64Encoder.encode(("$userId:$password").toByteArray())
+            return "Basic " + BASE64Encoder.encode(("$userId:$password").encodeToByteArray())
         }
         return null
     }
