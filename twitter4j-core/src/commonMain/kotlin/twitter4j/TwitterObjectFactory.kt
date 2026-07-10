@@ -249,8 +249,10 @@ object TwitterObjectFactory {
      *
      * @since Twitter4J 2.1.7
      */
+    // KMP移行 Phase 6: 外部モジュール（twitter4j-v2-support の V2ResponseFactory）が JSONStore 有効時に
+    // 呼び出すため、upstream 同様に public API とする（KMP化時に暫定 internal 化されていたのを復元）。
     @JvmStatic
-    internal fun clearThreadLocalMap() {
+    fun clearThreadLocalMap() {
         rawJsonMap.get().clear()
     }
 

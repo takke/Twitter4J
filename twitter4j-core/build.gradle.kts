@@ -48,37 +48,30 @@ kotlin {
 
 // -------------------------------------------------------------------------
 // publishing 設定
-// ⚠️ mastodon4j の教訓:
-//   - components["kotlin"] を使った独自 publication は中身が空のjar(648B)を生成する問題があった。
-//     → KMP が自動生成する publication を使う。
-//   - twitter4j-core は project 名が既に "twitter4j-core" のため、KMP自動生成の
-//     kotlinMultiplatform(root) publication のデフォルト artifactId も "twitter4j-core" となり、
-//     android publication の artifactId を "twitter4j-core" にオーバーライドすると衝突する。
-//   - よって root(kotlinMultiplatform) publication の publish を無効化し、
-//     実クラスを含む android publication のみを org.twitter4j:twitter4j-core として publish する。
-//     （従来同様「JVM jar が org.twitter4j:twitter4j-core で取れる」状態を維持）
+// KMP移行 Phase 6: 標準的な KMP publishing に変更。
+//   背景: twitter4j-v2-support を KMP 化して commonMain / iOS から twitter4j-core を利用するには、
+//   `twitter4j-core` の umbrella（kotlinMultiplatform root）publication が必須。
+//   umbrella の Gradle module metadata が各ターゲット（android / iosArm64 / iosSimulatorArm64）の
+//   variant を宣言し、metadata(common klib) と iOS klib を解決可能にするため。
+//   旧設定（root を無効化し android publication を "twitter4j-core" にオーバーライド）では
+//   `twitter4j-core` が JVM(android) variant のみとなり、KMP consumer（v2）の commonMain/iOS 解決が
+//   "Couldn't resolve dependency 'org.twitter4j:twitter4j-core'" で失敗する。
+//
+//   標準 KMP publishing により以下が publish される:
+//     - org.twitter4j:twitter4j-core                     … umbrella（module metadata。available-at で各 variant へ redirect）
+//     - org.twitter4j:twitter4j-core-android             … JVM(android) の実クラス jar
+//     - org.twitter4j:twitter4j-core-iosarm64            … iOS klib
+//     - org.twitter4j:twitter4j-core-iossimulatorarm64   … iOS klib
+//   Gradle module metadata を使う consumer（TwitPane / v2）は `org.twitter4j:twitter4j-core` を
+//   参照するだけで android / iOS の適切な variant に解決される（従来の Android ビルドも動作）。
+//
+//   ⚠️ mastodon4j の教訓（components["kotlin"] の空jar問題）は KMP 自動生成 publication を使うことで回避済み。
+//      実クラスは twitter4j-core-android jar に含まれる（空ではない）。
 // -------------------------------------------------------------------------
 publishing {
-    publications {
-        // android publication の artifactId を twitter4j-core にオーバーライド
-        // （デフォルトは twitter4j-core-android）
-        withType<MavenPublication> {
-            if (name == "android") {
-                artifactId = "twitter4j-core"
-            }
-        }
-    }
     repositories {
         maven {
             url = uri("file://${rootDir}/release_to_github_io/takke.github.io/maven/")
         }
     }
-}
-
-// root(kotlinMultiplatform) publication は android publication と artifactId が衝突するため、
-// この段階では publish タスクを無効化する（android publication のみ publish）。
-tasks.matching {
-    it.name.startsWith("publishKotlinMultiplatformPublication")
-}.configureEach {
-    enabled = false
 }
