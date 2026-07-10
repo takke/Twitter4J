@@ -67,8 +67,6 @@ interface Configuration : AuthorizationConfiguration, JsonStoreConfiguration, Se
 
     override val isJSONStoreEnabled: Boolean
 
-    fun isMBeanEnabled(): Boolean
-
     fun isUserStreamRepliesAllEnabled(): Boolean
 
     fun isUserStreamWithFollowingsEnabled(): Boolean

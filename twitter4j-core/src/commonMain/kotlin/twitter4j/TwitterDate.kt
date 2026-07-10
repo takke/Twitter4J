@@ -29,7 +29,7 @@ package twitter4j
  *
  * メンバは現状コードとテストが使う範囲のみに絞っている:
  * - コンストラクタ `Date(time: Long)`（`Date(0)` / `Date(json.getLong(...))` 等で使用）
- * - `getTime()`（epoch millis。TimeSpanConverter が `date.time` として参照。
+ * - `getTime()`（epoch millis。DateExtensions の `toInstant()` や利用側が参照。
  *   ※ expect は `val time` ではなく `fun getTime()` として宣言する。`java.util.Date.getTime()` は
  *   Java のメソッドであり、typealias actual との expect/actual マッチングでは Kotlin プロパティ
  *   `val time` とは対応付かない（"has no corresponding members" エラーになる）ため。）

@@ -84,8 +84,6 @@ internal open class ConfigurationBase constructor() : Configuration, Serializabl
 
     private var jsonStoreEnabled = false
 
-    private var mbeanEnabled = false
-
     private var userStreamRepliesAllEnabled = false
     private var userStreamWithFollowingsEnabled = true
     private var stallWarningsEnabled = true
@@ -538,14 +536,6 @@ internal open class ConfigurationBase constructor() : Configuration, Serializabl
         this.jsonStoreEnabled = enabled
     }
 
-    override fun isMBeanEnabled(): Boolean {
-        return this.mbeanEnabled
-    }
-
-    fun setMBeanEnabled(enabled: Boolean) {
-        this.mbeanEnabled = enabled
-    }
-
     override fun isUserStreamRepliesAllEnabled(): Boolean {
         return this.userStreamRepliesAllEnabled
     }
@@ -630,7 +620,6 @@ internal open class ConfigurationBase constructor() : Configuration, Serializabl
         if (includeExtEditControl != that.includeExtEditControl) return false
         if (includeEmailEnabled != that.includeEmailEnabled) return false
         if (jsonStoreEnabled != that.jsonStoreEnabled) return false
-        if (mbeanEnabled != that.mbeanEnabled) return false
         if (userStreamRepliesAllEnabled != that.userStreamRepliesAllEnabled) return false
         if (userStreamWithFollowingsEnabled != that.userStreamWithFollowingsEnabled) return false
         if (stallWarningsEnabled != that.stallWarningsEnabled) return false
@@ -699,7 +688,6 @@ internal open class ConfigurationBase constructor() : Configuration, Serializabl
         result = 31 * result + (if (includeExtEditControl) 1 else 0)
         result = 31 * result + (if (includeEmailEnabled) 1 else 0)
         result = 31 * result + (if (jsonStoreEnabled) 1 else 0)
-        result = 31 * result + (if (mbeanEnabled) 1 else 0)
         result = 31 * result + (if (userStreamRepliesAllEnabled) 1 else 0)
         result = 31 * result + (if (userStreamWithFollowingsEnabled) 1 else 0)
         result = 31 * result + (if (stallWarningsEnabled) 1 else 0)
@@ -749,7 +737,6 @@ internal open class ConfigurationBase constructor() : Configuration, Serializabl
                 ", includeExtEditControl=" + includeExtEditControl +
                 ", includeEmailEnabled=" + includeEmailEnabled +
                 ", jsonStoreEnabled=" + jsonStoreEnabled +
-                ", mbeanEnabled=" + mbeanEnabled +
                 ", userStreamRepliesAllEnabled=" + userStreamRepliesAllEnabled +
                 ", userStreamWithFollowingsEnabled=" + userStreamWithFollowingsEnabled +
                 ", stallWarningsEnabled=" + stallWarningsEnabled +

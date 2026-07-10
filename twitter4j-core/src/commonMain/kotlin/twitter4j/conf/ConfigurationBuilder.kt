@@ -314,12 +314,6 @@ class ConfigurationBuilder {
         return this
     }
 
-    fun setMBeanEnabled(enabled: Boolean): ConfigurationBuilder {
-        checkNotBuilt()
-        configurationBean!!.setMBeanEnabled(enabled)
-        return this
-    }
-
     fun setUserStreamRepliesAllEnabled(enabled: Boolean): ConfigurationBuilder {
         checkNotBuilt()
         configurationBean!!.setUserStreamRepliesAllEnabled(enabled)

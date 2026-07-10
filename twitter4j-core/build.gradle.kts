@@ -6,6 +6,12 @@ plugins {
 kotlin {
     jvmToolchain(11)
 
+    // expect/actual クラス（Date/URI/HttpParameter 等の typealias 戦略）を多用しているため、
+    // Beta 警告（KT-61573）を抑制する
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
+
     // mastodon4j と同方式: AGP は使わず jvm ターゲットを "android" という名前で構成する
     jvm("android") {
         // JUnit 5 (Jupiter) を使うため JUnit Platform を有効化する
