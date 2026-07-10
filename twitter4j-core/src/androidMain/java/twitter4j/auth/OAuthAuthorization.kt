@@ -20,16 +20,12 @@ import twitter4j.Serializable
 
 import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
-import java.security.InvalidKeyException
-import java.security.NoSuchAlgorithmException
 import java.util.ArrayList
 import java.util.Collections
 import java.util.Random
 
-import javax.crypto.Mac
-import javax.crypto.spec.SecretKeySpec
-
 import twitter4j.BASE64Encoder
+import twitter4j.crypto.HmacSha1
 import twitter4j.HttpClient
 import twitter4j.HttpClientFactory
 import twitter4j.HttpParameter
@@ -305,31 +301,23 @@ class OAuthAuthorization(private val conf: Configuration) : Authorization, Seria
      * @see <a href="http://oauth.net/core/1.0a/#rfc.section.9.2.1">OAuth Core - 9.2.1.  Generating Signature</a>
      */
     internal fun generateSignature(data: String, token: OAuthToken?): String {
-        val byteHMAC: ByteArray
-        try {
-            val mac = Mac.getInstance(HMAC_SHA1)
-            val spec: SecretKeySpec
-            if (null == token) {
-                val oauthSignature = HttpParameter.encode(consumerSecret) + "&"
-                spec = SecretKeySpec(oauthSignature.toByteArray(), HMAC_SHA1)
-            } else {
-                var s = token.secretKeySpec
-                if (null == s) {
-                    val oauthSignature = HttpParameter.encode(consumerSecret) + "&" + HttpParameter.encode(token.tokenSecret)
-                    s = SecretKeySpec(oauthSignature.toByteArray(), HMAC_SHA1)
-                    token.secretKeySpec = s
-                }
-                spec = s
+        // KMP移行 Phase 4-2:
+        // javax.crypto.Mac(HmacSHA1) を廃止し、commonMain の純Kotlin実装 HmacSha1 を使用する。
+        // 署名鍵は "consumerSecret&tokenSecret" の UTF-8 バイト列（従来の SecretKeySpec と同一内容）。
+        val keyBytes: ByteArray
+        if (null == token) {
+            val oauthSignature = HttpParameter.encode(consumerSecret) + "&"
+            keyBytes = oauthSignature.toByteArray()
+        } else {
+            var s = token.secretKeyBytes
+            if (null == s) {
+                val oauthSignature = HttpParameter.encode(consumerSecret) + "&" + HttpParameter.encode(token.tokenSecret)
+                s = oauthSignature.toByteArray()
+                token.secretKeyBytes = s
             }
-            mac.init(spec)
-            byteHMAC = mac.doFinal(data.toByteArray())
-        } catch (ike: InvalidKeyException) {
-            logger.error("Failed initialize \"Message Authentication Code\" (MAC)", ike)
-            throw AssertionError(ike)
-        } catch (nsae: NoSuchAlgorithmException) {
-            logger.error("Failed to get HmacSHA1 \"Message Authentication Code\" (MAC)", nsae)
-            throw AssertionError(nsae)
+            keyBytes = s
         }
+        val byteHMAC = HmacSha1.mac(keyBytes, data.toByteArray())
         return BASE64Encoder.encode(byteHMAC)
     }
 
@@ -381,7 +369,6 @@ class OAuthAuthorization(private val conf: Configuration) : Authorization, Seria
         @Transient
         private var http: HttpClient? = null
 
-        private const val HMAC_SHA1 = "HmacSHA1"
         private val OAUTH_SIGNATURE_METHOD = HttpParameter("oauth_signature_method", "HMAC-SHA1")
         private val logger = Logger.getLogger(OAuthAuthorization::class.java)
 

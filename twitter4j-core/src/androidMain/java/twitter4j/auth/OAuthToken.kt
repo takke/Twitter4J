@@ -21,15 +21,16 @@ import twitter4j.Serializable
 import twitter4j.HttpResponse
 import twitter4j.TwitterException
 
-import javax.crypto.spec.SecretKeySpec
-
 abstract class OAuthToken : Serializable {
 
     val token: String
     val tokenSecret: String
 
+    // KMP移行 Phase 4-2:
+    // 署名鍵のキャッシュ。従来は javax.crypto の SecretKeySpec を保持していたが、
+    // HMAC-SHA1 を純Kotlin実装(HmacSha1)へ切り替えたため、鍵バイト列そのものをキャッシュする。
     @Transient
-    internal var secretKeySpec: SecretKeySpec? = null
+    internal var secretKeyBytes: ByteArray? = null
     private var responseStr: Array<String>? = null
 
     constructor(token: String?, tokenSecret: String?) {
@@ -83,7 +84,7 @@ abstract class OAuthToken : Serializable {
         return "OAuthToken{" +
                 "token='" + token + '\'' +
                 ", tokenSecret='" + tokenSecret + '\'' +
-                ", secretKeySpec=" + secretKeySpec +
+                ", secretKeyBytes=" + secretKeyBytes +
                 '}'
     }
 
