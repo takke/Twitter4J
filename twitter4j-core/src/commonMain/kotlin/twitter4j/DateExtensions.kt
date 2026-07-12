@@ -21,18 +21,11 @@ package twitter4j
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
-/**
- * [Date]（epoch millis 保持）を [kotlin.time.Instant] に変換する基盤拡張。
- *
- * KMP移行の過渡期において、公開APIは当面 [Date] を返し続けるが、消費側は本拡張および
- * 各モデルの `xxxAsInstant` 拡張を用いて順次 [Instant] ベースへ移行できる。
- * 将来的には公開APIそのものを [Instant] へ統一する予定。
- *
- * ⚠️ JVM(Android)では `java.util.Date` にも同名の `toInstant()`（`java.time.Instant` を返す）が
- *    メンバとして存在し、そちらが優先される。そのため本拡張は common/iOS 向けであり、
- *    JVM 側で [kotlin.time.Instant] が欲しい場合は各モデルの `xxxAsInstant` 拡張を用いること。
+/*
+ * Date→Instant完全統一により、公開APIは [kotlin.time.Instant] を直接返すようになった。
+ * 以下の `xxxAsInstant` 拡張は移行期の消費側コード（TwitPane等）との互換のために残している
+ * エイリアスであり、新規コードでは各プロパティを直接参照してよい。
  */
-fun Date.toInstant(): Instant = Instant.fromEpochMilliseconds(getTime())
 
 /*
  * ---- 各モデルの `xxxAsInstant` 拡張群 ----
@@ -50,28 +43,28 @@ fun Date.toInstant(): Instant = Instant.fromEpochMilliseconds(getTime())
 
 /** [Status.createdAt] を [Instant] として取得する。 */
 val Status.createdAtAsInstant: Instant
-    get() = createdAt.toInstant()
+    get() = createdAt
 
 /** [User.createdAt] を [Instant] として取得する（createdAt が null の場合は null）。 */
 val User.createdAtAsInstant: Instant?
-    get() = createdAt?.toInstant()
+    get() = createdAt
 
 /** [DirectMessage.createdAt] を [Instant] として取得する。 */
 val DirectMessage.createdAtAsInstant: Instant
-    get() = createdAt.toInstant()
+    get() = createdAt
 
 /** [SavedSearch.createdAt] を [Instant] として取得する。 */
 val SavedSearch.createdAtAsInstant: Instant
-    get() = createdAt.toInstant()
+    get() = createdAt
 
 /** [Trends.asOf] を [Instant] として取得する。 */
 val Trends.asOfAsInstant: Instant
-    get() = asOf.toInstant()
+    get() = asOf
 
 /** [Trends.trendAt] を [Instant] として取得する。 */
 val Trends.trendAtAsInstant: Instant
-    get() = trendAt.toInstant()
+    get() = trendAt
 
 /** [UserList.createdAt] を [Instant] として取得する。 */
 val UserList.createdAtAsInstant: Instant
-    get() = createdAt.toInstant()
+    get() = createdAt

@@ -20,6 +20,7 @@ package twitter4j
 
 import kotlin.jvm.JvmStatic
 import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 /**
  * A tiny parse utility class.
@@ -127,37 +128,36 @@ object ParseUtil {
 
     @JvmStatic
     @Throws(TwitterException::class)
-    fun parseTrendsDate(asOfStr: String): Date {
+    fun parseTrendsDate(asOfStr: String): Instant {
         return when (asOfStr.length) {
-            10 -> Date(asOfStr.toLong() * 1000)
-            20 -> getDate(asOfStr, "yyyy-MM-dd'T'HH:mm:ss'Z'")
-            else -> getDate(asOfStr, "EEE, d MMM yyyy HH:mm:ss z")
+            10 -> Instant.fromEpochMilliseconds(asOfStr.toLong() * 1000)
+            20 -> getInstant(asOfStr, "yyyy-MM-dd'T'HH:mm:ss'Z'")
+            else -> getInstant(asOfStr, "EEE, d MMM yyyy HH:mm:ss z")
         }
     }
 
     @JvmStatic
     @Throws(TwitterException::class)
-    fun getDate(name: String, json: JSONObject?): Date? {
-        return getDate(name, json, "EEE MMM d HH:mm:ss z yyyy")
+    fun getInstant(name: String, json: JSONObject?): Instant? {
+        return getInstant(name, json, "EEE MMM d HH:mm:ss z yyyy")
     }
 
     @JvmStatic
     @Throws(TwitterException::class)
-    fun getDate(name: String, json: JSONObject?, format: String): Date? {
+    fun getInstant(name: String, json: JSONObject?, format: String): Instant? {
         val dateStr = getUnescapedString(name, json)
         return if ("null" == dateStr || null == dateStr) {
             null
         } else {
-            getDate(dateStr, format)
+            getInstant(dateStr, format)
         }
     }
 
     @JvmStatic
     @Throws(TwitterException::class)
-    fun getDate(dateString: String, format: String): Date {
+    fun getInstant(dateString: String, format: String): Instant {
         return try {
-            val instant = TwitterDateParser.parse(dateString, format)
-            Date(instant.toEpochMilliseconds())
+            TwitterDateParser.parse(dateString, format)
         } catch (e: TwitterException) {
             throw e
         } catch (e: Exception) {

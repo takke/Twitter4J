@@ -16,6 +16,8 @@
 
 package twitter4j
 
+import kotlin.time.Instant
+
 /**
  * A data interface representing sent/received direct message.
  *
@@ -35,7 +37,7 @@ interface DirectMessage : TwitterResponse, EntitySupport, Serializable {
      * @return created_at
      * @since Twitter4J 1.1.0
      */
-    val createdAt: Date
+    val createdAt: Instant
 
     /**
      *

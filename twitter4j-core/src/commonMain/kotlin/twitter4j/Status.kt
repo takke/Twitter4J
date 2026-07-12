@@ -15,6 +15,8 @@
  */
 package twitter4j
 
+import kotlin.time.Instant
+
 /**
  * A data interface representing one single status of a user.
  * (e.g. https://dev.twitter.com/rest/reference/get/statuses/show/%3Aid)
@@ -29,7 +31,7 @@ interface Status : Comparable<Status?>, TwitterResponse, EntitySupport, Serializ
      * @return created_at
      * @since Twitter4J 1.1.0
      */
-    val createdAt: Date
+    val createdAt: Instant
 
     /**
      * Returns the id of the status

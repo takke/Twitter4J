@@ -16,6 +16,8 @@
 
 package twitter4j
 
+import kotlin.time.Instant
+
 /**
  * A data interface representing Basic list information element
  *
@@ -104,5 +106,5 @@ interface UserList : Comparable<UserList?>, TwitterResponse, Serializable {
      * @return the date created the list
      * @since Twitter4J 4.0.1
      */
-    val createdAt: Date
+    val createdAt: Instant
 }

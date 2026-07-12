@@ -15,6 +15,8 @@
  */
 package twitter4j
 
+import kotlin.time.Instant
+
 /**
  * A data interface representing Basic user information element
  *
@@ -141,7 +143,7 @@ interface User : Comparable<User?>, TwitterResponse, Serializable {
      */
     val friendsCount: Int
 
-    val createdAt: Date?
+    val createdAt: Instant?
     val favouritesCount: Int
     val utcOffset: Int
     val timeZone: String?

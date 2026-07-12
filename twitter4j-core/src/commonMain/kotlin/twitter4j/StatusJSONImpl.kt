@@ -16,6 +16,7 @@
 package twitter4j
 
 import kotlin.jvm.JvmStatic
+import kotlin.time.Instant
 import twitter4j.conf.JsonStoreConfiguration
 
 /**
@@ -26,7 +27,7 @@ import twitter4j.conf.JsonStoreConfiguration
 internal class StatusJSONImpl : TwitterResponseImpl, Status {
 
     // 元実装では createdAt/text/source が null になりうるが、Status の各プロパティは非nullのため既定値を用いる。
-    override var createdAt: Date = Date(0)
+    override var createdAt: Instant = Instant.fromEpochMilliseconds(0)
         private set
     override var id: Long = 0
         private set
@@ -117,7 +118,7 @@ internal class StatusJSONImpl : TwitterResponseImpl, Status {
     private fun init(json: JSONObject) {
         id = ParseUtil.getLong("id", json)
         source = ParseUtil.getUnescapedString("source", json) ?: ""
-        createdAt = ParseUtil.getDate("created_at", json) ?: Date(0)
+        createdAt = ParseUtil.getInstant("created_at", json) ?: Instant.fromEpochMilliseconds(0)
         isTruncated = ParseUtil.getBoolean("truncated", json)
         inReplyToStatusId = ParseUtil.getLong("in_reply_to_status_id", json)
         inReplyToUserId = ParseUtil.getLong("in_reply_to_user_id", json)

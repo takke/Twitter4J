@@ -17,6 +17,7 @@
 package twitter4j
 
 import kotlin.jvm.JvmStatic
+import kotlin.time.Instant
 import twitter4j.conf.JsonStoreConfiguration
 
 /**
@@ -35,7 +36,7 @@ internal class DirectMessageJSONImpl : TwitterResponseImpl, DirectMessage {
         private set
     override var recipientId: Long = 0
         private set
-    override var createdAt: Date = Date(0)
+    override var createdAt: Instant = Instant.fromEpochMilliseconds(0)
         private set
     override var userMentionEntities: Array<UserMentionEntity> = emptyArray()
         private set
@@ -80,14 +81,14 @@ internal class DirectMessageJSONImpl : TwitterResponseImpl, DirectMessage {
             id = ParseUtil.getLong("id", json)
             val messageData: JSONObject
             if (!json.isNull("created_timestamp")) {
-                createdAt = Date(json.getLong("created_timestamp"))
+                createdAt = Instant.fromEpochMilliseconds(json.getLong("created_timestamp"))
                 val messageCreate = json.getJSONObject("message_create")
                 recipientId = ParseUtil.getLong("recipient_id", messageCreate.getJSONObject("target"))
                 senderId = ParseUtil.getLong("sender_id", messageCreate)
                 messageData = messageCreate.getJSONObject("message_data")
             } else {
                 // raw JSON data from Twitter4J 4.0.6 or before
-                createdAt = ParseUtil.getDate("created_at", json) ?: Date(0)
+                createdAt = ParseUtil.getInstant("created_at", json) ?: Instant.fromEpochMilliseconds(0)
                 senderId = ParseUtil.getLong("sender_id", json)
                 recipientId = ParseUtil.getLong("recipient_id", json)
                 messageData = json

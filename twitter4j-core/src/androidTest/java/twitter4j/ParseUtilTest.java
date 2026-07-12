@@ -18,8 +18,6 @@ package twitter4j;
 
 import org.junit.jupiter.api.Test;
 
-import java.text.SimpleDateFormat;
-import java.util.TimeZone;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -41,10 +39,9 @@ class ParseUtilTest {
 
     @Test
     void testParseTrendDate() throws Exception {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-        assertEquals("2011-07-11"
-                , sdf.format(ParseUtil.parseTrendsDate("2011-07-11T05:31:52Z")));
+        // Date→Instant統一に伴い、ISO-8601表現(Instant.toString())で検証する
+        assertEquals("2011-07-11T05:31:52Z"
+                , ParseUtil.parseTrendsDate("2011-07-11T05:31:52Z").toString());
     }
 
 }

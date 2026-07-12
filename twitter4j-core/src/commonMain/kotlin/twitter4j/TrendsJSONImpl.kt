@@ -17,6 +17,7 @@
 package twitter4j
 
 import kotlin.jvm.JvmStatic
+import kotlin.time.Instant
 import twitter4j.conf.JsonStoreConfiguration
 
 /**
@@ -26,9 +27,9 @@ import twitter4j.conf.JsonStoreConfiguration
  * @since Twitter4J 2.0.2
  */
 internal class TrendsJSONImpl : TwitterResponseImpl, Trends {
-    override var asOf: Date = Date(0)
+    override var asOf: Instant = Instant.fromEpochMilliseconds(0)
         private set
-    override var trendAt: Date = Date(0)
+    override var trendAt: Instant = Instant.fromEpochMilliseconds(0)
         private set
     override var trends: Array<Trend> = emptyArray()
         private set
@@ -60,7 +61,7 @@ internal class TrendsJSONImpl : TwitterResponseImpl, Trends {
         init(jsonStr, storeJSON)
     }
 
-    private constructor(asOf: Date, location: Location?, trendAt: Date, trends: Array<Trend>) : super() {
+    private constructor(asOf: Instant, location: Location?, trendAt: Instant, trends: Array<Trend>) : super() {
         this.asOf = asOf
         this._location = location
         this.trendAt = trendAt
@@ -139,13 +140,13 @@ internal class TrendsJSONImpl : TwitterResponseImpl, Trends {
                     val trendsArray = jsonArrayToTrendArray(array, storeJSON)
                     if (key.length == 19) {
                         // current trends
-                        trends.add(TrendsJSONImpl(asOf, location, ParseUtil.getDate(key, "yyyy-MM-dd HH:mm:ss"), trendsArray))
+                        trends.add(TrendsJSONImpl(asOf, location, ParseUtil.getInstant(key, "yyyy-MM-dd HH:mm:ss"), trendsArray))
                     } else if (key.length == 16) {
                         // daily trends
-                        trends.add(TrendsJSONImpl(asOf, location, ParseUtil.getDate(key, "yyyy-MM-dd HH:mm"), trendsArray))
+                        trends.add(TrendsJSONImpl(asOf, location, ParseUtil.getInstant(key, "yyyy-MM-dd HH:mm"), trendsArray))
                     } else if (key.length == 10) {
                         // weekly trends
-                        trends.add(TrendsJSONImpl(asOf, location, ParseUtil.getDate(key, "yyyy-MM-dd"), trendsArray))
+                        trends.add(TrendsJSONImpl(asOf, location, ParseUtil.getInstant(key, "yyyy-MM-dd"), trendsArray))
                     }
                 }
                 // KMP移行 Phase 5-3: java.util.Collections.sort → MutableList.sort()（Trends は Comparable<Trends>）。

@@ -17,6 +17,7 @@
 package twitter4j
 
 import kotlin.jvm.JvmStatic
+import kotlin.time.Instant
 import twitter4j.conf.JsonStoreConfiguration
 
 /**
@@ -47,7 +48,7 @@ internal class UserListJSONImpl : TwitterResponseImpl, UserList {
     // 元実装では user が無い場合 null になりうるが、UserList.user は非nullのため内部で nullable 保持する。
     private var _user: User? = null
     private var following: Boolean = false
-    override var createdAt: Date = Date(0)
+    override var createdAt: Instant = Instant.fromEpochMilliseconds(0)
         private set
 
     @Throws(TwitterException::class)
@@ -79,7 +80,7 @@ internal class UserListJSONImpl : TwitterResponseImpl, UserList {
         uri = ParseUtil.getRawString("uri", json)
         mode = "public" == ParseUtil.getRawString("mode", json)
         following = ParseUtil.getBoolean("following", json)
-        createdAt = ParseUtil.getDate("created_at", json) ?: Date(0)
+        createdAt = ParseUtil.getInstant("created_at", json) ?: Instant.fromEpochMilliseconds(0)
 
         try {
             if (!json.isNull("user")) {

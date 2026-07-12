@@ -16,6 +16,8 @@
 
 package twitter4j
 
+import kotlin.time.Instant
+
 /**
  * A data interface representing a Saved Search
  *
@@ -23,7 +25,7 @@ package twitter4j
  * @since Twitter4J 2.0.8
  */
 interface SavedSearch : Comparable<SavedSearch>, TwitterResponse, Serializable {
-    val createdAt: Date
+    val createdAt: Instant
 
     val query: String
 

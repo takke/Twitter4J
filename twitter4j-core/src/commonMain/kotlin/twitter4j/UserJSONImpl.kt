@@ -16,6 +16,7 @@
 package twitter4j
 
 import kotlin.jvm.JvmStatic
+import kotlin.time.Instant
 import twitter4j.conf.JsonStoreConfiguration
 
 /**
@@ -63,7 +64,7 @@ class UserJSONImpl : TwitterResponseImpl, User {
         private set
     override var friendsCount: Int = 0
         private set
-    override var createdAt: Date? = null
+    override var createdAt: Instant? = null
         private set
     override var favouritesCount: Int = 0
         private set
@@ -147,7 +148,7 @@ class UserJSONImpl : TwitterResponseImpl, User {
             isDefaultProfile = ParseUtil.getBoolean("default_profile", json)
             isShowAllInlineMedia = ParseUtil.getBoolean("show_all_inline_media", json)
             friendsCount = ParseUtil.getInt("friends_count", json)
-            createdAt = ParseUtil.getDate("created_at", json, "EEE MMM dd HH:mm:ss z yyyy")
+            createdAt = ParseUtil.getInstant("created_at", json, "EEE MMM dd HH:mm:ss z yyyy")
             favouritesCount = ParseUtil.getInt("favourites_count", json)
             utcOffset = ParseUtil.getInt("utc_offset", json)
             timeZone = ParseUtil.getRawString("time_zone", json)

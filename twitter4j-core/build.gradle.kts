@@ -10,6 +10,8 @@ kotlin {
     // Beta 警告（KT-61573）を抑制する
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
+        // kotlin.time.Instant を公開APIで使用するため一括オプトイン
+        optIn.add("kotlin.time.ExperimentalTime")
     }
 
     // mastodon4j と同方式: AGP は使わず jvm ターゲットを "android" という名前で構成する

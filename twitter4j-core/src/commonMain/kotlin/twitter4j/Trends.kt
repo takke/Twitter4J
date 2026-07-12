@@ -16,6 +16,8 @@
 
 package twitter4j
 
+import kotlin.time.Instant
+
 /**
  * A data class representing Trends.
  *
@@ -35,7 +37,7 @@ interface Trends : TwitterResponse, Comparable<Trends>, Serializable {
      */
     val location: Location
 
-    val asOf: Date
+    val asOf: Instant
 
-    val trendAt: Date
+    val trendAt: Instant
 }

@@ -17,6 +17,7 @@
 package twitter4j
 
 import kotlin.jvm.JvmStatic
+import kotlin.time.Instant
 import twitter4j.conf.JsonStoreConfiguration
 
 /**
@@ -28,7 +29,7 @@ import twitter4j.conf.JsonStoreConfiguration
 internal class SavedSearchJSONImpl : TwitterResponseImpl, SavedSearch {
 
     // 元実装では createdAt/query/name が null になりうるが、SavedSearch の各プロパティは非nullのため既定値を用いる。
-    override var createdAt: Date = Date(0)
+    override var createdAt: Instant = Instant.fromEpochMilliseconds(0)
         private set
     override var query: String = ""
         private set
@@ -58,7 +59,7 @@ internal class SavedSearchJSONImpl : TwitterResponseImpl, SavedSearch {
 
     @Throws(TwitterException::class)
     private fun init(savedSearch: JSONObject) {
-        createdAt = ParseUtil.getDate("created_at", savedSearch, "EEE MMM dd HH:mm:ss z yyyy") ?: Date(0)
+        createdAt = ParseUtil.getInstant("created_at", savedSearch, "EEE MMM dd HH:mm:ss z yyyy") ?: Instant.fromEpochMilliseconds(0)
         query = ParseUtil.getUnescapedString("query", savedSearch) ?: ""
         position = ParseUtil.getInt("position", savedSearch)
         name = ParseUtil.getUnescapedString("name", savedSearch) ?: ""
