@@ -40,20 +40,24 @@ $ git tag vX.Y.Z
 $ git push --tags
 ```
 
-- Release to github.io
+- Release to github.io (takke.github.io/maven)
+
 ```bash
-$ mkdir release_to_github_io
-$ cd release_to_github_io
-$ git clone git@github.com:takke/takke.github.io.git
+// clone takke.github.io next to this repository (only once)
 $ cd ../
+$ git clone git@github.com:takke/takke.github.io.git
+$ cd Twitter4J
 
-// generate artifacts to `release_to_github_io/takke.github.io.git/maven/org/twitter4j/...`
-$ ./gradlew clean publish -x test
+// generate artifacts to `../takke.github.io/maven/org/twitter4j/...`
+// (output dir can be overridden by -PgithubIoMavenDir=/path/to/takke.github.io/maven)
+$ ./gradlew clean publishAllPublicationsToGithubIoRepository -x test
 
-$ cd release_to_github_io/takke.github.io.git/
+$ cd ../takke.github.io/
 $ git status
 $ git add maven
-$ git status
 $ git commit -m "twitter4j vX.Y.Z"
 $ git push
 ```
+
+- NOTE: twitter4j-v2 depends on twitter4j-core, so publish twitter4j-v2 together (see `../publish_all_libs_to_github_io.sh`).
+- NOTE: Never re-publish the same version. Gradle caches released versions permanently.

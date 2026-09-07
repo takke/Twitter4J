@@ -44,9 +44,15 @@ publishing {
             version = project.version.toString()
         }
     }
+    // takke.github.io/maven (GitHub Pages の静的 Maven リポジトリ) への公開先
+    // 既定は ../takke.github.io/maven (git clone git@github.com:takke/takke.github.io.git)
+    // -PgithubIoMavenDir=/path/to/takke.github.io/maven で上書き可能
+    // publish: ./gradlew publishAllPublicationsToGithubIoRepository -x test
     repositories {
         maven {
-            url = uri("file://${rootDir}/release_to_github_io/takke.github.io/maven/")
+            name = "githubIo"
+            val dir = project.findProperty("githubIoMavenDir")?.toString() ?: "${rootDir}/../takke.github.io/maven"
+            url = file(dir).toURI()
         }
     }
 }
